@@ -29,7 +29,6 @@ jobs:
       
       - name: ✅ Validate Structure
         run: |
-          # glc_permissions yapısını kontrol et
           test -d datapacks/glc_permissions/data || exit 1
           test -f datapacks/glc_permissions/pack.mcmeta || exit 1
           echo "✓ Datapack structure validated"
@@ -51,7 +50,7 @@ jobs:
           
           ## 📦 İndirme
           
-          **glc_permissions-${{ steps.version.outputs.version }}.zip** - Tam permission sistemi
+          **glc_permissions.zip** - Tam permission sistemi
           
           ## ⚙️ Kurulum
           
@@ -89,25 +88,16 @@ jobs:
           - 🐛 [Sorun Bildir](../../issues)
           - 💬 [Tartışmalar](../../discussions)
           
-          ## 🔒 Güvenlik
-          
-          Bu sürüm aşağıdaki güvenlik özelliklerini içerir:
-          - Permission bypass koruması
-          - Role escalation önleme
-          - Audit log sistemi
-          
           ## 📋 Gereksinimler
           
           - Minecraft: 1.20+
           - Server: Paper/Spigot/Vanilla
-          
-          ---
-          
-          **SHA256 Checksum:**
-```
-          $(cat checksums.txt)
-```
           EOF
+          echo "" >> RELEASE_NOTES.md
+          echo "## 🔒 SHA256 Checksum" >> RELEASE_NOTES.md
+          echo '```' >> RELEASE_NOTES.md
+          cat checksums.txt >> RELEASE_NOTES.md
+          echo '```' >> RELEASE_NOTES.md
           
       - name: 🚀 Create Release
         uses: softprops/action-gh-release@v1
