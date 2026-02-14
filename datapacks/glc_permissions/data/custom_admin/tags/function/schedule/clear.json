@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    {
-      "id": "custom_admin:schedule/clear_all",
-      "required": false
-    }
-  ]
-}

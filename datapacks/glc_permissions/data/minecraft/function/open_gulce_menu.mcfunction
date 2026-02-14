@@ -1,1 +1,0 @@
-function glc_menu:handler/builder/main
