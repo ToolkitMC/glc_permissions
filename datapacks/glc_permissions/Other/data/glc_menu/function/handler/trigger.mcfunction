@@ -22,7 +22,7 @@ execute if score @s gulce_menu matches -512 run function glc_menu:handler/dialog
 
 # Alt menüler
 execute if score @s gulce_menu matches 51 run function glc_menu:handler/builder/scheduler_list
-execute if score @s gulce_menu matches 52 run function glc_menu:handler/builder/scheduler_presets
+execute if score @s gulce_menu matches 52 run function glc_menu:handler/builder/scheduler_list
 
 # ------------------------------------------------------------------------------------------------------------------------
 # Kapat

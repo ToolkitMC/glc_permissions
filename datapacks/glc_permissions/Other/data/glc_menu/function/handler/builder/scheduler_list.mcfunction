@@ -24,6 +24,3 @@ function glc_menu:handler/builder/scheduler_loop
 
 # Geri butonu
 data modify storage mc:dialog ui.actions append value {label:"◀️ Geri",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 6"}}
-
-# Dialog aç
-function glc_menu:handler/dialog/open with storage mc:dialog
