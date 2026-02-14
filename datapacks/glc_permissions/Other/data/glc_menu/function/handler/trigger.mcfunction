@@ -15,7 +15,7 @@ execute if score @s gulce_menu matches 3 run function glc_menu:handler/builder/e
 execute if score @s gulce_menu matches 6 run function glc_menu:handler/builder/scheduler
 
 # Menü 5: Zamanlayıcı
-execute if score @s gulce_menu matches 4 run function glc_menu:handler/builder/scheduler
+execute if score @s gulce_menu matches 4 run tellraw @s "Bu özellik devre dışı..."
 
 # Menü 5: Dinamik Menü
 execute if score @s gulce_menu matches -512 run function glc_menu:handler/dialog/open
@@ -37,3 +37,4 @@ scoreboard players enable @s gulce_menu
 # Konsol mesajı
 
 function glc_menu:handler/menu_notify with storage glc_menu:names temp
+
