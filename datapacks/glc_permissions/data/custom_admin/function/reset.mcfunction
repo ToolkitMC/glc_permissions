@@ -30,5 +30,5 @@ tellraw @a {"text":""}
 tellraw @a [{"text":"• ","color":"gray"},{"text":"Tüm storage'lar silindi","color":"yellow"}]
 tellraw @a [{"text":"• ","color":"gray"},{"text":"Tüm scoreboard'lar kaldırıldı","color":"yellow"}]
 tellraw @a [{"text":"• ","color":"gray"},{"text":"Admin tag'ları temizlendi","color":"yellow"}]
-tellraw @a [{"text":"[i]","color":"gold"},{"text":"Tekrar açmak için","color":"yellow"},{"text":":","extra":[{"text":" "}]},{"text":"Tıkla!","click_event":{"action":"run_command","command":"/function #glc_permissions:__setup"}}]
+tellraw @a [{"text":"[i]","color":"aqua"},":"," ",{"text":"Tekrar açmak için","color":"yellow"}," ",{"text":"Tıkla!","click_event":{"action":"run_command","command":"/function #glc_permissions:__setup"}}]
 tellraw @a {"text":"═══════════════════════════════","color":"dark_gray","bold":true}
