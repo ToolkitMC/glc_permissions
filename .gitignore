@@ -20,3 +20,21 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+
+# MC
+usercache.json
+playerdata/
+saves/
+logs/
+debug/
+servers.dat
+servers.dat_old
+servers.dat.bak
+*.bak
+options.txt
+command_history.txt
+launcher_profile.json
+tlauncher_profile.json
+*.mcpack
+*.mcaddon
+*.mcworld
