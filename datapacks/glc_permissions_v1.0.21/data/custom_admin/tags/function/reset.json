@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "custom_admin:reset",
+      "required": false
+    }
+  ]
+}
