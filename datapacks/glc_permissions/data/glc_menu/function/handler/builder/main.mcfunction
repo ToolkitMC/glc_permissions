@@ -20,4 +20,6 @@ data modify storage mc:dialog ui.actions append value {label:"✎ Düzenle",acti
 
 data modify storage mc:dialog ui.actions append value {label:"⚠ Toplu Eylem",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 3"}}
 
+data modify storage mc:dialog ui.actions append value {label:"⏰ Zamanlayıcı",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 51"}}
+
 data modify storage mc:dialog ui.actions append value {label:"◀️ Ana Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
