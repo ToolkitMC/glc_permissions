@@ -1,0 +1,2 @@
+function custom_admin:handler/load/1
+function glc_menu:handler/load
