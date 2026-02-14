@@ -38,3 +38,14 @@ tlauncher_profile.json
 *.mcpack
 *.mcaddon
 *.mcworld
+stats/
+advancements/
+.minecraft/saves/**/data/*.dat
+crash-reports/
+server.jar
+server.jar_old
+server.jar.bak
+.minecraft/versions/
+spyglass.json
+spyglass.json.bak
+spyglass.json.old
