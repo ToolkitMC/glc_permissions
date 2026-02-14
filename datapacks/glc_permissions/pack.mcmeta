@@ -9,6 +9,26 @@
     "min_format": 81,
     "max_format": 94
   },
+  "filter": {
+    "block": [
+      {
+        "namespace": "custom_admin",
+        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+      },
+      {
+        "namespace": "glc_menu",
+        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+      },
+      {
+        "namespace": "main",
+        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+      },
+      {
+        "namespace": "minecraft",
+        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+      }
+    ]
+  },
   "features": {
     "enabled": [
       "minecraft:vanilla"
