@@ -20,10 +20,11 @@ execute if score #scheduled_count gulce_id matches 1.. run data modify storage m
 data modify storage mc:dialog ui.actions append value {label:"➕ Yeni Zamanlama",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"➕ Eylem Zamanla",inputs:[{type:"minecraft:text",key:"action_id",label:"Eylem ID",max_length:50},{type:"minecraft:text",key:"delay",label:"Gecikme (tick)",initial:"100",max_length:10},{type:"minecraft:text",key:"player",label:"Hedef Oyuncu",initial:"@s",max_length:20}],can_close_with_escape:true,pause:false,actions:[{label:"✅ Zamanla",action:{type:"minecraft:dynamic/run_command",template:"/function custom_admin:schedule/add {action_id:\"$(action_id)\",delay:$(delay),player:\"$(player)\"}" }}]}}}
 
 # Aktif görevler varsa göster
-execute if score #scheduled_count gulce_id matches 1.. run data modify storage mc:dialog ui.actions append value {label:"📋 Aktif Görevler",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 51"}}
+execute if score #scheduled_count gulce_id matches 1.. run data modify storage mc:dialog ui.actions append value {label:"📋 Aktif Görevler",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 52"}}
 
 # Aktif görevler varsa temizleme butonu
 execute if score #scheduled_count gulce_id matches 1.. run data modify storage mc:dialog ui.actions append value {label:"🗑️ Tümünü Temizle",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"⚠️ Onay",body:{type:"minecraft:plain_message",contents:"§l§cTüm zamanlamaları silmek istediğinize emin misiniz?\n\n§7Bu işlem geri alınamaz!"},can_close_with_escape:true,pause:false,actions:[{label:"✅ Evet, Sil",action:{type:"minecraft:run_command",command:"/function custom_admin:schedule/clear_all"}},{label:"❌ Vazgeç",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 6"}}]}}}
 
 # Geri butonu
+
 data modify storage mc:dialog ui.actions append value {label:"◀️ Ana Menü",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 1"}}
