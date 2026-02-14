@@ -26,6 +26,10 @@
       {
         "namespace": "minecraft",
         "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+      },
+      {
+        "namespace": "glc_permissions",
+        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       }
     ]
   },
