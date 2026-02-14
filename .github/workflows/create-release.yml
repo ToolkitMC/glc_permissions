@@ -1,110 +1,100 @@
-name: Create Release
+name: Release Datapack
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+    paths:
+      - 'datapacks/glc_permissions/**'
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version (e.g., v1.0.0)'
+        description: 'Version tag (e.g., v1.0.0)'
         required: true
         default: 'v1.0.0'
+
+permissions:
+  contents: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       
-      - name: 🏷️ Get Version
+      - name: Get Version
         id: version
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+            VERSION="${{ github.event.inputs.version }}"
           else
-            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+            # Son commit'ten versiyon bilgisi çek (commit message'dan)
+            VERSION=$(git log -1 --pretty=%B | grep -oP 'v\d+\.\d+\.\d+' | head -1)
+            if [ -z "$VERSION" ]; then
+              VERSION="v1.0.${GITHUB_RUN_NUMBER}"
+            fi
           fi
+          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Releasing version: $VERSION"
       
-      - name: ✅ Validate Structure
+      - name: Validate Datapack
         run: |
-          test -d datapacks/glc_permissions/data || exit 1
-          test -f datapacks/glc_permissions/pack.mcmeta || exit 1
+          DIR="datapacks/glc_permissions"
+          [ -d "$DIR" ] || { echo "Datapack directory not found"; exit 1; }
+          [ -f "$DIR/pack.mcmeta" ] || { echo "pack.mcmeta not found"; exit 1; }
+          [ -d "$DIR/data" ] || { echo "data directory not found"; exit 1; }
           echo "✓ Datapack structure validated"
-          
-      - name: 📦 Create ZIP
+      
+      - name: Create ZIP
         run: |
-          cd datapacks
-          zip -r ../glc_permissions-${{ steps.version.outputs.version }}.zip glc_permissions/
-          cd ..
+          VERSION="${{ steps.version.outputs.version }}"
+          DIR="datapacks/glc_permissions"
+          ZIP="glc_permissions-$VERSION.zip"
           
-      - name: 📊 Generate Checksum
+          cd "$DIR"
+          zip -r "$GITHUB_WORKSPACE/$ZIP" .
+          cd "$GITHUB_WORKSPACE"
+          
+          echo "Created: $ZIP"
+          ls -lh "$ZIP"
+      
+      - name: Generate Checksum
         run: |
-          sha256sum glc_permissions-${{ steps.version.outputs.version }}.zip > checksums.txt
-          
-      - name: 📝 Release Notes
-        run: |
-          cat > RELEASE_NOTES.md << 'EOF'
-          # 🔐 GLC Permissions System ${{ steps.version.outputs.version }}
-          
-          ## 📦 İndirme
-          
-          **glc_permissions.zip** - Tam permission sistemi
-          
-          ## ⚙️ Kurulum
-          
-          1. ZIP dosyasını `world/datapacks/` klasörüne yerleştir
-          2. Sunucuda `/reload` komutunu çalıştır
-          3. `/function glc_permissions:setup` ile sistemi başlat
-          
-          ## ✨ Özellikler
-          
-          - 🎭 Dinamik rol sistemi
-          - 👥 Grup bazlı izinler
-          - 🔧 Esnek permission yönetimi
-          - 📊 Gerçek zamanlı izin kontrolü
-          - 🔄 Otomatik güncelleme sistemi
-          - 💾 Kalıcı veri saklama
-          
-          ## 📖 Kullanım
-          
-          ### Admin Komutları
-```mcfunction
-          /function glc_permissions:admin/grant_role
-          /function glc_permissions:admin/revoke_role
-          /function glc_permissions:check_permission
-```
-          
-          ### Permission Seviyeleri
-          - **owner** - Tam yetki
-          - **admin** - Yönetim yetkisi
-          - **moderator** - Moderasyon yetkisi
-          - **player** - Standart kullanıcı
-          
-          ## 🔗 Bağlantılar
-          
-          - 📚 [Dokümantasyon](../../wiki)
-          - 🐛 [Sorun Bildir](../../issues)
-          - 💬 [Tartışmalar](../../discussions)
-          
-          ## 📋 Gereksinimler
-          
-          - Minecraft: 1.20+
-          - Server: Paper/Spigot/Vanilla
-          EOF
-          echo "" >> RELEASE_NOTES.md
-          echo "## 🔒 SHA256 Checksum" >> RELEASE_NOTES.md
-          echo '```' >> RELEASE_NOTES.md
-          cat checksums.txt >> RELEASE_NOTES.md
-          echo '```' >> RELEASE_NOTES.md
-          
-      - name: 🚀 Create Release
-        uses: softprops/action-gh-release@v1
+          VERSION="${{ steps.version.outputs.version }}"
+          ZIP="glc_permissions-$VERSION.zip"
+          sha256sum "$ZIP" > checksums.txt
+          cat checksums.txt
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.version }}
           name: GLC Permissions ${{ steps.version.outputs.version }}
-          body_path: RELEASE_NOTES.md
+          body: |
+            # 🔐 GLC Permissions System
+            
+            ## 📦 İndirme
+            `glc_permissions-${{ steps.version.outputs.version }}.zip`
+            
+            ## ⚙️ Kurulum
+            1. ZIP'i `world/datapacks/` klasörüne at
+            2. `/reload` komutu ile yükle
+            3. `/function glc_permissions:setup` ile başlat
+            
+            ## ✨ Özellikler
+            - 🎭 Dinamik rol sistemi
+            - 👥 Grup bazlı izinler
+            - 🔧 Esnek permission yönetimi
+            - 📊 Gerçek zamanlı kontrol
+            
+            ## 📋 Gereksinimler
+            - Minecraft 1.20+
+            - Paper/Spigot/Vanilla
+            
+            ---
+            **Build:** #${{ github.run_number }}
           files: |
             glc_permissions-${{ steps.version.outputs.version }}.zip
             checksums.txt
