@@ -1,0 +1,92 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g., v3.1.0)'
+        required: true
+        default: 'v3.1.0'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v3
+      
+      - name: 🏷️ Get Version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: 📦 Create ZIPs
+        run: |
+          # glc_menu
+          cd datapack/data
+          zip -r ../../glc_menu-${{ steps.version.outputs.version }}.zip glc_menu/
+          
+          # custom_admin
+          zip -r ../../custom_admin-${{ steps.version.outputs.version }}.zip custom_admin/
+          
+          # Full datapack
+          cd ..
+          zip -r ../gulce_admin_power-${{ steps.version.outputs.version }}.zip .
+          cd ..
+          
+      - name: 📝 Release Notes
+        run: |
+          cat > RELEASE_NOTES.md << 'EOF'
+          # 🎮 GULCE Admin Power ${{ steps.version.outputs.version }}
+          
+          ## 📦 Dosyalar
+          
+          - **gulce_admin_power.zip** - Tam datapack
+          - **glc_menu.zip** - Sadece menü sistemi
+          - **custom_admin.zip** - Sadece admin sistemi
+          
+          ## ⚙️ Kurulum
+          
+          1. ZIP'i `world/datapacks/` klasörüne at
+          2. `/reload` çalıştır
+          3. `/tag @s add gulce_admin` ile admin ol
+          
+          ## ✨ Özellikler
+          
+          - Player Head Selector (@p kullanmadan)
+          - Çok oyunculu tam uyumlu
+          - Dinamik menü sistemi
+          - Zamanlayıcı sistemi
+          - Grup yönetimi
+          - Özel ayarlar
+          
+          ## 📖 Kullanım
+```mcfunction
+          /trigger gulce_menu set 1  # Ana menü
+```
+          
+          Detaylı kullanım için [Wiki](../../wiki)'ye bakın.
+          EOF
+          
+      - name: 🚀 Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: GULCE Admin Power ${{ steps.version.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          files: |
+            gulce_admin_power-${{ steps.version.outputs.version }}.zip
+            glc_menu-${{ steps.version.outputs.version }}.zip
+            custom_admin-${{ steps.version.outputs.version }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
