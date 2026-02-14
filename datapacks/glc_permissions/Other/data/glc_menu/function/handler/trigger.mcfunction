@@ -11,11 +11,22 @@ execute if score @s gulce_menu matches 2 run function glc_menu:handler/builder/p
 # Menü 3: Düzenleme Menüsü
 execute if score @s gulce_menu matches 3 run function glc_menu:handler/builder/edit
 
+# Menü 4: Zamanlayıcı
+execute if score @s gulce_menu matches 6 run function glc_menu:handler/builder/scheduler
+
+# Menü 5: Zamanlayıcı
+execute if score @s gulce_menu matches 4 run function glc_menu:handler/builder/scheduler
+
+# Menü 5: Dinamik Menü
+execute if score @s gulce_menu matches -512 run function glc_menu:handler/dialog/open
+
+# Alt menüler
+execute if score @s gulce_menu matches 51 run function glc_menu:handler/builder/scheduler_list
+execute if score @s gulce_menu matches 52 run function glc_menu:handler/builder/scheduler_presets
+
+# ------------------------------------------------------------------------------------------------------------------------
 # Kapat
 execute if score @s gulce_menu matches -4 run function glc_menu:handler/close
-
-# Menü 4: Dinamik Menü
-execute if score @s gulce_menu matches -512 run function glc_menu:handler/dialog/open
 
 # Trigger sıfırla
 scoreboard players set @a gulce_menu 0
