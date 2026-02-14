@@ -1,5 +1,4 @@
 name: Create Release
-
 on:
   push:
     tags:
@@ -7,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version (e.g., v3.1.0)'
+        description: 'Version (e.g., v1.0.0)'
         required: true
-        default: 'v3.1.0'
+        default: 'v1.0.0'
 
 jobs:
   release:
@@ -27,65 +26,98 @@ jobs:
           else
             echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
           fi
-          
-      - name: 📦 Create ZIPs
+      
+      - name: ✅ Validate Structure
         run: |
-          # glc_menu
-          cd datapack/data
-          zip -r ../../glc_menu-${{ steps.version.outputs.version }}.zip glc_menu/
+          # glc_permissions yapısını kontrol et
+          test -d datapacks/glc_permissions/data || exit 1
+          test -f datapacks/glc_permissions/pack.mcmeta || exit 1
+          echo "✓ Datapack structure validated"
           
-          # custom_admin
-          zip -r ../../custom_admin-${{ steps.version.outputs.version }}.zip custom_admin/
+      - name: 📦 Create ZIP
+        run: |
+          cd datapacks
+          zip -r ../glc_permissions-${{ steps.version.outputs.version }}.zip glc_permissions/
+          cd ..
           
-          # Full datapack
-          cd ..
-          zip -r ../gulce_admin_power-${{ steps.version.outputs.version }}.zip .
-          cd ..
+      - name: 📊 Generate Checksum
+        run: |
+          sha256sum glc_permissions-${{ steps.version.outputs.version }}.zip > checksums.txt
           
       - name: 📝 Release Notes
         run: |
           cat > RELEASE_NOTES.md << 'EOF'
-          # 🎮 GULCE Admin Power ${{ steps.version.outputs.version }}
+          # 🔐 GLC Permissions System ${{ steps.version.outputs.version }}
           
-          ## 📦 Dosyalar
+          ## 📦 İndirme
           
-          - **gulce_admin_power.zip** - Tam datapack
-          - **glc_menu.zip** - Sadece menü sistemi
-          - **custom_admin.zip** - Sadece admin sistemi
+          **glc_permissions-${{ steps.version.outputs.version }}.zip** - Tam permission sistemi
           
           ## ⚙️ Kurulum
           
-          1. ZIP'i `world/datapacks/` klasörüne at
-          2. `/reload` çalıştır
-          3. `/tag @s add gulce_admin` ile admin ol
+          1. ZIP dosyasını `world/datapacks/` klasörüne yerleştir
+          2. Sunucuda `/reload` komutunu çalıştır
+          3. `/function glc_permissions:setup` ile sistemi başlat
           
           ## ✨ Özellikler
           
-          - Player Head Selector (@p kullanmadan)
-          - Çok oyunculu tam uyumlu
-          - Dinamik menü sistemi
-          - Zamanlayıcı sistemi
-          - Grup yönetimi
-          - Özel ayarlar
+          - 🎭 Dinamik rol sistemi
+          - 👥 Grup bazlı izinler
+          - 🔧 Esnek permission yönetimi
+          - 📊 Gerçek zamanlı izin kontrolü
+          - 🔄 Otomatik güncelleme sistemi
+          - 💾 Kalıcı veri saklama
           
           ## 📖 Kullanım
+          
+          ### Admin Komutları
 ```mcfunction
-          /trigger gulce_menu set 1  # Ana menü
+          /function glc_permissions:admin/grant_role
+          /function glc_permissions:admin/revoke_role
+          /function glc_permissions:check_permission
 ```
           
-          Detaylı kullanım için [Wiki](../../wiki)'ye bakın.
+          ### Permission Seviyeleri
+          - **owner** - Tam yetki
+          - **admin** - Yönetim yetkisi
+          - **moderator** - Moderasyon yetkisi
+          - **player** - Standart kullanıcı
+          
+          ## 🔗 Bağlantılar
+          
+          - 📚 [Dokümantasyon](../../wiki)
+          - 🐛 [Sorun Bildir](../../issues)
+          - 💬 [Tartışmalar](../../discussions)
+          
+          ## 🔒 Güvenlik
+          
+          Bu sürüm aşağıdaki güvenlik özelliklerini içerir:
+          - Permission bypass koruması
+          - Role escalation önleme
+          - Audit log sistemi
+          
+          ## 📋 Gereksinimler
+          
+          - Minecraft: 1.20+
+          - Server: Paper/Spigot/Vanilla
+          
+          ---
+          
+          **SHA256 Checksum:**
+```
+          $(cat checksums.txt)
+```
           EOF
           
       - name: 🚀 Create Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.version.outputs.version }}
-          name: GULCE Admin Power ${{ steps.version.outputs.version }}
+          name: GLC Permissions ${{ steps.version.outputs.version }}
           body_path: RELEASE_NOTES.md
           files: |
-            gulce_admin_power-${{ steps.version.outputs.version }}.zip
-            glc_menu-${{ steps.version.outputs.version }}.zip
-            custom_admin-${{ steps.version.outputs.version }}.zip
+            glc_permissions-${{ steps.version.outputs.version }}.zip
+            checksums.txt
           draft: false
           prerelease: false
         env:
