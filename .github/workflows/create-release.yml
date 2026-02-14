@@ -90,7 +90,7 @@ jobs:
             - 📊 Gerçek zamanlı kontrol
             
             ## 📋 Gereksinimler
-            - Minecraft 1.20+
+            - Minecraft 1.21.7+
             - Paper/Spigot/Vanilla
             
             ---
