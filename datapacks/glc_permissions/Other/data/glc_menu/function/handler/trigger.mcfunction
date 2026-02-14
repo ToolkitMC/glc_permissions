@@ -21,7 +21,7 @@ execute if score @s gulce_menu matches 4 run function glc_menu:handler/builder/s
 execute if score @s gulce_menu matches -512 run function glc_menu:handler/dialog/open
 
 # Alt menüler
-execute if score @s gulce_menu matches 51 run function glc_menu:handler/builder/scheduler_list
+execute if score @s gulce_menu matches 51 run function glc_menu:handler/builder/scheduler
 execute if score @s gulce_menu matches 52 run function glc_menu:handler/builder/scheduler_list
 
 # ------------------------------------------------------------------------------------------------------------------------
@@ -35,4 +35,5 @@ scoreboard players set @a gulce_menu 0
 scoreboard players enable @s gulce_menu
 
 # Konsol mesajı
+
 function glc_menu:handler/menu_notify with storage glc_menu:names temp
