@@ -63,3 +63,14 @@ banned-ips.json
 banned-players.json
 ops.json
 whitelist.json
+eula.txt.bak
+banned-ips.json.bak
+banned-players.json.bak
+ops.json.bak
+whitelist.json.bak
+session.lock.bak
+usernamecache.json.bak
+launcher_profile.json.bak
+tlauncher_profile.json.bak
+options.txt.bak
+command_history.txt.bak
