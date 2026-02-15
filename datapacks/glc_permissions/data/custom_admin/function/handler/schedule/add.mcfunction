@@ -18,3 +18,6 @@ $tellraw @s ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"⏰ Eyle
 execute store result score #temp gulce_id run scoreboard players get #schedule_id gulce_id
 
 tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"📅 Zamanlandı #","color":"gray"},{"score":{"name":"#temp","objective":"gulce_id"},"color":"yellow"}]
+
+# CRITICAL FIX: Set the has_scheduled flag to enable tick system
+scoreboard players set #has_scheduled gulce_id 1

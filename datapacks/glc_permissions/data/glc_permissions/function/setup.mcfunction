@@ -1,27 +1,22 @@
 # ═══════════════════════════════════════════════════
-# Setup (Updated v1.1.0)
-# Purpose: Initialize all systems
-# Permission Level: 2 (no OP required)
+# Setup - Simplified (Dynamic version from storage)
+# Karmaşık loop manager kaldırıldı
 # ═══════════════════════════════════════════════════
 
 # Scoreboard'ları oluştur
-scoreboard objectives add glc.loop dummy
+scoreboard objectives add glc.timer dummy "GLC Timer System"
 scoreboard objectives add gulce.used minecraft.used:minecraft.carrot_on_a_stick
 
-# Loop konfigürasyonunu storage'a kaydet
-data modify storage glc:loops config set value [\
-  {name:"main", value:6},\
-  {name:"glc", value:9}\
-]
+# Timer başlangıç değerleri
+scoreboard players set #admin_tick glc.timer 20
+scoreboard players set #menu_tick glc.timer 10
+scoreboard players set #custom_timer glc.timer 0
 
-# Loop değerlerini yükle
-function main:loop/manage/internal_load
-
-# New core load system (v1.1)
+# Core sistem yükle
 function custom_admin:core/load
 
 # Diğer sistemleri yükle
 function custom_admin:handler/load/1
 function glc_menu:handler/load
 
-tellraw @a [{"text":"[Gulce's Permissions] ","color":"gold","bold":true},{"text":"v1.1.0 Sistem yüklendi!","color":"green"}]
+tellraw @a [{"text":"[Gulce's Permissions] ","color":"gold","bold":true},{"text":"v","color":"green"},{"nbt":"version","storage":"glc:data","color":"green"},{"text":" Sistem yüklendi!","color":"green"}]

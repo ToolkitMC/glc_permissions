@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════
-# Tag Loop - DÜZELTME v1.2.1
-# DÜZELTME: Return 0 uyumluluk
+# API: Delete Group (MACRO)
+# Usage: /function custom_admin:api/group/delete {id:"group_id"}
+# Example: /function custom_admin:api/group/delete {id:"moderators"}
 # ═══════════════════════════════════════════════════
 
-# Limit kontrolü - tick başına max 3 grup
-execute if score #group_tick_counter gulce_id matches ..2 run function custom_admin:handler/group/apply_tags_loop_process
+$function custom_admin:handler/group/delete {id:"$(id)"}

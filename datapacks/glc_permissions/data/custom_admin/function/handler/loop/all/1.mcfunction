@@ -1,18 +1,7 @@
 # ═══════════════════════════════════════════════════
 # GULCE Admin Power - Main Tick Loop (SCHEDULED)
-# Runs every 2 ticks instead of every tick
+# v1.2.1 - Return 0 uyumluluk düzeltmesi
 # ═══════════════════════════════════════════════════
 
-# Flag kontrolü: Sistem aktif mi?
-execute unless score #admin_loop global matches 1 run return 0
-
-# Oyuncu kontrolü: Oyuncu yoksa çalışma
-execute unless entity @a run return 0
-
-# Trigger kontrolü
-execute as @a[scores={gulce_trigger=1..}] run function custom_admin:handler/run/trigger
-
-# Ana döngüleri çalıştır
-function custom_admin:handler/loop/main
-function custom_admin:handler/loop/permissions
-function custom_admin:handler/group/check
+# Flag kontrolü ve oyuncu kontrolü: Her şeyi tek execute'da yap
+execute if score #admin_loop global matches 1 if entity @a run function custom_admin:handler/loop/all_active

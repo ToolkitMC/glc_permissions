@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════
-# Tag Loop - DÜZELTME v1.2.1
-# DÜZELTME: Return 0 uyumluluk
+# Mark for Deletion - YENİ v1.2.0
+# Silinmek üzere işaretle (MACRO)
 # ═══════════════════════════════════════════════════
 
-# Limit kontrolü - tick başına max 3 grup
-execute if score #group_tick_counter gulce_id matches ..2 run function custom_admin:handler/group/apply_tags_loop_process
+# Array'deki ilgili elementi işaretle
+$data modify storage glc:data scheduled[$(current_index)].delete set value 1b

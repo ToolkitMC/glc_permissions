@@ -1,19 +1,17 @@
 # ═══════════════════════════════════════════════════
-# Tag Uygulama - Tüm gruplara
+# Tag Loop Process - İşlemeyi yap
 # ═══════════════════════════════════════════════════
 
-# Counter sıfırla
-scoreboard players set #group_tick_counter gulce_id 0
+scoreboard players add #group_tick_counter gulce_id 1
 
 # İlk grubu al
-data modify storage glc:temp temp.current_group set from storage glc:data groups[0]
+data modify storage glc:temp temp.current_group set from storage glc:temp temp.groups_remaining[0]
 
-# Bu gruba tag uygula
+# Tag uygula
 function custom_admin:handler/group/apply_single_group with storage glc:temp temp.current_group
 
 # Listeden çıkar
-data modify storage glc:temp temp.groups_remaining set from storage glc:data groups
 data remove storage glc:temp temp.groups_remaining[0]
 
-# Kalan grup varsa devam et
+# Devam et
 execute if data storage glc:temp temp.groups_remaining[0] run function custom_admin:handler/group/apply_tags_loop

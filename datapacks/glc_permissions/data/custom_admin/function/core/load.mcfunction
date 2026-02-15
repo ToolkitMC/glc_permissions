@@ -8,9 +8,18 @@
 # Scoreboards
 scoreboard objectives add gulce_id dummy "GLC ID Counter"
 scoreboard objectives add gulce_cooldown dummy "GLC Cooldown"
-scoreboard objectives add glc.loop dummy "GLC Loop Counter"
+scoreboard objectives add glc.timer dummy "GLC Timer System"
 scoreboard objectives add gulce_menu trigger "GLC Menu Trigger"
 scoreboard objectives add glc_load_type dummy "GLC Load Type"
+
+# DÜZELTME v1.2.0: Global objective oluştur
+scoreboard objectives add global dummy "Global System Flags"
+
+# DÜZELTME v1.2.0: Admin loop'u aktifleştir
+scoreboard players set #admin_loop global 1
+scoreboard players set #system_active global 1
+
+tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold"},{"text":"✅ Admin loop aktifleştirildi","color":"green"}]
 
 # Initialize storage if needed
 execute unless data storage glc:data version run function custom_admin:internal/storage/init
@@ -18,9 +27,7 @@ execute unless data storage glc:data version run function custom_admin:internal/
 # Initialize config if needed
 execute unless data storage glc:config settings run function custom_admin:internal/storage/init_config
 
-# Check version and migrate if needed
-execute unless data storage glc:data {version:"1.1.0"} run tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold"},{"text":"⚠ Version mismatch - updating...","color":"yellow"}]
-execute unless data storage glc:data {version:"1.1.0"} run data modify storage glc:data version set value "1.1.0"
+# Version is managed by init function - no hardcoded checks needed
 
 # Initialize counters
 execute unless score #perm_count gulce_id matches -2147483648.. run scoreboard players set #perm_count gulce_id 0
@@ -37,9 +44,9 @@ execute store result score #action_count gulce_id if data storage glc:data actio
 execute if data storage glc:data scheduled[0] run scoreboard players set #has_scheduled gulce_id 1
 execute unless data storage glc:data scheduled[0] run scoreboard players set #has_scheduled gulce_id 0
 
-# Success message
+# Success message with DYNAMIC version
 tellraw @a[tag=gulce_admin] ["",{"text":"═══════════════════════════════════","color":"gold","bold":true}]
-tellraw @a[tag=gulce_admin] ["",{"text":"  ⚡ GULCE Admin Power v1.1.0","color":"yellow","bold":true}]
+tellraw @a[tag=gulce_admin] ["",{"text":"  ⚡ GULCE Admin Power v","color":"yellow","bold":true},{"nbt":"version","storage":"glc:data","color":"yellow","bold":true}]
 tellraw @a[tag=gulce_admin] ["",{"text":"═══════════════════════════════════","color":"gold","bold":true}]
 tellraw @a[tag=gulce_admin] ["",{"text":"  📊 Loaded:","color":"aqua"}]
 tellraw @a[tag=gulce_admin] ["",{"text":"    🔐 Permissions: ","color":"gray"},{"score":{"name":"#perm_count","objective":"gulce_id"},"color":"green"}]

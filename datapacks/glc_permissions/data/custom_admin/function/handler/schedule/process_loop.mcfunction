@@ -1,5 +1,6 @@
 # ═══════════════════════════════════════════════════
-# Zamanlama Loop İşleyici
+# Zamanlama Loop İşleyici - DÜZELTME v1.2.1
+# DÜZELTME: Her tick çalışır, max 20 schedule işler
 # ═══════════════════════════════════════════════════
 
 # Mevcut zamanlamayı al
@@ -20,5 +21,9 @@ execute if score #remaining gulce_id matches ..0 run function custom_admin:handl
 # Index artır
 scoreboard players add #schedule_index gulce_id 1
 
-# Devam et
-execute if score #schedule_index gulce_id < #schedule_count gulce_id run function custom_admin:handler/schedule/process_loop
+# Devam et - Max 20 schedule/tick (performans limiti)
+execute if score #schedule_index gulce_id < #schedule_count gulce_id if score #schedule_index gulce_id matches ..19 run function custom_admin:handler/schedule/process_loop
+
+# Loop bittikten SONRA temizlik yap
+execute if score #schedule_index gulce_id >= #schedule_count gulce_id run function custom_admin:handler/schedule/cleanup_deleted
+execute if score #schedule_index gulce_id matches 20.. run function custom_admin:handler/schedule/cleanup_deleted

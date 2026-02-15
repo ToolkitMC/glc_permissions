@@ -21,7 +21,7 @@ execute unless data storage glc:data actions run data modify storage glc:data ac
 execute unless data storage glc:data scheduled run data modify storage glc:data scheduled set value []
 
 # Set version
-data modify storage glc:data version set value "1.1.0"
+data modify storage glc:data version set value "1.2.3"
 
 # Notify admin
 execute if data storage glc:data data run tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold"},{"text":"✅ Migration completed: glc:data → glc:data","color":"green"}]

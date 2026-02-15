@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════
-# Tag Loop - DÜZELTME v1.2.1
-# DÜZELTME: Return 0 uyumluluk
+# API: Add Member to Group (MACRO)
+# Usage: /function custom_admin:api/group/add_member {group_id:"group_id",player:"x"}
+# Example: /function custom_admin:api/group/add_member {group_id:"moderators",player:"x"}
 # ═══════════════════════════════════════════════════
 
-# Limit kontrolü - tick başına max 3 grup
-execute if score #group_tick_counter gulce_id matches ..2 run function custom_admin:handler/group/apply_tags_loop_process
+$function custom_admin:handler/group/add_member {group_id:"$(group_id)",player:"$(player)"}

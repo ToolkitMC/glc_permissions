@@ -1,7 +1,8 @@
 # ═══════════════════════════════════════════════════
-# Tag Loop - DÜZELTME v1.2.1
-# DÜZELTME: Return 0 uyumluluk
+# API: Get Group Info (MACRO)
+# Usage: /function custom_admin:api/group/info {group_id:"group_id"}
+# Example: /function custom_admin:api/group/info {group_id:"moderators"}
+# Shows: Group members, permissions, and details
 # ═══════════════════════════════════════════════════
 
-# Limit kontrolü - tick başına max 3 grup
-execute if score #group_tick_counter gulce_id matches ..2 run function custom_admin:handler/group/apply_tags_loop_process
+$function custom_admin:handler/group/info {group_id:"$(group_id)"}

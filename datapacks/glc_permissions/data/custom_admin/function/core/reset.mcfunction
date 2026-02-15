@@ -4,7 +4,6 @@ playsound minecraft:block.anvil.land master @s ~ ~ ~ 4 0
 data remove storage glc:ui ui
 data remove storage glc:data data
 data remove storage glc:temp temp
-data remove storage glc:loops config
 data remove storage glc:ui temp
 data remove storage glc_menu:names temp
 
@@ -16,7 +15,7 @@ scoreboard objectives remove gulce_menu
 scoreboard objectives remove gulce_timer
 scoreboard objectives remove gulce_trigger
 scoreboard objectives remove gulce.used
-scoreboard objectives remove glc.loop
+scoreboard objectives remove glc.timer
 scoreboard objectives remove glc_load_type
 
 # Tag'ları sil:
