@@ -1,5 +1,5 @@
 ### AL ###
-#Template for AL projects for Dynamics 365 Business Central
+#Template for AL projects for Dynamics 365 Business Central (.gitignore)
 #launch.json folder
 .vscode/
 #Cache folder
@@ -21,7 +21,7 @@ rad.json
 #Test results file
 TestResults.xml
 
-# MC
+# MC (Minecraft)
 usercache.json
 playerdata/
 saves/
@@ -49,3 +49,17 @@ server.jar.bak
 spyglass.json
 spyglass.json.bak
 spyglass.json.old
+downloads/
+backup/
+backups/
+session.lock
+usernamecache.json
+realms_persistence.json
+resourcepacks/
+shaderpacks/
+screenshots/
+eula.txt
+banned-ips.json
+banned-players.json
+ops.json
+whitelist.json
