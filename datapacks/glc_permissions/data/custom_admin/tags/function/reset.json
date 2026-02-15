@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "custom_admin:reset",
+      "id": "custom_admin:core/reset",
       "required": false
     }
   ]

@@ -5,8 +5,8 @@
 # Player head selector ile NAME'i al (@s context'ini kullanarak)
 function glc_menu:handler/utils/player_name
 
-# ui parametresini mc:dialog'dan glc_menu:names'e kopyala
-data modify storage glc_menu:names temp.ui set from storage mc:dialog ui
+# ui parametresini glc:ui'dan glc_menu:names'e kopyala
+data modify storage glc_menu:names temp.ui set from storage glc:ui ui
 
 # Yetki kontrol
 execute unless entity @s[tag=gulce_admin] run function glc_menu:handler/dialog/not_permission with storage glc_menu:names temp

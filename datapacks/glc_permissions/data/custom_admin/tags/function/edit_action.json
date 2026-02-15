@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "custom_admin:edit/action",
+      "id": "custom_admin:handler/edit/action",
       "required": false
     }
   ]

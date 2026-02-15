@@ -3,9 +3,9 @@
 # ═══════════════════════════════════════════════════
 
 # Sayıları hesapla
-execute store result score #total_perms gulce_id run data get storage mc:handler data.permissions
-execute store result score #total_groups gulce_id run data get storage mc:handler data.groups
-execute store result score #total_actions gulce_id run data get storage mc:handler data.actions
+execute store result score #total_perms gulce_id run data get storage glc:data permissions
+execute store result score #total_groups gulce_id run data get storage glc:data groups
+execute store result score #total_actions gulce_id run data get storage glc:data actions
 
 # Göster
 tellraw @s ["",{"text":"═══════════════════════════════════","color":"light_purple","bold":true}]

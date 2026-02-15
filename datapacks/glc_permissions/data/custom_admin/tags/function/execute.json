@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "custom_admin:execute/action",
+      "id": "custom_admin:handler/execute/action",
       "required": false
     }
   ]

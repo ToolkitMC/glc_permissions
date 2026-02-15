@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "custom_admin:schedule/add",
+      "id": "custom_admin:handler/schedule/add",
       "required": false
     }
   ]

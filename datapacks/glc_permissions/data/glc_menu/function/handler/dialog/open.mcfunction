@@ -5,7 +5,7 @@
 function glc_menu:handler/dialog/show
 
 # Dialog JSON'ı temp'e kopyala
-data modify storage mc:dialog temp.final_ui set from storage mc:dialog ui
+data modify storage glc:ui temp.final_ui set from storage glc:ui ui
 
 # Tag kaldır (show için hazır)
 tag @a remove closed.glc

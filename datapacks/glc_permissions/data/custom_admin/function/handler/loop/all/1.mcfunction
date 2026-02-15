@@ -10,9 +10,9 @@ execute unless score #admin_loop global matches 1 run return 0
 execute unless entity @a run return 0
 
 # Trigger kontrolü
-execute as @a[scores={gulce_trigger=1..}] run function custom_admin:run/trigger
+execute as @a[scores={gulce_trigger=1..}] run function custom_admin:handler/run/trigger
 
 # Ana döngüleri çalıştır
 function custom_admin:handler/loop/main
 function custom_admin:handler/loop/permissions
-function custom_admin:group/check
+function custom_admin:handler/group/check

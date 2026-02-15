@@ -28,13 +28,12 @@ tellraw @s [{"text":"\n🔧 Predicate Durumu:","color":"aqua","bold":true}]
 execute if predicate glc_menu:holding_menu_item run tellraw @s [{"text":"  ✅ Menu item elinde (predicate çalışıyor)","color":"green"}]
 execute unless predicate glc_menu:holding_menu_item run tellraw @s [{"text":"  ℹ️  Menu item elinde değil","color":"gray"}]
 
-# 5. Hızlı testler
-tellraw @s [{"text":"\n⚡ Hızlı İşlemler:","color":"aqua","bold":true}]
-tellraw @s [{"text":"  [Loop Değerlerini Göster]","color":"yellow","click_event":{"action":"run_command","command":"/function main:loop/show"},"hoverEvent":{"action":"show_text","value":{"text":"Tıkla: Loop değerlerini göster","color":"gray"}}}]
-tellraw @s [{"text":"  [Menu Item Al]","color":"green","click_event":{"action":"run_command","command":"/give @s minecraft:carrot_on_a_stick[custom_data={glcMenu:1b},custom_name={\"text\":\"Menu Aç\",\"color\":\"gold\"}]"},"hoverEvent":{"action":"show_text","value":{"text":"Tıkla: Menu item al","color":"gray"}}}]
-tellraw @s [{"text":"  [Setup Yeniden Çalıştır]","color":"red","click_event":{"action":"run_command","command":"/function glc_permissions:setup"},"hoverEvent":{"action":"show_text","value":{"text":"Tıkla: Sistemi yeniden başlat","color":"gray"}}}]
-tellraw @s [{"text":"  [Sidebar Aç]","color":"light_purple","click_event":{"action":"run_command","command":"/scoreboard objectives setdisplay sidebar glc.loop"},"hoverEvent":{"action":"show_text","value":{"text":"Tıkla: Loop'ları sidebar'da göster","color":"gray"}}}]
-tellraw @s [{"text":"  [Sidebar Kapat]","color":"red","click_event":{"action":"run_command","command":"/scoreboard objectives setdisplay sidebar"},"hoverEvent":{"action":"show_text","value":{"text":"Tıkla: Loop'ları sidebar'da göster","color":"gray"}}}]
+# 5. Hızlı testler (NO interactive elements - commands only)
+tellraw @s [{"text":"\n⚡ Hızlı Komutlar:","color":"aqua","bold":true}]
+tellraw @s [{"text":"  /function main:loop/show","color":"yellow"},{"text":" - Loop değerlerini göster","color":"gray"}]
+tellraw @s [{"text":"  /function glc_permissions:setup","color":"yellow"},{"text":" - Sistemi yeniden başlat","color":"gray"}]
+tellraw @s [{"text":"  /tag @s add gulce_debug","color":"yellow"},{"text":" - Debug mode aç","color":"gray"}]
+tellraw @s [{"text":"  /tag @s remove gulce_debug","color":"yellow"},{"text":" - Debug mode kapat","color":"gray"}]
 
 # Sonuç
 tellraw @s [{"text":"\n","color":"white"}]

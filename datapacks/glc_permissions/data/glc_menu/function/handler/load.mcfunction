@@ -10,8 +10,8 @@ scoreboard objectives add gulce_menu trigger "GLC Menu"
 scoreboard objectives add gulce_load.dialog dummy "Dialog Loading"
 
 # Storage başlat
-execute unless data storage mc:dialog ui run data modify storage mc:dialog ui set value {}
-execute unless data storage mc:dialog temp run data modify storage mc:dialog temp set value {}
+execute unless data storage glc:ui ui run data modify storage glc:ui ui set value {}
+execute unless data storage glc:ui temp run data modify storage glc:ui temp set value {}
 execute unless data storage glc_menu:names temp run data modify storage glc_menu:names temp set value {}
 
 # Tüm tag'leri temizle

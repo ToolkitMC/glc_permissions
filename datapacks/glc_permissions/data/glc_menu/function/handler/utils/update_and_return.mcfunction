@@ -3,7 +3,7 @@
 # ═══════════════════════════════════════════════════
 
 # Geçici storage'dan al
-data modify storage mc:dialog temp.update_data set from storage mc:dialog ui.inputs
+data modify storage glc:ui temp.update_data set from storage glc:ui ui.inputs
 
 # Güncelle
 $function glc_menu:handler/utils/update_permission {id:"$(id)"}

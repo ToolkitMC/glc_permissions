@@ -3,7 +3,7 @@
 # ═══════════════════════════════════════════════════
 
 # İzin listesini kontrol et
-execute store result score #permission_check gulce_id run data get storage mc:handler data.permissions
+execute store result score #permission_check gulce_id run data get storage glc:data permissions
 
 # İzni olan oyuncuları işaretle
 execute as @a if score @s gulce_id = #permission_check gulce_id run tag @s add gulce_permitted
