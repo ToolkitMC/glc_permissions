@@ -6,7 +6,7 @@
 tag @s add glc.show_pending
 scoreboard players set @s glc_load_type 1
 function glc_menu:handler/dialog/loading
-scoreboard players set @s gulce_load.dialog 30
+scoreboard players set @s gulce_load.dialog 10
 
 # Menü hazırla
 data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:{"text":"✏️ Toplu Düzenleme","color":"yellow","bold":true},body:{type:"minecraft:plain_message",contents:"§l§eToplu İşlemler\n\n§7• Tüm İzinleri Sil\n§7• İzin Seviyelerini Sıfırla\n§7• Belirli Oyuncunun İzinlerini Sil"},can_close_with_escape:true,pause:false,actions:[]}

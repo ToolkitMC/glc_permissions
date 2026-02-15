@@ -11,6 +11,7 @@ scoreboard objectives add gulce_cooldown dummy "GLC Cooldown"
 scoreboard objectives add glc.timer dummy "GLC Timer System"
 scoreboard objectives add gulce_menu trigger "GLC Menu Trigger"
 scoreboard objectives add glc_load_type dummy "GLC Load Type"
+scoreboard objectives add gulce_permission_level dummy "Permission Level"
 
 # DÜZELTME v1.2.0: Global objective oluştur
 scoreboard objectives add global dummy "Global System Flags"
@@ -43,6 +44,9 @@ execute store result score #action_count gulce_id if data storage glc:data actio
 # Set scheduled flag
 execute if data storage glc:data scheduled[0] run scoreboard players set #has_scheduled gulce_id 1
 execute unless data storage glc:data scheduled[0] run scoreboard players set #has_scheduled gulce_id 0
+
+# v1.3.0: Initialize permission levels
+function custom_admin:permissions/sync_levels
 
 # Success message with DYNAMIC version
 tellraw @a[tag=gulce_admin] ["",{"text":"═══════════════════════════════════","color":"gold","bold":true}]

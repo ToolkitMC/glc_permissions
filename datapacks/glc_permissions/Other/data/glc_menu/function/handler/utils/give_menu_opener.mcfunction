@@ -1,1 +1,0 @@
-give @s minecraft:carrot_on_a_stick[minecraft:custom_data={glcMenu:1b},minecraft:custom_name={"text":"Gülce Menü","italic":false,"bold":true,"color":"green"},minecraft:unbreakable={},minecraft:max_stack_size=1,minecraft:item_model="minecraft:compass"]

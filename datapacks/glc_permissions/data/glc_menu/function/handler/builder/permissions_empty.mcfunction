@@ -4,6 +4,6 @@
 
 # Loading göster
 tag @s add glc.show_pending
-scoreboard players set @s gulce_load.dialog 10
+scoreboard players set @s gulce_load.dialog 4
 
 data modify storage glc:ui ui set value {type:"minecraft:notice",title:{"text":"❌ İzin Yok","color":"red","bold":true},body:{type:"minecraft:plain_message",contents:"§l§cHenüz hiç izin eklenmemiş.\n\n§7Ana menüden yeni izin ekleyebilirsiniz."},can_close_with_escape:true,pause:false,action:{label:"◀️ Geri",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 1"}}}

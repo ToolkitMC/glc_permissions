@@ -1,0 +1,1 @@
+$function custom_admin:handler/edit/action {id:"$(id)",type:"$(type)",player:"$(player)",params:$(params)}

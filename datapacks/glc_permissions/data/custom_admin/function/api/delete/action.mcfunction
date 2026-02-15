@@ -1,0 +1,1 @@
+$function custom_admin:handler/remove/action {id:"$(id)"}

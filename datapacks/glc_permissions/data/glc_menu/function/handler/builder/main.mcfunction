@@ -6,7 +6,7 @@
 tag @s add glc.show_pending
 scoreboard players set @s glc_load_type 1
 function glc_menu:handler/dialog/loading
-scoreboard players set @s gulce_load.dialog 25
+scoreboard players set @s gulce_load.dialog 10
 
 # Ana menü JSON'ı hazırla
 data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:{"text":"⚡ GULCE PANEL","color":"gold","bold":true},body:{type:"minecraft:plain_message",contents:"\n§7Sistem ve izin yönetimi için bir kategori seçin:\n "},can_close_with_escape:true,pause:false,columns:2,actions:[]}

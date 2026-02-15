@@ -7,7 +7,7 @@
 tag @s add glc.show_pending
 scoreboard players set @s glc_load_type 1
 function glc_menu:handler/dialog/loading
-scoreboard players set @s gulce_load.dialog 20
+scoreboard players set @s gulce_load.dialog 10
 
 # İzni geçici storage'a al
 $data modify storage glc:ui temp.edit_perm set from storage glc:data permissions[{id:"$(id)"}]

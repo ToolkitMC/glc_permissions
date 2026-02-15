@@ -6,7 +6,7 @@
 tag @s add glc.show_pending
 scoreboard players set @s glc_load_type 1
 function glc_menu:handler/dialog/loading
-scoreboard players set @s gulce_load.dialog 29
+scoreboard players set @s gulce_load.dialog 10
 
 # İzin sayısını kontrol et
 execute store result score #perm_count gulce_id run data get storage glc:data permissions

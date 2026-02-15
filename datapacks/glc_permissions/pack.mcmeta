@@ -1,53 +1,33 @@
 {
   "pack": {
-    "description": "§b§lGULCE Admin Power §r§7(Dynamic Version)\n§a✅ Basitleştirildi! §e⚡ In-game timer system fixed",
-    "pack_format": 94,
+    "description": "§b§lGULCE Admin Power §r§7v1.3.0\n§a✅ Yeni Tag Sistemi §e⚡ VIP/MOD/OWNER/PLAYER",
+    "pack_format": 61,
     "supported_formats": {
-      "min_inclusive": 81,
-      "max_inclusive": 94
-    },
-    "min_format": 81,
-    "max_format": 94
+      "min_inclusive": 61,
+      "max_inclusive": 99
+    }
   },
   "filter": {
     "block": [
       {
         "namespace": "custom_admin",
-        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       },
       {
         "namespace": "glc_menu",
-        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       },
       {
         "namespace": "main",
-        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       },
       {
         "namespace": "minecraft",
-        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       },
       {
         "namespace": "glc_permissions",
-        "path": ".*\\\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
-      }
-    ]
-  },
-  "features": {
-    "enabled": [
-      "minecraft:vanilla"
-    ]
-  },
-  "overlays": {
-    "entries": [
-      {
-        "directory": "Other",
-        "formats": {
-          "min_inclusive": 81,
-          "max_inclusive": 94
-        },
-        "min_format": 81,
-        "max_format": 94
+        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       }
     ]
   }
