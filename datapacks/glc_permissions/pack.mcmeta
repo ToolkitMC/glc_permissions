@@ -1,11 +1,13 @@
 {
   "pack": {
     "description": "§b§lGULCE Admin Power §r§7v1.3.0\n§a✅ Yeni Tag Sistemi §e⚡ VIP/MOD/OWNER/PLAYER",
-    "pack_format": 61,
+    "pack_format": 81,
     "supported_formats": {
-      "min_inclusive": 61,
-      "max_inclusive": 99
-    }
+      "min_inclusive": 81,
+      "max_inclusive": 1000000
+    },
+    "min_format": 81,
+    "max_format": 1000000
   },
   "filter": {
     "block": [
@@ -29,6 +31,11 @@
         "namespace": "glc_permissions",
         "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       }
+    ]
+  },
+  "features": {
+    "enabled": [
+      "minecraft:vanilla"
     ]
   }
 }
