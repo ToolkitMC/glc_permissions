@@ -80,6 +80,7 @@ command_history.txt.bak
 !pack.png
 backup*.zip
 backup*.rar
+!datapacks/*.zip
 
 # Other
 *.rar
@@ -90,3 +91,28 @@ test.tar
 test.tar.gz
 *.png
 *.jpg
+*.7z
+*.gz
+*.war
+*.ear
+*.class
+*.dll
+*.exe
+*.so
+*.dylib
+*.bin
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+*.accdb
+*.iso
+*.img
+*.dmg
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
