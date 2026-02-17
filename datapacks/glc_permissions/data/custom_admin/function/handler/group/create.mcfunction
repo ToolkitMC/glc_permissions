@@ -25,3 +25,4 @@ $execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"  ⭐ Öncelik: ",
 execute store result score #temp gulce_id run scoreboard players get #group_count gulce_id
 $tellraw @a[tag=gulce_admin] ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"👥 Yeni grup: ",color:"gray"},{text:"$(name)",color:"yellow"},{text:" (Toplam: ",color:"gray"},{score:{name:'#temp',objective:'gulce_id'},color:"aqua"},{text:")",color:"gray"}]
 $tellraw @a[tag=gulce_admin] ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"👥 Yeni grup: ",color:"gray"},{text:"$(name)",color:"yellow"},{text:" (Toplam: ",color:"gray"},{score:{name:'#temp',objective:'gulce_id'},color:"aqua"},{text:")",color:"gray"}]
+return 0

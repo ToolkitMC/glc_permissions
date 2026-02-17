@@ -28,3 +28,4 @@ execute if score #member_count gulce_id matches 1.. if entity @s[tag=glc.lang_en
 # Log
 $tellraw @a[tag=gulce_admin] ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Grup silindi: ",color:"gray"},{text:"$(id)",color:"red"}]
 $tellraw @a[tag=gulce_admin] ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Grup silindi: ",color:"gray"},{text:"$(id)",color:"red"}]
+return 0

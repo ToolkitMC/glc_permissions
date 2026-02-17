@@ -6,7 +6,6 @@
 forceload add 0 0
 
 # Scoreboard
-scoreboard objectives add gulce_menu trigger "GLC Menu"
 scoreboard objectives add gulce_load.dialog dummy "Dialog Loading"
 
 # Storage başlat

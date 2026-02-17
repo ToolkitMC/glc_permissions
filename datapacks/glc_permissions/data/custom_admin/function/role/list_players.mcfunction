@@ -68,3 +68,5 @@ execute unless entity @a[tag=!gulce_player,tag=!gulce_vip,tag=!gulce_mod,tag=!gu
 
 execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"═══════════════════════════════════",color:"gold",bold:true}]
 execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"═══════════════════════════════════",color:"gold",bold:true}]
+
+return 0

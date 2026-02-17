@@ -1,4 +1,3 @@
-scoreboard objectives add glc_load_type dummy
 
 # --- [ 4 EKRAN TÜRÜ ] ---
 # Mod 1: Yükleme - TR

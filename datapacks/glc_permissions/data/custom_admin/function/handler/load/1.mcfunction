@@ -4,9 +4,6 @@
 
 # Scoreboards oluştur
 scoreboard objectives add gulce_trigger trigger "GULCE Trigger"
-scoreboard objectives add gulce_cooldown dummy "GULCE Cooldown"
-scoreboard objectives add gulce_id dummy "GULCE ID"
-scoreboard objectives add gulce_timer dummy "GULCE Timer"
 
 # Trigger'ı aktif et
 scoreboard players enable @a gulce_trigger

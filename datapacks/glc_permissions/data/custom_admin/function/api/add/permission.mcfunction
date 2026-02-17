@@ -18,3 +18,5 @@ execute if score #valid gulce_id matches 0 run return fail
 
 # Validation geçti — yeni API'yi çağır
 $function custom_admin:api/permission/add {id:"$(id)",player:"$(player)",permission:"$(permission)",level:$(level)}
+
+return 0

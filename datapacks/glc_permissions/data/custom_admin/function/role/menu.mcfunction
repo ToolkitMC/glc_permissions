@@ -32,3 +32,4 @@ data modify storage glc:ui ui.actions append value {label:"📋 Oyuncu Listesi",
 
 # 4. RENDER
 function glc_menu:handler/dialog/show
+return 0

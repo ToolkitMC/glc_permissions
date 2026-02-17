@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Language System Initialization (v2.0.1)
+# Language System Initialization (v2.0.0)
 # Purpose: Initialize language configuration
 # ═══════════════════════════════════════════════════
 

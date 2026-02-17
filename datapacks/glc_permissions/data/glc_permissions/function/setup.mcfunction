@@ -4,7 +4,6 @@
 # ═══════════════════════════════════════════════════
 
 # Scoreboard'ları oluştur
-scoreboard objectives add glc.timer dummy "GLC Timer System"
 scoreboard objectives add gulce.used minecraft.used:minecraft.carrot_on_a_stick
 
 # Timer başlangıç değerleri
