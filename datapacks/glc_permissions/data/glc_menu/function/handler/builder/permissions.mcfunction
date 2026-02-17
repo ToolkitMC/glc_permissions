@@ -15,7 +15,7 @@ execute store result score #perm_count gulce_id run data get storage glc:data pe
 execute if score #perm_count gulce_id matches 0 run function glc_menu:handler/builder/permissions_empty
 execute if score #perm_count gulce_id matches 0 run return 0
 
-# Temel yapıyı hazırla (Bilingual v2.0.0)
+# Temel yapıyı hazırla (Bilingual v2.0.2)
 execute if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:{text:"📋 İzin Listesi",color:"aqua",bold:true},body:{type:"minecraft:plain_message",contents:"§l§6Kayıtlı İzinler\n\n§7Bir izin seçin:"},can_close_with_escape:1b,pause:0b,"columns":1,actions:[]}
 
 execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:{text:"📋 Permission List",color:"aqua",bold:true},body:{type:"minecraft:plain_message",contents:"§l§6Registered Permissions\n\n§7Select a permission:"},can_close_with_escape:1b,pause:0b,"columns":1,actions:[]}
