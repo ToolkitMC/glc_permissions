@@ -1,2 +1,2 @@
-$title $(player) title {"text":"$(text)"}
-$title $(player) subtitle {"text":"$(subtitle)"}
+$title $(selector) title $(title)
+$title $(selector) subtitle $(subtitle)

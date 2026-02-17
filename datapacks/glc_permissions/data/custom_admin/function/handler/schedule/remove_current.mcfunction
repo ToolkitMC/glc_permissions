@@ -4,7 +4,8 @@
 # ═══════════════════════════════════════════════════
 
 # UYARI: Eski metod - artık mark_for_deletion kullanılıyor
-tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE WARNING] ","color":"red","bold":true},{"text":"remove_current deprecated! Update to v1.2.0","color":"yellow"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE WARNING] ",color:"red",bold:true},{text:"remove_current deprecated! Update to v1.2.0",color:"yellow"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE WARNING] ",color:"red",bold:true},{text:"remove_current deprecated! Update to v1.2.0",color:"yellow"}]
 
 # Eski kod (geriye dönük uyumluluk için)
 $data remove storage glc:data scheduled[$(current_index)]

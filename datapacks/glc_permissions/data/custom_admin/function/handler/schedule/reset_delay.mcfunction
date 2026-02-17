@@ -8,5 +8,6 @@ data modify storage glc:temp temp.current_schedule.remaining set from storage gl
 # Güncelle
 function custom_admin:handler/schedule/update_remaining with storage glc:temp temp
 
-# Log
-tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"🔄 Eylem tekrar zamanlandı","color":"yellow"}]
+# PERF FIX: Log sadece debug modda
+execute as @a[tag=gulce_debug,tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"🔄 Eylem tekrar zamanlandı",color:"yellow"}]
+execute as @a[tag=gulce_debug,tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"🔄 Action rescheduled",color:"yellow"}]

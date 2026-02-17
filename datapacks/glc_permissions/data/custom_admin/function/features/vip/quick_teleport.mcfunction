@@ -3,11 +3,12 @@
 # ═══════════════════════════════════════════════════
 
 # 1. YETKİ KONTROLÜ
-execute unless score @s gulce_permission_level matches 2.. run tellraw @s {"text":"❌ Bu özellik için VIP(+) yetkisi gerekiyor!","color":"light_purple"}
+execute unless score @s gulce_permission_level matches 2.. if entity @s[tag=glc.lang_tr] run tellraw @s {text:"❌ Bu özellik için VIP(+) yetkisi gerekiyor!",color:'light_purple'}
+execute unless score @s gulce_permission_level matches 2.. if entity @s[tag=glc.lang_en] run tellraw @s {text:"❌ Bu özellik için VIP(+) yetkisi gerekiyor!",color:'light_purple'}
 execute unless score @s gulce_permission_level matches 2.. run return fail
 
 # 2. UI VERİ YAPISI (Storage)
-data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:{"text":"✨ VIP HIZLI IŞINLANMA","color":"light_purple","bold":true},body:{type:"minecraft:plain_message",contents:"\n§7Gitmek istediğiniz bölgeyi seçin:\n§8(Işınlanma cooldown: 30sn)\n "},can_close_with_escape:true,pause:false,columns:2,actions:[]}
+data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:{text:"✨ VIP HIZLI IŞINLANMA",color:'light_purple',bold:true},body:{type:"minecraft:plain_message",contents:"\n§7Gitmek istediğiniz bölgeyi seçin:\n§8(Işınlanma cooldown: 30sn)\n "},can_close_with_escape:1b,pause:0b,columns:2,actions:[]}
 
 # 3. IŞINLANMA BUTONLARI
 

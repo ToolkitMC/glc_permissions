@@ -1,3 +1,4 @@
-$give $(player) $(item)$(nbt) $(count)
+$give $(selector) $(item)$(nbt) $(count)
 
-$tellraw $(player) ["",{"text":"🎁 ","color":"green"},{"text":"Item verildi: ","color":"gray"},{"text":"$(item)","color":"yellow"},{"text":" x","color":"gray"},{"text":"$(count)","color":"aqua"}]
+$execute as $(selector) if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"🎁 ",color:"green"},{text:"Eşya verildi (NBT): ",color:"gray"},{text:"$(item) x$(count)",color:"yellow"}]
+$execute as $(selector) if entity @s[tag=glc.lang_en] run tellraw @s [{text:"🎁 ",color:"green"},{text:"Item given (NBT): ",color:"gray"},{text:"$(item) x$(count)",color:"yellow"}]

@@ -6,8 +6,13 @@
 execute as @a[scores={gulce_menu=1..}] run function glc_menu:handler/trigger
 execute as @a[scores={gulce_menu=-512}] run function glc_menu:handler/trigger
 
+# Cooldown azalt (v2.0.0)
+
 # Loading skorları azalt
 scoreboard players remove @a[scores={gulce_load.dialog=1..}] gulce_load.dialog 1
+
+# Apply language tags to new players (v2.0.0)
+execute as @a unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run function custom_admin:util/lang/apply_tags
 
 # Sadece 0'a düştüğünde BİR KEZ göster
 execute as @a[scores={gulce_load.dialog=0},tag=glc.show_pending] run function glc_menu:handler/dialog/open

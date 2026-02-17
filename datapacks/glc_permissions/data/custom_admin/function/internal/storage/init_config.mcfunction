@@ -17,4 +17,5 @@ data modify storage glc:config settings set value {\
 }
 
 # Notify admin
-tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold"},{"text":"📝 Config created with default values","color":"gray"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"📝 Config created with default values",color:"gray"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"📝 Config created with default values",color:"gray"}]

@@ -1,0 +1,1 @@
+$kick $(selector) $(reason)

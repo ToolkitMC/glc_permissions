@@ -3,11 +3,12 @@
 # ═══════════════════════════════════════════════════
 
 # 1. YETKİ KONTROLÜ
-execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] run tellraw @s {"text":"❌ Bu panele erişim yetkiniz yok!","color":"red"}
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run tellraw @s {text:"❌ Bu panele erişim yetkiniz yok!",color:"red"}
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run tellraw @s {text:"❌ Bu panele erişim yetkiniz yok!",color:"red"}
 execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] run return fail
 
 # 2. UI HAZIRLIĞI
-data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:{"text":"👑 ROL YÖNETİMİ","color":"yellow","bold":true},body:{type:"minecraft:plain_message",contents:"\n§7En yakındaki oyuncuya (@p) işlem yapar:\n "},can_close_with_escape:true,pause:false,columns:2,actions:[]}
+data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:{text:"👑 ROL YÖNETİMİ",color:"yellow",bold:true},body:{type:"minecraft:plain_message",contents:"\n§7En yakındaki oyuncuya (@p) işlem yapar:\n "},can_close_with_escape:1b,pause:0b,columns:2,actions:[]}
 
 # 3. BUTONLAR (Input'suz - Doğrudan Run Command)
 

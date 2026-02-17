@@ -1,5 +1,4 @@
-# Macro ile tp
-$tp $(player) $(x) $(y) $(z)
+$tp $(selector) $(x) $(y) $(z)
 
-# Feedback
-$tellraw $(player) ["",{"text":"📍 ","color":"aqua"},{"text":"Işınlandınız: ","color":"gray"},{"text":"$(x) $(y) $(z)","color":"yellow"}]
+$execute as $(selector) if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"📍 ",color:"aqua"},{text:"Işınlandınız: ",color:"gray"},{text:"$(x) $(y) $(z)",color:"yellow"}]
+$execute as $(selector) if entity @s[tag=glc.lang_en] run tellraw @s [{text:"📍 ",color:"aqua"},{text:"Teleported to: ",color:"gray"},{text:"$(x) $(y) $(z)",color:"yellow"}]

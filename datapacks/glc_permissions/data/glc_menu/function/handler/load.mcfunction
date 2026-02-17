@@ -26,4 +26,5 @@ scoreboard players set @a gulce_load.dialog -1
 scoreboard players enable @a gulce_menu
 
 # Başlangıç mesajı
-tellraw @a[tag=gulce_admin] ["",{"text":"[GLC] ","color":"light_purple","bold":true},{"text":"Dinamik menü sistemi yüklendi","color":"gray"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dinamik menü sistemi yüklendi",color:"gray"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dinamik menü sistemi yüklendi",color:"gray"}]

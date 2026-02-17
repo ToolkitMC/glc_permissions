@@ -20,13 +20,20 @@ scoreboard objectives add global dummy "Global System Flags"
 scoreboard players set #admin_loop global 1
 scoreboard players set #system_active global 1
 
-tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold"},{"text":"✅ Admin loop aktifleştirildi","color":"green"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"✅ Admin loop aktifleştirildi",color:"green"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"✅ Admin loop aktifleştirildi",color:"green"}]
 
 # Initialize storage if needed
-execute unless data storage glc:data version run function custom_admin:internal/storage/init
+function custom_admin:internal/storage/init
 
 # Initialize config if needed
 execute unless data storage glc:config settings run function custom_admin:internal/storage/init_config
+
+# Initialize language system (v2.0.0)
+execute unless data storage glc:config language run function custom_admin:internal/storage/init_lang
+
+# Initialize cooldown/timer system (v2.0.0)
+execute unless data storage glc:config cooldowns run function custom_admin:internal/storage/init_cooldowns
 
 # Version is managed by init function - no hardcoded checks needed
 
@@ -49,12 +56,21 @@ execute unless data storage glc:data scheduled[0] run scoreboard players set #ha
 function custom_admin:permissions/sync_levels
 
 # Success message with DYNAMIC version
-tellraw @a[tag=gulce_admin] ["",{"text":"═══════════════════════════════════","color":"gold","bold":true}]
-tellraw @a[tag=gulce_admin] ["",{"text":"  ⚡ GULCE Admin Power v","color":"yellow","bold":true},{"nbt":"version","storage":"glc:data","color":"yellow","bold":true}]
-tellraw @a[tag=gulce_admin] ["",{"text":"═══════════════════════════════════","color":"gold","bold":true}]
-tellraw @a[tag=gulce_admin] ["",{"text":"  📊 Loaded:","color":"aqua"}]
-tellraw @a[tag=gulce_admin] ["",{"text":"    🔐 Permissions: ","color":"gray"},{"score":{"name":"#perm_count","objective":"gulce_id"},"color":"green"}]
-tellraw @a[tag=gulce_admin] ["",{"text":"    👥 Groups: ","color":"gray"},{"score":{"name":"#group_count","objective":"gulce_id"},"color":"yellow"}]
-tellraw @a[tag=gulce_admin] ["",{"text":"    ⚡ Actions: ","color":"gray"},{"score":{"name":"#action_count","objective":"gulce_id"},"color":"aqua"}]
-tellraw @a[tag=gulce_admin] ["",{"text":"  ✅ System Ready","color":"green","bold":true}]
-tellraw @a[tag=gulce_admin] ["",{"text":"═══════════════════════════════════","color":"gold","bold":true}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"  ⚡ GULCE Admin Power v",color:"yellow",bold:true},{nbt:'version',"storage":"glc:data",color:"yellow",bold:true}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"  ⚡ GULCE Admin Power v",color:"yellow",bold:true},{nbt:'version',"storage":"glc:data",color:"yellow",bold:true}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"  📊 Loaded:",color:"aqua"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"  📊 Loaded:",color:"aqua"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"    🔐 Permissions: ",color:"gray"},{score:{name:'#perm_count',objective:'gulce_id'},color:"green"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"    🔐 Permissions: ",color:"gray"},{score:{name:'#perm_count',objective:'gulce_id'},color:"green"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"    👥 Groups: ",color:"gray"},{score:{name:'#group_count',objective:'gulce_id'},color:"yellow"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"    👥 Groups: ",color:"gray"},{score:{name:'#group_count',objective:'gulce_id'},color:"yellow"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"    ⚡ Actions: ",color:"gray"},{score:{name:'#action_count',objective:'gulce_id'},color:"aqua"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"    ⚡ Actions: ",color:"gray"},{score:{name:'#action_count',objective:'gulce_id'},color:"aqua"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"  ✅ System Ready",color:"green",bold:true}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"  ✅ System Ready",color:"green",bold:true}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]

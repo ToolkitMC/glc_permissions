@@ -14,4 +14,5 @@ tag @s add glc.close_dialog
 
 # Log
 
-tellraw @s[tag=gulce_debug] ["",{"text":"[GLC] ","color":"light_purple","bold":true},{"text":"Dialog kapatıldı","color":"gray"}]
+execute if entity @s[tag=glc.lang_tr,tag=gulce_debug] run tellraw @s ['',{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog kapatıldı",color:"gray"}]
+execute if entity @s[tag=glc.lang_en,tag=gulce_debug] run tellraw @s ['',{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog closed",color:"gray"}]

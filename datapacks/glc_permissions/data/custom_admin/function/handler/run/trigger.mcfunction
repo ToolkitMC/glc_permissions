@@ -6,7 +6,8 @@
 scoreboard players enable @s gulce_trigger
 
 # Cooldown kontrolü
-execute if score @s gulce_cooldown matches 1.. run tellraw @s ["",{"text":"[GULCE] ","color":"red","bold":true},{"text":"Lütfen bekleyin! Cooldown: ","color":"red"},{"score":{"name":"@s","objective":"gulce_cooldown"},"color":"yellow"},{"text":" tick","color":"red"}]
+execute if score @s gulce_cooldown matches 1.. if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"Lütfen bekleyin! Cooldown: ",color:"red"},{score:{name:"@s",objective:'gulce_cooldown'},color:"yellow"},{text:" tick",color:"red"}]
+execute if score @s gulce_cooldown matches 1.. if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"Lütfen bekleyin! Cooldown: ",color:"red"},{score:{name:"@s",objective:'gulce_cooldown'},color:"yellow"},{text:" tick",color:"red"}]
 execute if score @s gulce_cooldown matches 1.. run scoreboard players set @s gulce_trigger 0
 execute if score @s gulce_cooldown matches 1.. run return 0
 
@@ -23,5 +24,6 @@ execute unless score @s gulce_cooldown matches 1.. run scoreboard players set @s
 # Trigger'ı sıfırla
 scoreboard players set @s gulce_trigger 0
 
-# Log
-tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"Trigger çalıştırıldı: ","color":"gray"},{"selector":"@s","color":"yellow"}]
+# PERF FIX: Log sadece debug modda
+execute as @a[tag=gulce_debug,tag=glc.lang_tr] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Trigger çalıştırıldı: ",color:"gray"},{selector:"@s",color:"yellow"}]
+execute as @a[tag=gulce_debug,tag=glc.lang_en] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Trigger çalıştırıldı: ",color:"gray"},{selector:"@s",color:"yellow"}]

@@ -2,8 +2,8 @@
 # İzin Kontrolü Loop'u
 # ═══════════════════════════════════════════════════
 
-# İzin verisi var mı kontrol et
-execute if data storage glc:data permissions[0] run function custom_admin:handler/parser/permissions
-
-# Tag temizliği
+# Önce eski tag'leri temizle
 tag @a remove gulce_permitted
+
+# Sonra storage'deki izinlere göre yeni tag'leri uygula
+execute if data storage glc:data permissions[0] run function custom_admin:handler/parser/permissions

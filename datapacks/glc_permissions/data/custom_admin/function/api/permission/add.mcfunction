@@ -43,7 +43,7 @@ $execute as @s[tag=gulce_debug] run function custom_admin:util/debug/log {messag
 
 # Admin notification (without tellraw directly)
 execute store result score #temp gulce_id run scoreboard players get #perm_count gulce_id
-$tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"🔐 Yeni izin: ","color":"gray"},{"text":"$(permission)","color":"yellow"},{"text":" → ","color":"dark_gray"},{"text":"$(player)","color":"aqua"},{"text":" (Toplam: ","color":"gray"},{"score":{"name":"#temp","objective":"gulce_id"},"color":"green"},{"text":")","color":"gray"}]
+$tellraw @a[tag=gulce_admin] ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"🔐 Yeni izin: ",color:"gray"},{text:"$(permission)",color:"yellow"},{text:" → ",color:"dark_gray"},{text:"$(player)",color:"aqua"},{text:" (Toplam: ",color:"gray"},{score:{name:'#temp',objective:'gulce_id'},color:"green"},{text:")",color:"gray"}]
 
 # Cleanup temp data
 function custom_admin:util/cleanup

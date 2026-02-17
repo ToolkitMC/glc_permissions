@@ -19,4 +19,5 @@ function custom_admin:core/load
 function custom_admin:handler/load/1
 function glc_menu:handler/load
 
-tellraw @a [{"text":"[Gulce's Permissions] ","color":"gold","bold":true},{"text":"v","color":"green"},{"nbt":"version","storage":"glc:data","color":"green"},{"text":" Sistem yüklendi!","color":"green"}]
+execute as @a[tag=glc.lang_tr] run tellraw @s [{text:"[Gulce's Permissions] ",color:"gold",bold:true},{text:'v',color:"green"},{nbt:'version',"storage":"glc:data",color:"green"},{text:" Sistem yüklendi!",color:"green"}]
+execute as @a[tag=glc.lang_en] run tellraw @s [{text:"[Gulce's Permissions] ",color:"gold",bold:true},{text:'v',color:"green"},{nbt:'version',"storage":"glc:data",color:"green"},{text:" Sistem yüklendi!",color:"green"}]

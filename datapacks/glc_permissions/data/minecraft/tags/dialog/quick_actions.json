@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "main:pause_menu"
+    "main:pause_menu_tr",
+    "main:pause_menu_en"
   ]
 }

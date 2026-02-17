@@ -20,8 +20,11 @@ $data remove storage glc:data groups[{id:"$(id)"}]
 scoreboard players remove #group_count gulce_id 1
 
 # Feedback
-$tellraw @s ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"🗑️ Grup silindi: ","color":"red"},{"text":"$(id)","color":"yellow"}]
-execute if score #member_count gulce_id matches 1.. run tellraw @s ["",{"text":"  👥 ","color":"gray"},{"score":{"name":"#member_count","objective":"gulce_id"},"color":"yellow"},{"text":" üyenin tag'leri temizlendi","color":"gray"}]
+$execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"gold",bold:true},{text:"🗑️ Grup silindi: ",color:"red"},{text:"$(id)",color:"yellow"}]
+$execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"gold",bold:true},{text:"🗑️ Grup silindi: ",color:"red"},{text:"$(id)",color:"yellow"}]
+execute if score #member_count gulce_id matches 1.. if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"  👥 ",color:"gray"},{score:{name:'#member_count',objective:'gulce_id'},color:"yellow"},{text:" üyenin tag'leri temizlendi",color:"gray"}]
+execute if score #member_count gulce_id matches 1.. if entity @s[tag=glc.lang_en] run tellraw @s [{text:"  👥 ",color:"gray"},{score:{name:'#member_count',objective:'gulce_id'},color:"yellow"},{text:" üyenin tag'leri temizlendi",color:"gray"}]
 
 # Log
-$tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"Grup silindi: ","color":"gray"},{"text":"$(id)","color":"red"}]
+$tellraw @a[tag=gulce_admin] ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Grup silindi: ",color:"gray"},{text:"$(id)",color:"red"}]
+$tellraw @a[tag=gulce_admin] ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Grup silindi: ",color:"gray"},{text:"$(id)",color:"red"}]

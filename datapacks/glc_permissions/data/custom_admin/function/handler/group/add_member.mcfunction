@@ -3,13 +3,21 @@
 # ═══════════════════════════════════════════════════
 
 # Grup var mı kontrol et
-$execute unless data storage glc:data groups[{id:"$(group_id)"}] run tellraw @s ["",{"text":"[GULCE] ","color":"red","bold":true},{"text":"❌ HATA: Grup bulunamadı - $(group_id)","color":"red"}]
+$execute unless data storage glc:data groups[{id:"$(group_id)"}] if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"❌ HATA: Grup bulunamadı - $(group_id)",color:"red"}]
+$execute unless data storage glc:data groups[{id:"$(group_id)"}] if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"❌ HATA: Grup bulunamadı - $(group_id)",color:"red"}]
 $execute unless data storage glc:data groups[{id:"$(group_id)"}] run return 0
 
-$execute as @s unless entity $(player) run return run tellraw @s ["",{"text":"[GULCE] ","color":"red","bold":true},{"text":"❌ HATA: Grup bulunamadı - $(group_id)","color":"red"}]
+# DÜZELTME: return komutu ayrı satıra alındı (geçersiz zincirleme kaldırıldı)
+$execute unless entity $(player) if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"❌ HATA: Oyuncu bulunamadı - $(player)",color:"red"}]
+$execute unless entity $(player) if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"❌ ERROR: Player not found - $(player)",color:"red"}]
+$execute unless entity $(player) run return 0
 
-# Oyuncu zaten üye mi kontrol et
-$execute store success score #not_member gulce_id run data modify storage glc:temp temp.check_member set from storage glc:data groups[{id:"$(group_id)"}].members[{value:"$(player)"}]
+# BUG FIX #4: Duplicate üye kontrolü — sonuç artık kullanılıyor
+# store success = 1 ise oyuncu ZATEN üye demektir
+$execute store success score #already_member gulce_id run data get storage glc:data groups[{id:"$(group_id)"}].members[{value:"$(player)"}]
+$execute if score #already_member gulce_id matches 1 if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"yellow",bold:true},{text:"⚠ Oyuncu zaten bu grubun üyesi: $(player)",color:"yellow"}]
+$execute if score #already_member gulce_id matches 1 if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"yellow",bold:true},{text:"⚠ Player is already a member: $(player)",color:"yellow"}]
+$execute if score #already_member gulce_id matches 1 run return 0
 
 # Üye ekle
 $data modify storage glc:data groups[{id:"$(group_id)"}].members append value "$(player)"
@@ -18,12 +26,16 @@ $data modify storage glc:data groups[{id:"$(group_id)"}].members append value "$
 $tag $(player) add gulce_group_$(group_id)
 
 # Feedback
-tellraw @s ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"✅ Üye eklendi","color":"green"}]
-$tellraw @s ["",{"text":"  👤 Oyuncu: ","color":"gray"},{"text":"$(player)","color":"yellow"}]
-$tellraw @s ["",{"text":"  👥 Grup: ","color":"gray"},{"text":"$(group_id)","color":"aqua"}]
+execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"gold",bold:true},{text:"✅ Üye eklendi",color:"green"}]
+execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"gold",bold:true},{text:"✅ Üye eklendi",color:"green"}]
+$execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"  👤 Oyuncu: ",color:"gray"},{text:"$(player)",color:"yellow"}]
+$execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"  👤 Player: ",color:"gray"},{text:"$(player)",color:"yellow"}]
+$execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"  👥 Grup: ",color:"gray"},{text:"$(group_id)",color:"aqua"}]
+$execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"  👥 Grup: ",color:"gray"},{text:"$(group_id)",color:"aqua"}]
 
 # Oyuncuya bildir
-$tellraw $(player) ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"📥 Gruba eklendiniz: ","color":"green"},{"text":"$(group_id)","color":"yellow"}]
+$tellraw $(player) ["",{text:"[GULCE] ",color:"gold",bold:true},{text:"📥 Gruba eklendiniz: ",color:"green"},{text:"$(group_id)",color:"yellow"}]
 
 # Log
-$tellraw @a[tag=gulce_admin] ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"Üye eklendi: ","color":"gray"},{"text":"$(player)","color":"yellow"},{"text":" → ","color":"gray"},{"text":"$(group_id)","color":"aqua"}]
+# BUG FIX #1: Tekrarlanan ve birleşik $tellraw satırı ayrıldı
+$tellraw @a[tag=gulce_admin] ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Üye eklendi: ",color:"gray"},{text:"$(player)",color:"yellow"},{text:" → ",color:"gray"},{text:"$(group_id)",color:"aqua"}]

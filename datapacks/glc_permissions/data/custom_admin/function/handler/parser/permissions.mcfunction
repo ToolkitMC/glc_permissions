@@ -1,13 +1,13 @@
 # ═══════════════════════════════════════════════════
-# Permission Parser - İzinleri kontrol eder - DÜZELTME v1.2.0
-# DÜZELTME: Tellraw spam kaldırıldı
+# Permission Parser - Storage'den tag uygular
+# Her tick permissions listesini okur, oyunculara tag atar
 # ═══════════════════════════════════════════════════
 
-# İzin listesini kontrol et
-execute store result score #permission_check gulce_id run data get storage glc:data permissions
+# Geçici liste kopyala
+data modify storage glc:temp perm_parse.list set from storage glc:data permissions
 
-# İzni olan oyuncuları işaretle
-execute as @a if score @s gulce_id = #permission_check gulce_id run tag @s add gulce_permitted
+# İlk permission'ı işle
+execute if data storage glc:temp perm_parse.list[0] run function custom_admin:handler/parser/permissions_loop
 
-# DÜZELTME v1.2.0: Tellraw spam kaldırıldı
-# Log sadece debug modunda gösterilir
+# Temizlik
+data remove storage glc:temp perm_parse

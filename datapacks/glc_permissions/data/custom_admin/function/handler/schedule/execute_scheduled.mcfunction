@@ -17,4 +17,5 @@ execute if data storage glc:temp temp.current_schedule{repeat:1b} run function c
 execute unless data storage glc:temp temp.current_schedule{repeat:1b} run function custom_admin:handler/schedule/mark_for_deletion with storage glc:temp temp
 
 # Debug log
-execute as @a[tag=gulce_debug,limit=1] run tellraw @s ["",{"text":"[DEBUG] ","color":"gray"},{"text":"Scheduled action executed","color":"white"}]
+execute if entity @s[tag=glc.lang_tr] run as @a[tag=gulce_debug,limit=1] run tellraw @s [{text:"[DEBUG] ",color:"gray"},{text:"Scheduled action executed",color:"white"}]
+execute if entity @s[tag=glc.lang_en] run as @a[tag=gulce_debug,limit=1] run tellraw @s [{text:"[DEBUG] ",color:"gray"},{text:"Scheduled action executed",color:"white"}]

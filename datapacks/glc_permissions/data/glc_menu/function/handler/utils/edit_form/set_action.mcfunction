@@ -1,3 +1,10 @@
+# Varsa eski action'ı sil (upsert - güncelleme veya ekleme)
+$data remove storage glc:data actions[{id:"$(id)"}]
+
+# Yeni action'ı ekle
 $data modify storage glc:data actions append value {id:"$(id)",type:"$(type)",params:$(args),player:"$(name)"}
 
-$tellraw @s [{"text":"[Gulce]","color":"gold","bold":true}," ",{"text":"EYLEM EKLENDİ:"}," ",{"text":"$(id)","color":"green"}]
+# Sayacı güncelle
+execute store result score #action_count gulce_id if data storage glc:data actions[]
+
+playsound minecraft:block.note_block.pling master @s ~ ~ ~ 4 0

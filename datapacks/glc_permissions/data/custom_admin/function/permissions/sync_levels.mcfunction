@@ -5,7 +5,6 @@
 # ═══════════════════════════════════════════════════
 
 # Score objective oluştur
-scoreboard objectives add gulce_permission_level dummy "Permission Level"
 
 # OWNER = Level 4
 execute as @a[tag=gulce_owner] run scoreboard players set @s gulce_permission_level 4

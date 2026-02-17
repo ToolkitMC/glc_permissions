@@ -4,6 +4,6 @@
 
 data modify storage glc:temp temp.item set from storage glc:temp temp.params.item
 data modify storage glc:temp temp.count set from storage glc:temp temp.params.count
-data modify storage glc:temp temp.player set from storage glc:temp temp.exec_action.player
+data modify storage glc:temp temp.selector set from storage glc:temp temp.exec_action.player
 
 function custom_admin:handler/execute/types/give_run with storage glc:temp temp

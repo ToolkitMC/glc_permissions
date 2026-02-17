@@ -1,13 +1,13 @@
 {
   "pack": {
-    "description": "§b§lGULCE Admin Power §r§7v1.3.0\n§a✅ Yeni Tag Sistemi §e⚡ VIP/MOD/OWNER/PLAYER",
+    "description": "§b§lGULCE Admin Power §r§7v2.1.0\n§a✅ TR/EN + Dialog API §e⚡ MC 1.21.7+",
     "pack_format": 81,
     "supported_formats": {
       "min_inclusive": 81,
-      "max_inclusive": 1000000
+      "max_inclusive": 94
     },
     "min_format": 81,
-    "max_format": 1000000
+    "max_format": 94
   },
   "filter": {
     "block": [

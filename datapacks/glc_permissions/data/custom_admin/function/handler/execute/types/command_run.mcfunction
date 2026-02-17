@@ -1,3 +1,1 @@
-$execute as $(player) run $(command)
-
-$tellraw $(player) ["",{"text":"⚡ ","color":"yellow"},{"text":"Komut çalıştırıldı","color":"gray"}]
+$execute as $(selector) run $(command)

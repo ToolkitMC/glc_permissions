@@ -5,4 +5,5 @@
 # Permission Level: 2 (no OP required)
 # ═══════════════════════════════════════════════════
 
-$tellraw @s ["",{"text":"ℹ️ ","color":"aqua"},{"text":"$(message)","color":"gray"}]
+$execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"ℹ️ ",color:"aqua"},{text:"$(message)",color:"gray"}]
+$execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"ℹ️ ",color:"aqua"},{text:"$(message)",color:"gray"}]

@@ -12,6 +12,9 @@ data modify storage glc_menu:names temp.ui set from storage glc:ui ui
 execute unless entity @s[tag=gulce_admin] run function glc_menu:handler/dialog/not_permission with storage glc_menu:names temp
 execute unless entity @s[tag=gulce_admin] run return 0
 
+# Cooldown uygula (v2.0.0 - Configurable)
+execute store result score @s gulce_cooldown run data get storage glc:config cooldowns.menu_open
+
 # Dialog göster (NAME ve ui storage'dan)
 function glc_menu:handler/dialog/show_final with storage glc_menu:names temp
 
@@ -25,4 +28,5 @@ tag @s remove glc.show_pending
 tag @s remove closed.glc
 
 # Log
-execute if entity @s[tag=gulce_debug] run tellraw @s ["",{"text":"[GLC] ","color":"light_purple","bold":true},{"text":"Dialog gösterildi","color":"green"}]
+execute if entity @s[tag=glc.lang_tr,tag=gulce_debug] run tellraw @s [{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog gösterildi",color:"green"}]
+execute if entity @s[tag=glc.lang_en,tag=gulce_debug] run tellraw @s [{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog shown",color:"green"}]
