@@ -76,5 +76,18 @@ options.txt.bak
 command_history.txt.bak
 .minecraft/
 *.zip
+!data/
+!pack.mcmeta
+!pack.png
+backup*.zip
+backup*.rar
+
+# Other
 *.rar
 *.jar
+*.tar
+test.tar
+*.tar.gz
+test.tar.gz
+*.png
+*.jpg
