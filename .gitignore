@@ -75,7 +75,6 @@ tlauncher_profile.json.bak
 options.txt.bak
 command_history.txt.bak
 .minecraft/
-*.zip
 !data/
 !pack.mcmeta
 !pack.png
