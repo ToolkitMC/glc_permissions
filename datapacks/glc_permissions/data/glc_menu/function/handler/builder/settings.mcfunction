@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Settings Menu Builder (v2.0.3)
+# Settings Menu Builder (v2.0.3-fix)
 # Menu ID: 60
 # Purpose: Configure language and cooldown settings
 # ═══════════════════════════════════════════════════
