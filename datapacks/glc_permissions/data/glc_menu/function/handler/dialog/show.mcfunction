@@ -12,7 +12,7 @@ data modify storage glc_menu:names temp.ui set from storage glc:ui ui
 execute unless entity @s[tag=gulce_admin] run function glc_menu:handler/dialog/not_permission with storage glc_menu:names temp
 execute unless entity @s[tag=gulce_admin] run return 0
 
-# Cooldown uygula (v2.0.0 - Configurable)
+# Cooldown uygula (v2.0.1 - Configurable)
 execute store result score @s gulce_cooldown run data get storage glc:config cooldowns.menu_open
 
 # Dialog göster (NAME ve ui storage'dan)
