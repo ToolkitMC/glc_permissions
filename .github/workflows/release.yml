@@ -13,41 +13,51 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set Folder Names
         id: folders
         run: |
           VERSION="${{ github.event.inputs.version }}"
           VER_CLEAN=$(echo "$VERSION" | sed 's/^v//' | tr '.' '_')
-          RP_DIR="packs/Gulce_s_Permissions_RP_v${VER_CLEAN}"
-          DP_DIR="packs/Gulce_s_Permissions_v${VER_CLEAN}-DP"
+          
+          # Mevcut klasörleri listele
+          echo "📂 Mevcut packs klasörleri:"
+          ls packs/
+          
+          # Klasör adlarını bul (tam eşleşme yerine arama yap)
+          RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*${VER_CLEAN}*" | head -1)
+          DP_DIR=$(find packs -maxdepth 1 -type d -name "*${VER_CLEAN}*DP*" | head -1)
+          
+          echo "🔍 Bulunan RP klasörü: $RP_DIR"
+          echo "🔍 Bulunan DP klasörü: $DP_DIR"
+          
+          if [ -z "$RP_DIR" ]; then
+            echo "❌ RP klasörü bulunamadı! VER_CLEAN=$VER_CLEAN"
+            exit 1
+          fi
+          if [ -z "$DP_DIR" ]; then
+            echo "❌ DP klasörü bulunamadı! VER_CLEAN=$VER_CLEAN"
+            exit 1
+          fi
+          
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
           echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
           echo "rp_zip=Gulce_s_Permissions_RP_${VERSION}.zip" >> $GITHUB_OUTPUT
           echo "dp_zip=Gulce_s_Permissions_DP_${VERSION}.zip" >> $GITHUB_OUTPUT
-      - name: Validate Folders
-        run: |
-          RP="${{ steps.folders.outputs.rp_dir }}"
-          DP="${{ steps.folders.outputs.dp_dir }}"
-          if [ ! -d "$RP" ]; then
-            echo "❌ RP klasörü bulunamadı: $RP"
-            exit 1
-          fi
-          if [ ! -d "$DP" ]; then
-            echo "❌ DP klasörü bulunamadı: $DP"
-            exit 1
-          fi
-          echo "✅ Her iki klasör doğrulandı"
+
       - name: Create RP ZIP
         run: |
           cd "${{ steps.folders.outputs.rp_dir }}"
           zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
           echo "✅ RP ZIP oluşturuldu"
+
       - name: Create DP ZIP
         run: |
           cd "${{ steps.folders.outputs.dp_dir }}"
           zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
           echo "✅ DP ZIP oluşturuldu"
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
