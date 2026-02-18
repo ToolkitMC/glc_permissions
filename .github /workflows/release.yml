@@ -1,0 +1,124 @@
+name: Release Datapack
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packs/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+      pack_format:
+        description: 'pack_format override (bos birakirsan otomatik)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Get Version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION=$(git log -1 --pretty=%B | grep -oP 'v\d+\.\d+\.\d+' | head -1)
+            if [ -z "$VERSION" ]; then
+              VERSION="v1.0.${GITHUB_RUN_NUMBER}"
+            fi
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Releasing: $VERSION"
+
+      - name: Find Pack Directories
+        id: dirs
+        run: |
+          DP_DIR=$(find packs/ -maxdepth 1 -type d -name "*-DP" | head -1)
+          RP_DIR=$(find packs/ -maxdepth 1 -type d -name "*-RP" | head -1)
+          echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
+          echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
+          echo "DP: $DP_DIR"
+          echo "RP: $RP_DIR"
+
+      - name: Validate Datapack
+        run: |
+          DIR="${{ steps.dirs.outputs.dp_dir }}"
+          [ -n "$DIR" ]             || { echo "DP bulunamadi (packs/*-DP)"; exit 1; }
+          [ -d "$DIR" ]             || { echo "Dizin yok: $DIR"; exit 1; }
+          [ -f "$DIR/pack.mcmeta" ] || { echo "pack.mcmeta yok: $DIR"; exit 1; }
+          [ -d "$DIR/data" ]        || { echo "data/ yok: $DIR"; exit 1; }
+          echo "Validated: $DIR"
+
+      - name: Inject pack_format and version
+        run: |
+          echo "${{ steps.version.outputs.version }}"         > /tmp/glc_version
+          echo "${{ github.event.inputs.pack_format }}"       > /tmp/glc_override
+          echo "${{ steps.dirs.outputs.dp_dir }}"             > /tmp/glc_dp_dir
+          echo "${{ steps.dirs.outputs.rp_dir }}"             > /tmp/glc_rp_dir
+          echo "" | base64 -d | python3
+
+      - name: Create ZIPs
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          DP_DIR="${{ steps.dirs.outputs.dp_dir }}"
+          RP_DIR="${{ steps.dirs.outputs.rp_dir }}"
+
+          cd "$DP_DIR"
+          zip -r "$GITHUB_WORKSPACE/glc_permissions-${VERSION}-DP.zip" .
+          cd "$GITHUB_WORKSPACE"
+
+          if [ -n "$RP_DIR" ] && [ -d "$RP_DIR" ]; then
+            cd "$RP_DIR"
+            zip -r "$GITHUB_WORKSPACE/glc_permissions-${VERSION}-RP.zip" .
+            cd "$GITHUB_WORKSPACE"
+          fi
+
+          ls -lh glc_permissions-*.zip
+
+      - name: Generate Checksum
+        run: |
+          sha256sum glc_permissions-*.zip > checksums.txt
+          cat checksums.txt
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: GLC Permissions ${{ steps.version.outputs.version }}
+          make_latest: true
+          fail_on_unmatched_files: true
+          body: |
+            ## GLC Permissions ${{ steps.version.outputs.version }}
+
+            | Dosya | Aciklama |
+            |-------|----------|
+            | glc_permissions-${{ steps.version.outputs.version }}-DP.zip | Datapack |
+            | glc_permissions-${{ steps.version.outputs.version }}-RP.zip | Resource Pack |
+
+            **Kurulum**
+            1. DP.zip icini world/datapacks/ klasorune at
+            2. RP.zip icini resourcepacks/ klasorune at
+            3. /reload ile yukle
+            4. /function glc_permissions:setup ile baslat
+
+            **Gereksinimler:** Minecraft 1.21.7+ | Build ${{ github.run_number }}
+          files: |
+            glc_permissions-${{ steps.version.outputs.version }}-DP.zip
+            glc_permissions-${{ steps.version.outputs.version }}-RP.zip
+            checksums.txt
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
