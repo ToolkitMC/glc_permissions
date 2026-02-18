@@ -27,7 +27,7 @@ scoreboard players set @s gulce_trigger 0
 # PERF FIX: Log sadece debug modda
 execute as @a[tag=gulce_debug,tag=glc.lang_tr] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Trigger çalıştırıldı: ",color:"gray"},{selector:"@s",color:"yellow"}]
 execute as @a[tag=gulce_debug,tag=glc.lang_en] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"Trigger çalıştırıldı: ",color:"gray"},{selector:"@s",color:"yellow"}]
-# v2.2.0: Yeni panel yönlendirmeleri
+# v2.5.1: Yeni panel yönlendirmeleri
 execute if score @s gulce_trigger matches 10 run function custom_admin:features/fun/panel
 execute if score @s gulce_trigger matches 11 run function custom_admin:features/owner/automation_panel
 execute if score @s gulce_trigger matches 12 run function custom_admin:features/mod/player_management

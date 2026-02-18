@@ -62,7 +62,7 @@ execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run 
 
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"◀️ Ana Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
 
-# v2.2.0: Rol bazlı ek butonlar
+# v2.5.1: Rol bazlı ek butonlar
 # Eğlence Paneli (MOD+)
 execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"🎉 Eğlence Paneli",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 10"}}
 execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🎉 Fun Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 10"}}

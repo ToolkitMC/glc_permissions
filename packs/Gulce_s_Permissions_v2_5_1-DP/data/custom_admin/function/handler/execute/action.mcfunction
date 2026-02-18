@@ -37,7 +37,7 @@ execute if data storage glc:temp temp.exec_action{type:'weather'} run function c
 execute if data storage glc:temp temp.exec_action{type:'time'} run function custom_admin:handler/execute/types/time
 execute if data storage glc:temp temp.exec_action{type:'dialog'} run function custom_admin:handler/execute/types/dialog
 execute if data storage glc:temp temp.exec_action{type:'chain'} run function custom_admin:handler/execute/types/chain
-# YENİ EYLEMLER (v2.2.0)
+# YENİ EYLEMLER (v2.5.1)
 execute if data storage glc:temp temp.exec_action{type:'xp'} run function custom_admin:handler/execute/types/xp
 execute if data storage glc:temp temp.exec_action{type:'kick'} run function custom_admin:handler/execute/types/kick
 execute if data storage glc:temp temp.exec_action{type:'setblock'} run function custom_admin:handler/execute/types/setblock

@@ -87,15 +87,15 @@ execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"  ✅ S
 execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
 execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
 
-# v2.2.0: Yeni timer başlangıç değerleri
+# v2.5.1: Yeni timer başlangıç değerleri
 execute unless score #auto_ann_tick glc.timer matches -2147483648.. run scoreboard players set #auto_ann_tick glc.timer 1200
 execute unless score #permission_sync glc.timer matches -2147483648.. run scoreboard players set #permission_sync glc.timer 40
 
-# v2.2.0: Welcome config yoksa varsayılan oluştur
+# v2.5.1: Welcome config yoksa varsayılan oluştur
 execute unless data storage glc:config welcome run data modify storage glc:config welcome set value {enabled:1b,message:"Sunucuya hoş geldin!"}
 
-# v2.2.0: Auto announce config yoksa oluştur
+# v2.5.1: Auto announce config yoksa oluştur
 execute unless data storage glc:config auto_announce run data modify storage glc:config auto_announce set value {enabled:0b,messages:["GULCE Admin Power aktif!","VIP için yetkili ile görüşün."],interval:2400,current_index:0}
 
-# v2.2.0: VIP teleport locations yoksa spawn varsayılanı ekle
+# v2.5.1: VIP teleport locations yoksa spawn varsayılanı ekle
 execute unless data storage glc:config teleport_locations run data modify storage glc:config teleport_locations set value {spawn:{x:0,y:64,z:0},castle:{x:0,y:64,z:0},mine:{x:0,y:20,z:0},forest:{x:100,y:64,z:100},ocean:{x:200,y:62,z:200},mountain:{x:0,y:120,z:0}}

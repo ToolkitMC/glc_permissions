@@ -21,7 +21,7 @@ execute if entity @a run scoreboard players remove #menu_tick glc.timer 1
 # Menu Opener - Carrot on stick kullanımı
 execute as @a[scores={gulce.used=1..},predicate=glc_menu:holding_menu_item] run function glc_menu:handler/builder/main
 scoreboard players set @a[scores={gulce.used=1..}] gulce.used 0
-# ─── v2.2.0 EKLEMELERİ ───────────────────────────────────────────
+# ─── v2.5.1 EKLEMELERİ ───────────────────────────────────────────
 
 # Auto Announce - Ayarlanan aralıkta otomatik duyuru
 execute if entity @a if score #auto_ann_tick glc.timer matches ..0 run function custom_admin:handler/automation/auto_announce_tick
