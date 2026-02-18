@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'datapacks/glc_permissions/**'  # FIX 1: packs → glc_permissions
+      - 'packs/**'  # FIX 1: packs → glc_permissions
   workflow_dispatch:
     inputs:
       version:
