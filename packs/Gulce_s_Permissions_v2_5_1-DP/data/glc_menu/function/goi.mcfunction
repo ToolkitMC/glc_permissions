@@ -1,0 +1,1 @@
+execute at @s run function glc_menu:handler/utils/give_open_item
