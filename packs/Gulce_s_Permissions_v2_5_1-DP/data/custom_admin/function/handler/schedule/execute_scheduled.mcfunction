@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Zamanlanmış Eylemi Çalıştır - DÜZELTME v1.2.0
+# Zamanlanmış Eylemi Çalıştır - DÜZELTME v2.5.4
 # DÜZELTME: Silme işlemi kaldırıldı, sadece işaretle
 # ═══════════════════════════════════════════════════
 

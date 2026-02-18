@@ -1,4 +1,4 @@
-# Cooldown kontrolü (v2.1.0 - Configurable & Bilingual)
+# Cooldown kontrolü (v2.5.4 - Configurable & Bilingual)
 # Turkish messages
 execute if score @s gulce_cooldown matches 1.. if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GLC] ",color:"aqua",bold:true},{text:"Lütfen bekleyin! Cooldown: ",color:"red"},{score:{name:"@s",objective:"gulce_cooldown"},color:"yellow"},{text:" tick",color:"red"}]
 

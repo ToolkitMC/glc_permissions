@@ -5,7 +5,7 @@
 # Sil
 $function custom_admin:handler/remove/permission {id:"$(id)"}
 
-# Feedback (Bilingual v2.1.0)
+# Feedback (Bilingual v2.5.4)
 $execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GLC] ",color:"light_purple",bold:true},{text:"🗑️ İzin silindi: ",color:"red"},{text:"$(id)",color:"yellow"}]
 $execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GLC] ",color:"light_purple",bold:true},{text:"🗑️ Permission deleted: ",color:"red"},{text:"$(id)",color:"yellow"}]
 

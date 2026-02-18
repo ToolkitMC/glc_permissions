@@ -1,11 +1,11 @@
 # ═══════════════════════════════════════════════════
-# Remove Current - DEPRECATED v1.2.0
+# Remove Current - DEPRECATED v2.5.4
 # Bu fonksiyon artık kullanılmamalı!
 # ═══════════════════════════════════════════════════
 
 # UYARI: Eski metod - artık mark_for_deletion kullanılıyor
-execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE WARNING] ",color:"red",bold:true},{text:"remove_current deprecated! Update to v1.2.0",color:"yellow"}]
-execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE WARNING] ",color:"red",bold:true},{text:"remove_current deprecated! Update to v1.2.0",color:"yellow"}]
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE WARNING] ",color:"red",bold:true},{text:"remove_current deprecated! Update to v2.5.4",color:"yellow"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE WARNING] ",color:"red",bold:true},{text:"remove_current deprecated! Update to v2.5.4",color:"yellow"}]
 
 # Eski kod (geriye dönük uyumluluk için)
 $data remove storage glc:data scheduled[$(current_index)]

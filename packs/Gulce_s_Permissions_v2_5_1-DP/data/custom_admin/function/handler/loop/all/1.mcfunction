@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════
 # GULCE Admin Power - Main Tick Loop (SCHEDULED)
-# v1.2.1 - Return 0 uyumluluk düzeltmesi
+# v2.5.4 - Return 0 uyumluluk düzeltmesi
 # ═══════════════════════════════════════════════════
 
 # Flag kontrolü ve oyuncu kontrolü: Her şeyi tek execute'da yap

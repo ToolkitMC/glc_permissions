@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# TP Execute (v1.2.0)
+# TP Execute (v2.5.4)
 # Macro: {loc:"spawn|castle|mine|..."}
 # Storage'dan konum bilgisini okuyup "with storage" ile TP yapar
 # ═══════════════════════════════════════════════════

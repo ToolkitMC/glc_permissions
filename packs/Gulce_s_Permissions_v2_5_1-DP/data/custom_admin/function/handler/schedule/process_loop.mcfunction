@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Zamanlama Loop İşleyici - DÜZELTME v1.2.1
+# Zamanlama Loop İşleyici - DÜZELTME v2.5.4
 # DÜZELTME: Her tick çalışır, max 20 schedule işler
 # ═══════════════════════════════════════════════════
 

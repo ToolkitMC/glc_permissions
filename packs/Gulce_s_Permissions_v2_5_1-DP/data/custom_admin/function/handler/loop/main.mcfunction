@@ -9,7 +9,7 @@ execute if score #custom_timer glc.timer matches 0 run function custom_admin:han
 # Cooldown azaltma
 execute as @a[scores={gulce_cooldown=1..}] run scoreboard players remove @s gulce_cooldown 1
 
-# Rate limit kontrolü (v2.3.0)
+# Rate limit kontrolü (v2.5.4)
 # Her 20 tick'te bir çalıştır (timer sıfırlandığında)
 execute if score #custom_timer glc.timer matches 0 run function custom_admin:util/rate_limit/check
 

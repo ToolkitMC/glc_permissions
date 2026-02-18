@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Schedule Add (WRAPPER for API v1.1)
+# Schedule Add (WRAPPER for API v2.5.4)
 # Purpose: Wrapper that calls handler schedule add
 # Parameters: {action_id, delay, player}
 # Permission Level: 2 (no OP required)

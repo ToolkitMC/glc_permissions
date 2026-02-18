@@ -10,7 +10,7 @@ execute if data storage glc:temp temp.exec_action{enabled:0b} if entity @s[tag=g
 execute if data storage glc:temp temp.exec_action{enabled:0b} if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ Action is disabled!",color:"red"}]
 execute if data storage glc:temp temp.exec_action{enabled:0b} run return 0
 
-# Eylem var mı kontrol (Bilingual v2.1.0)
+# Eylem var mı kontrol (Bilingual v2.5.4)
 $execute unless data storage glc:temp temp.exec_action if entity @s[tag=glc.lang_tr] run function custom_admin:util/feedback/error {message:"Eylem bulunamadı: $(id)"}
 $execute unless data storage glc:temp temp.exec_action if entity @s[tag=glc.lang_en] run function custom_admin:util/feedback/error {message:"Action not found: $(id)"}
 $execute unless data storage glc:temp temp.exec_action unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run function custom_admin:util/feedback/error {message:"Eylem bulunamadı: $(id)"}
@@ -37,15 +37,15 @@ execute if data storage glc:temp temp.exec_action{type:'weather'} run function c
 execute if data storage glc:temp temp.exec_action{type:'time'} run function custom_admin:handler/execute/types/time
 execute if data storage glc:temp temp.exec_action{type:'dialog'} run function custom_admin:handler/execute/types/dialog
 execute if data storage glc:temp temp.exec_action{type:'chain'} run function custom_admin:handler/execute/types/chain
-# YENİ EYLEMLER (v2.2.0)
+# YENİ EYLEMLER (v2.5.4)
 execute if data storage glc:temp temp.exec_action{type:'xp'} run function custom_admin:handler/execute/types/xp
 execute if data storage glc:temp temp.exec_action{type:'kick'} run function custom_admin:handler/execute/types/kick
 execute if data storage glc:temp temp.exec_action{type:'setblock'} run function custom_admin:handler/execute/types/setblock
 
-# YENİ EYLEMLER (v2.3.0)
+# YENİ EYLEMLER (v2.5.4)
 execute if data storage glc:temp temp.exec_action{type:'broadcast'} run function custom_admin:handler/execute/types/broadcast
 
-# YENİ EYLEMLER (v2.5.0)
+# YENİ EYLEMLER (v2.5.4)
 # custom: Herhangi bir fonksiyonu macro args ile çağırır
 execute if data storage glc:temp temp.exec_action{type:'custom'} run function custom_admin:handler/execute/types/custom
 
@@ -53,10 +53,10 @@ execute if data storage glc:temp temp.exec_action{type:'custom'} run function cu
 $execute if entity @s[tag=gulce_debug] if entity @s[tag=glc.lang_tr] run function custom_admin:util/feedback/success {message:"Eylem çalıştırıldı: $(id)"}
 $execute if entity @s[tag=gulce_debug] if entity @s[tag=glc.lang_en] run function custom_admin:util/feedback/success {message:"Action executed: $(id)"}
 
-# Cooldown uygula (v2.1.0 - Configurable)
+# Cooldown uygula (v2.5.4 - Configurable)
 execute store result score @s gulce_cooldown run data get storage glc:config cooldowns.action_execute
 
-# Rate limit sayacını artır (v2.3.0)
+# Rate limit sayacını artır (v2.5.4)
 scoreboard players add @s glc.rate_exec 1
 
 # PERF FIX: Admin log sadece debug modda

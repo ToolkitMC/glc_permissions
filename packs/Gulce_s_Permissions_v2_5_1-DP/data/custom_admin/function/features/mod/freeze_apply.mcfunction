@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Freeze Apply (v1.1.0) - called as target player
+# Freeze Apply (v2.5.4.0) - called as target player
 # Macro: {action:"freeze|unfreeze"}
 # "if string" kaldırıldı → ayrı fonksiyona yönlendir
 # ═══════════════════════════════════════════════════

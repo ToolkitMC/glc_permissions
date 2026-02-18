@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Add Permission (WRAPPER for API v1.1)
+# Add Permission (WRAPPER for API v2.5.4)
 # SYNTAX FIX: Önceki versiyonda validation/id sonrası #valid skoru
 # #id_len üzerinden kontrol ediliyordu (yanlış referans).
 # validation/level sonrası ise #valid skoru override edilip

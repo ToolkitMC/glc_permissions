@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Mark for Deletion - YENİ v1.2.0
+# Mark for Deletion - YENİ v2.5.4
 # Silinmek üzere işaretle (MACRO)
 # ═══════════════════════════════════════════════════
 

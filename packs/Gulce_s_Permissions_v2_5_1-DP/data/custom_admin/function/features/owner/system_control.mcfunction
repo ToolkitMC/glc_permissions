@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# 👑 GULCE OWNER PANEL - SYSTEM CONTROL (v2.2.0)
+# 👑 GULCE OWNER PANEL - SYSTEM CONTROL (v2.5.4)
 # ═══════════════════════════════════════════════════
 
 # 1. YETKİ KONTROLÜ

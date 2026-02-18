@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Schedule: Tick (OPTIMIZED v1.1 with flag system)
+# Schedule: Tick (OPTIMIZED v2.5.4 with flag system)
 # Purpose: Process scheduled actions
 # Called: Only when #has_scheduled flag is set
 # Permission Level: 2 (no OP required)

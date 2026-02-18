@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# GULCE Admin Power - Active Loop (v1.2.1)
+# GULCE Admin Power - Active Loop (v2.5.4)
 # Sistem aktif ve oyuncu varsa çalışır
 # ═══════════════════════════════════════════════════
 

@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Menu Notify (FIXED v1.1 - No click_event)
+# Menu Notify (FIXED v2.5.4 - No click_event)
 # Purpose: Menu opened notification
 # Parameters: macro from storage
 # Permission Level: 2 (no OP required)

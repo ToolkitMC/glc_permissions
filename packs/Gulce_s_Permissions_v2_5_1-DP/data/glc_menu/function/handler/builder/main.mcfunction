@@ -62,38 +62,9 @@ execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run 
 
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"◀️ Ana Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
 
-# v2.2.0: Rol bazlı ek butonlar
-# Eğlence Paneli (MOD+)
-execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"🎉 Eğlence Paneli",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 10"}}
-execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🎉 Fun Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 10"}}
-execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🎉 Eğlence Paneli",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 10"}}
+# v2.5.4: Rol bazlı ek butonlar
 
-# Otomasyon Paneli (OWNER)
-execute if entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"🤖 Otomasyon",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 11"}}
-execute if entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🤖 Automation",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 11"}}
-execute if entity @s[tag=gulce_owner] unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🤖 Otomasyon",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 11"}}
-
-# Mod Paneli (MOD+)
-execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"👮 Oyuncu Yönetimi",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 12"}}
-execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👮 Player Management",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 12"}}
-execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👮 Oyuncu Yönetimi",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 12"}}
-
-# VIP Efektler (VIP+)
-execute if score @s gulce_permission_level matches 2.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"✨ VIP Efektler",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 13"}}
-execute if score @s gulce_permission_level matches 2.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"✨ VIP Effects",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 13"}}
-execute if score @s gulce_permission_level matches 2.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"✨ VIP Efektler",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 13"}}
-
-# VIP Işınlanma (VIP+)
-execute if score @s gulce_permission_level matches 2.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"🚀 Hızlı Işınlan",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 14"}}
-execute if score @s gulce_permission_level matches 2.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🚀 Quick Teleport",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 14"}}
-execute if score @s gulce_permission_level matches 2.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🚀 Hızlı Işınlan",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 14"}}
-
-# Owner Kontrol (OWNER)
-execute if entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"👑 Owner Kontrol",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 15"}}
-execute if entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👑 Owner Control",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 15"}}
-execute if entity @s[tag=gulce_owner] unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👑 Owner Kontrol",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 15"}}
-
-# v2.5.0: Yeni Paneller
+# v2.5.4: Yeni Paneller
 # Uyarı Yönetimi (MOD+)
 execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"⚠️ Uyarı Yönetimi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 20"}}
 # NameTag Hızlı Giriş (MOD+)

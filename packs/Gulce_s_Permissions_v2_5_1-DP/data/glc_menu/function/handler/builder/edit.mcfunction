@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Toplu Düzenleme Menüsü (v2.1.0 - Full Bilingual)
+# Toplu Düzenleme Menüsü (v2.5.4 - Full Bilingual)
 # ═══════════════════════════════════════════════════
 
 # Loading göster

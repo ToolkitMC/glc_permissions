@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Cleanup Deleted - YENİ v1.2.0
+# Cleanup Deleted - YENİ v2.5.4
 # Loop bittikten SONRA işaretli action'ları sil
 # ═══════════════════════════════════════════════════
 

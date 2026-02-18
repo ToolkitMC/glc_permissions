@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# API: Add Permission (REFACTORED v1.1)
+# API: Add Permission (REFACTORED v2.5.4)
 # Purpose: Yeni izin ekler (validation + error handling)
 # Parameters: {id, player, permission, level}
 # Returns: Success 1, Fail 0

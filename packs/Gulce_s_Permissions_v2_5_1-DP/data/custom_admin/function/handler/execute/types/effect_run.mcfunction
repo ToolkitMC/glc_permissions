@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Effect Run (v1.1.0)
+# Effect Run (v2.5.4.0)
 # Macro: $(selector) $(effect) $(duration) $(amplifier)
 # effect: "minecraft:speed" formatında olmalı
 # ═══════════════════════════════════════════════════
