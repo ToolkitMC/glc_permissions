@@ -3,10 +3,10 @@ name: Lint & Validate
 on:
   push:
     paths:
-      - 'datapacks/**'
+      - 'packs/**'
   pull_request:
     paths:
-      - 'datapacks/**'
+      - 'packs/**'
 
 permissions:
   contents: read
@@ -27,256 +27,211 @@ jobs:
       # ── 1. JSON Lint ─────────────────────────────────────────
       - name: JSON Lint
         run: |
-          echo "🔍 JSON dosyaları kontrol ediliyor..."
           ERRORS=0
-
           while IFS= read -r f; do
             if python3 -m json.tool "$f" > /dev/null 2>&1; then
-              echo "  ✓ $f"
+              echo "  OK $f"
             else
-              echo "  ❌ Bozuk JSON: $f"
+              echo "  HATA Bozuk JSON: $f"
               python3 -m json.tool "$f" 2>&1 | tail -1
               ERRORS=$((ERRORS+1))
             fi
-          done < <(find datapacks/ -name "*.json" -o -name "*.mcmeta")
-
-          [ $ERRORS -eq 0 ] || { echo "❌ $ERRORS JSON hatası bulundu."; exit 1; }
-          echo "✓ Tüm JSON dosyaları geçerli"
+          done < <(find packs/ -name "*.json" -o -name "*.mcmeta")
+          [ $ERRORS -eq 0 ] || { echo "$ERRORS JSON hatasi bulundu."; exit 1; }
+          echo "Tum JSON dosyalari gecerli"
 
       # ── 2. pack.mcmeta Kontrolü ───────────────────────────────
       - name: Validate pack.mcmeta
         run: |
-          python3 -c "
-          import json, sys, pathlib
+          python3 - << 'PYEOF'
+import json, sys, pathlib
 
-          errors = []
-          for meta in pathlib.Path('datapacks').rglob('pack.mcmeta'):
-              try:
-                  data = json.loads(meta.read_text())
-              except json.JSONDecodeError as e:
-                  errors.append(f'{meta}: Geçersiz JSON -> {e}')
-                  continue
+errors = []
+for meta in pathlib.Path('packs').rglob('pack.mcmeta'):
+    try:
+        data = json.loads(meta.read_text())
+    except json.JSONDecodeError as e:
+        errors.append(f'{meta}: Gecersiz JSON -> {e}')
+        continue
 
-              pack = data.get('pack', {})
+    pack = data.get('pack', {})
 
-              if 'pack_format' not in pack:
-                  errors.append(f'{meta}: pack_format eksik')
-              elif not isinstance(pack['pack_format'], int):
-                  errors.append(f'{meta}: pack_format integer olmali')
-              elif pack['pack_format'] < 1:
-                  errors.append(f'{meta}: pack_format gecersiz deger ({pack[\"pack_format\"]})')
-              else:
-                  print(f'  ok {meta} -> pack_format: {pack[\"pack_format\"]}')
+    if 'pack_format' not in pack:
+        errors.append(f'{meta}: pack_format eksik')
+    elif not isinstance(pack['pack_format'], int):
+        errors.append(f'{meta}: pack_format integer olmali')
+    elif pack['pack_format'] < 1:
+        errors.append(f'{meta}: pack_format gecersiz ({pack["pack_format"]})')
+    else:
+        print(f'  OK {meta} -> pack_format: {pack["pack_format"]}')
 
-              if 'description' not in pack:
-                  errors.append(f'{meta}: description eksik')
+    if 'description' not in pack:
+        errors.append(f'{meta}: description eksik')
 
-          if errors:
-              print('HATA:')
-              for e in errors: print(f'  {e}')
-              sys.exit(1)
+if errors:
+    for e in errors: print(f'  HATA {e}')
+    sys.exit(1)
 
-          print('Tum pack.mcmeta dosyalari gecerli')
-          "
+print('Tum pack.mcmeta dosyalari gecerli')
+PYEOF
 
       # ── 3. mcfunction Lint + Makro Validator ─────────────────
       - name: mcfunction Lint & Macro Validator
         run: |
-          python3 << 'PYEOF'
-          import re, sys
-          from pathlib import Path
+          python3 - << 'PYEOF'
+import re, sys
+from pathlib import Path
 
-          # Gecerli makro: $( snake_case )
-          VALID_MACRO = re.compile(r'^\$\([a-zA-Z_][a-zA-Z0-9_]*\)$')
+VALID_MACRO = re.compile(r'^\$\([a-zA-Z_][a-zA-Z0-9_]*\)$')
 
-          # Gecersiz makro pattern'leri
-          INVALID_PATTERNS = [
-              (re.compile(r'\$\(\s*\)'),
-               "bos makro $()"),
-              (re.compile(r'\$\([^)]*\s[^)]*\)'),
-               "bosluk iceren makro $( ... )"),
-              (re.compile(r'\$\([^)]*\d[^)]*\.[^)]*\)|\$\([^)]*\.[^)]*\d[^)]*\)'),
-               "rakam+nokta iceren makro, ornek: $(1.2.3)"),
-              (re.compile(r'\$\([^)]*[<>|&;!\'"@#%^*+=\[\]{}\\][^)]*\)'),
-               "ozel karakter iceren makro, ornek: $(<x>)"),
-              (re.compile(r'\$\([^)]*[^\x00-\x7F][^)]*\)'),
-               "Turkce/non-ASCII iceren makro, ornek: $(ğşıöü)"),
-              (re.compile(r'\$\([^)]*\.[^)]*\)'),
-               "nokta iceren makro, ornek: $(a.b)"),
-          ]
+INVALID_PATTERNS = [
+    (re.compile(r'\$\(\s*\)'),                                              "bos makro $()"),
+    (re.compile(r'\$\([^)]*\s[^)]*\)'),                                    "bosluk iceren makro"),
+    (re.compile(r'\$\([^)]*\d[^)]*\.[^)]*\)|\$\([^)]*\.[^)]*\d[^)]*\)'), "rakam+nokta iceren makro"),
+    (re.compile(r'\$\([^)]*[<>|&;!\'"@#%^*+=\[\]{}\\][^)]*\)'),           "ozel karakter iceren makro"),
+    (re.compile(r'\$\([^)]*[^\x00-\x7F][^)]*\)'),                         "non-ASCII/Turkce iceren makro"),
+    (re.compile(r'\$\([^)]*\.[^)]*\)'),                                    "nokta iceren makro"),
+]
 
-          # Komut syntax kontrolleri
-          BAD_COMMANDS = [
-              (re.compile(r'^(?!\$?\s*#)execute\b(?!.*\brun\b).*$', re.IGNORECASE),
-               "execute komutu 'run' olmadan bitiyor"),
-              (re.compile(r'^\$?(?:.*\brun\s+)?function\s+(?![a-zA-Z0-9_\-]+:[a-zA-Z0-9_\-/]+\S*\s*$)(\S+)', re.IGNORECASE),
-               "function cagrisinda namespace eksik (namespace:path gerekli)"),
-          ]
+BAD_COMMANDS = [
+    (re.compile(r'^(?!\$?\s*#)execute\b(?!.*\brun\b).*$', re.IGNORECASE),
+     "execute 'run' olmadan bitiyor"),
+    (re.compile(r'^\$?(?:.*\brun\s+)?function\s+(?![a-zA-Z0-9_\-]+:[a-zA-Z0-9_\-/]+\S*\s*$)(\S+)', re.IGNORECASE),
+     "function namespace eksik"),
+]
 
-          errors   = []
-          warnings = []
-          files_ok = 0
+errors = []
+warnings = []
+files_ok = 0
 
-          for f in sorted(Path('datapacks').rglob('*.mcfunction')):
-              file_errors = 0
-              lines = f.read_text(encoding='utf-8', errors='replace').splitlines()
+for f in sorted(Path('packs').rglob('*.mcfunction')):
+    file_errors = 0
+    lines = f.read_text(encoding='utf-8', errors='replace').splitlines()
 
-              for lineno, line in enumerate(lines, 1):
-                  stripped = line.strip()
-                  if not stripped or stripped.startswith('#'):
-                      continue
+    for lineno, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if not stripped or stripped.startswith('#'):
+            continue
 
-                  # Makro kontrolleri
-                  for macro in re.findall(r'\$\([^)]*\)', stripped):
-                      matched = None
-                      for pattern, reason in INVALID_PATTERNS:
-                          if pattern.search(macro):
-                              matched = reason
-                              break
-                      if matched:
-                          errors.append(f"{f}:{lineno}: gecersiz makro '{macro}' -> {matched}")
-                          errors.append(f"    | {stripped[:120]}")
-                          file_errors += 1
-                      elif not VALID_MACRO.match(macro):
-                          errors.append(f"{f}:{lineno}: tanimsiz makro formati '{macro}'")
-                          errors.append(f"    | {stripped[:120]}")
-                          file_errors += 1
+        for macro in re.findall(r'\$\([^)]*\)', stripped):
+            matched = None
+            for pattern, reason in INVALID_PATTERNS:
+                if pattern.search(macro):
+                    matched = reason
+                    break
+            if matched:
+                errors.append(f"{f}:{lineno}: gecersiz makro '{macro}' -> {matched}")
+                errors.append(f"    | {stripped[:120]}")
+                file_errors += 1
+            elif not VALID_MACRO.match(macro):
+                errors.append(f"{f}:{lineno}: tanimsiz makro '{macro}'")
+                errors.append(f"    | {stripped[:120]}")
+                file_errors += 1
 
-                  # Komut syntax
-                  for pattern, reason in BAD_COMMANDS:
-                      if pattern.search(stripped):
-                          warnings.append(f"{f}:{lineno}: {reason}")
-                          warnings.append(f"    | {stripped[:120]}")
-                          break
+        for pattern, reason in BAD_COMMANDS:
+            if pattern.search(stripped):
+                warnings.append(f"{f}:{lineno}: {reason}")
+                warnings.append(f"    | {stripped[:120]}")
+                break
 
-                  # Trailing whitespace
-                  if line != line.rstrip():
-                      warnings.append(f"{f}:{lineno}: trailing whitespace")
+        if line != line.rstrip():
+            warnings.append(f"{f}:{lineno}: trailing whitespace")
 
-              if file_errors == 0:
-                  files_ok += 1
+    if file_errors == 0:
+        files_ok += 1
 
-          total = len(list(Path('datapacks').rglob('*.mcfunction')))
-          print(f"\n{total} .mcfunction dosyasi tarandi, {files_ok} temiz")
+total = len(list(Path('packs').rglob('*.mcfunction')))
+print(f"\n{total} .mcfunction tarandi, {files_ok} temiz")
 
-          if warnings:
-              print(f"\n{len([w for w in warnings if not w.startswith('    ')])} uyari:")
-              for w in warnings:
-                  print(f"  {w}")
+if warnings:
+    print(f"\n{len([w for w in warnings if not w.startswith('    ')])} uyari:")
+    for w in warnings: print(f"  {w}")
 
-          if errors:
-              print(f"\n{len([e for e in errors if not e.startswith('    ')])} hata:")
-              for e in errors:
-                  print(f"  {e}")
-              sys.exit(1)
+if errors:
+    print(f"\n{len([e for e in errors if not e.startswith('    ')])} hata:")
+    for e in errors: print(f"  {e}")
+    sys.exit(1)
 
-          print("Tum .mcfunction dosyalari temiz")
-          PYEOF
+print("Tum .mcfunction dosyalari temiz")
+PYEOF
 
       # ── 4. Namespace Referans Kontrolü ───────────────────────
       - name: Namespace Reference Check
         run: |
-          python3 << 'PYEOF'
-          import re, sys
-          from pathlib import Path
+          python3 - << 'PYEOF'
+import re, sys
+from pathlib import Path
 
-          # Mevcut namespace'leri topla
-          known_namespaces = set()
-          for ns_dir in Path('datapacks').rglob('data'):
-              if ns_dir.is_dir():
-                  for child in ns_dir.iterdir():
-                      if child.is_dir():
-                          known_namespaces.add(child.name)
+known_namespaces = set()
+for ns_dir in Path('packs').rglob('data'):
+    if ns_dir.is_dir():
+        for child in ns_dir.iterdir():
+            if child.is_dir():
+                known_namespaces.add(child.name)
 
-          VANILLA = {'minecraft', 'forge', 'neoforge'}
-          print(f"Bulunan namespace'ler: {', '.join(sorted(known_namespaces))}")
+VANILLA = {'minecraft', 'forge', 'neoforge'}
+print(f"Namespace'ler: {', '.join(sorted(known_namespaces))}")
 
-          FUNC_REF = re.compile(r'\bfunction\s+([a-zA-Z0-9_\-]+):([a-zA-Z0-9_\-/]+)', re.IGNORECASE)
+FUNC_REF = re.compile(r'\bfunction\s+([a-zA-Z0-9_\-]+):([a-zA-Z0-9_\-/]+)', re.IGNORECASE)
+errors = []
+warnings = []
 
-          errors   = []
-          warnings = []
+for f in sorted(Path('packs').rglob('*.mcfunction')):
+    lines = f.read_text(encoding='utf-8', errors='replace').splitlines()
+    for lineno, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if not stripped or stripped.startswith('#'):
+            continue
+        for m in FUNC_REF.finditer(stripped):
+            ns, path = m.group(1), m.group(2)
+            if ns in VANILLA:
+                continue
+            if ns not in known_namespaces:
+                errors.append(f"{f}:{lineno}: bilinmeyen namespace '{ns}' -> {ns}:{path}")
+                errors.append(f"    | {stripped[:120]}")
+                continue
+            if not list(Path('packs').rglob(f"data/{ns}/function/{path}.mcfunction")):
+                warnings.append(f"{f}:{lineno}: fonksiyon bulunamadi -> {ns}:{path}")
 
-          for f in sorted(Path('datapacks').rglob('*.mcfunction')):
-              lines = f.read_text(encoding='utf-8', errors='replace').splitlines()
-              for lineno, line in enumerate(lines, 1):
-                  stripped = line.strip()
-                  if not stripped or stripped.startswith('#'):
-                      continue
+if warnings:
+    print(f"\n{len(warnings)} eksik referans:")
+    for w in warnings: print(f"  {w}")
 
-                  for m in FUNC_REF.finditer(stripped):
-                      ns   = m.group(1)
-                      path = m.group(2)
+if errors:
+    print(f"\n{len([e for e in errors if not e.startswith('    ')])} namespace hatasi:")
+    for e in errors: print(f"  {e}")
+    sys.exit(1)
 
-                      if ns in VANILLA:
-                          continue
-
-                      if ns not in known_namespaces:
-                          errors.append(
-                              f"{f}:{lineno}: bilinmeyen namespace '{ns}' -> function {ns}:{path}"
-                          )
-                          errors.append(f"    | {stripped[:120]}")
-                          continue
-
-                      # Fonksiyon dosyasi var mi?
-                      matches = list(Path('datapacks').rglob(
-                          f"data/{ns}/function/{path}.mcfunction"
-                      ))
-                      if not matches:
-                          warnings.append(
-                              f"{f}:{lineno}: fonksiyon dosyasi bulunamadi -> {ns}:{path}"
-                          )
-
-          if warnings:
-              print(f"\n{len(warnings)} eksik referans uyarisi:")
-              for w in warnings:
-                  print(f"  {w}")
-
-          if errors:
-              print(f"\n{len([e for e in errors if not e.startswith('    ')])} namespace hatasi:")
-              for e in errors:
-                  print(f"  {e}")
-              sys.exit(1)
-
-          print("Namespace referanslari gecerli")
-          PYEOF
+print("Namespace referanslari gecerli")
+PYEOF
 
       # ── 5. Klasör Yapısı ──────────────────────────────────────
       - name: Datapack Structure Check
         run: |
-          echo "Klasor yapisi kontrol ediliyor..."
           ERRORS=0
-
-          for dir in datapacks/*/; do
+          for dir in packs/*-DP/; do
             [ -d "$dir" ] || continue
             name=$(basename "$dir")
             DIR_OK=true
-
             [ -f "$dir/pack.mcmeta" ] || { echo "  HATA $name: pack.mcmeta eksik"; ERRORS=$((ERRORS+1)); DIR_OK=false; }
-            [ -d "$dir/data" ]        || { echo "  HATA $name: data/ dizini eksik"; ERRORS=$((ERRORS+1)); DIR_OK=false; }
-
-            [ "$DIR_OK" = true ] && echo "  OK $name yapisi gecerli"
+            [ -d "$dir/data" ]        || { echo "  HATA $name: data/ eksik";        ERRORS=$((ERRORS+1)); DIR_OK=false; }
+            [ "$DIR_OK" = true ] && echo "  OK $name"
           done
-
           [ $ERRORS -eq 0 ] || { echo "Yapi hatalari bulundu."; exit 1; }
 
       # ── 6. Dosya Boyutu ───────────────────────────────────────
       - name: File Size Check
         run: |
           ERRORS=0
-
           while IFS= read -r f; do
             SIZE=$(stat -c%s "$f")
             if [ "$SIZE" -gt 2097152 ]; then
-              echo "  HATA Asiri buyuk dosya: $f ($(du -h "$f" | cut -f1))"
+              echo "  HATA Buyuk dosya: $f ($(du -h "$f" | cut -f1))"
               ERRORS=$((ERRORS+1))
             fi
-          done < <(find datapacks/ -type f)
-
-          TOTAL=$(du -sb datapacks/ | cut -f1)
-          if [ "$TOTAL" -gt 52428800 ]; then
-            echo "  UYARI Toplam datapack boyutu buyuk: $(du -sh datapacks/ | cut -f1)"
-          fi
-
+          done < <(find packs/ -type f)
+          TOTAL=$(du -sb packs/ | cut -f1)
+          [ "$TOTAL" -gt 52428800 ] && echo "  UYARI Toplam boyut buyuk: $(du -sh packs/ | cut -f1)"
           [ $ERRORS -eq 0 ] || { echo "Boyut limiti asildi."; exit 1; }
           echo "Boyut kontrolleri gecti"
 
@@ -285,22 +240,18 @@ jobs:
         run: |
           ALLOWED="json mcmeta mcfunction png nbt md txt"
           ERRORS=0
-
           while IFS= read -r f; do
             EXT="${f##*.}"
             EXT="${EXT,,}"
-            ALLOWED_FLAG=false
-            for a in $ALLOWED; do
-              [ "$EXT" = "$a" ] && ALLOWED_FLAG=true && break
-            done
-            if [ "$ALLOWED_FLAG" = false ]; then
-              echo "  HATA Izin verilmeyen dosya tipi: $f (.${EXT})"
+            OK=false
+            for a in $ALLOWED; do [ "$EXT" = "$a" ] && OK=true && break; done
+            if [ "$OK" = false ]; then
+              echo "  HATA Izin verilmeyen: $f (.${EXT})"
               ERRORS=$((ERRORS+1))
             fi
-          done < <(find datapacks/ -type f)
-
+          done < <(find packs/ -type f)
           [ $ERRORS -eq 0 ] || { echo "Gecersiz dosya tipleri bulundu."; exit 1; }
-          echo "Tum dosya tipleri izin listesinde"
+          echo "Tum dosya tipleri gecerli"
 
       # ── 8. Özet ───────────────────────────────────────────────
       - name: Summary
@@ -308,30 +259,19 @@ jobs:
         if: always()
         run: |
           STATUS="${{ job.status }}"
-          [ "$STATUS" = "success" ] && ICON="passed" || ICON="failed"
+          [ "$STATUS" = "success" ] && ICON="PASSED" || ICON="FAILED"
+          MC_COUNT=$(find packs/ -name "*.mcfunction" 2>/dev/null | wc -l)
+          JSON_COUNT=$(find packs/ -name "*.json" 2>/dev/null | wc -l)
 
-          MC_COUNT=$(find datapacks/ -name "*.mcfunction" 2>/dev/null | wc -l)
-          JSON_COUNT=$(find datapacks/ -name "*.json" 2>/dev/null | wc -l)
-
-          TEXT="## Lint Sonucu: ${ICON}
-
+          TEXT="## Lint: ${ICON}
           | Alan | Deger |
           |------|-------|
           | Repo | ${{ github.repository }} |
           | Branch | ${{ github.ref_name }} |
           | Commit | ${{ github.sha }} |
           | Tarih | $(date -u '+%Y-%m-%d %H:%M UTC') |
-          | .mcfunction | ${MC_COUNT} dosya |
-          | .json | ${JSON_COUNT} dosya |
-
-          ### Kontroller
-          - JSON Lint
-          - pack.mcmeta Dogrulama
-          - mcfunction + Makro Syntax
-          - Namespace Referans Kontrolu
-          - Klasor Yapisi
-          - Dosya Boyutu
-          - Dosya Tipi Whitelist"
+          | .mcfunction | ${MC_COUNT} |
+          | .json | ${JSON_COUNT} |"
 
           echo "text<<EOF" >> $GITHUB_OUTPUT
           echo "$TEXT"     >> $GITHUB_OUTPUT
@@ -339,7 +279,7 @@ jobs:
           echo "status=$STATUS" >> $GITHUB_OUTPUT
           echo "$TEXT" >> $GITHUB_STEP_SUMMARY
 
-  # ── PR Yorum Job'u ────────────────────────────────────────────
+  # ── PR Yorum ─────────────────────────────────────────────────
   pr-comment:
     needs: lint
     runs-on: ubuntu-latest
@@ -357,26 +297,18 @@ jobs:
               repo:  context.repo.repo,
               issue_number: context.issue.number,
             });
-
-            const botComment = comments.data.find(c =>
-              c.user.type === 'Bot' && c.body.includes('Lint Sonucu')
+            const bot = comments.data.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Lint:')
             );
-
-            const body = summary + '\n\n---\n*Guncellendi: ' +
-              new Date().toISOString() + '*';
-
-            if (botComment) {
+            const body = summary + '\n\n---\n*' + new Date().toISOString() + '*';
+            if (bot) {
               await github.rest.issues.updateComment({
-                owner:      context.repo.owner,
-                repo:       context.repo.repo,
-                comment_id: botComment.id,
-                body,
+                owner: context.repo.owner, repo: context.repo.repo,
+                comment_id: bot.id, body,
               });
             } else {
               await github.rest.issues.createComment({
-                owner:        context.repo.owner,
-                repo:         context.repo.repo,
-                issue_number: context.issue.number,
-                body,
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: context.issue.number, body,
               });
             }

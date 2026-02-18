@@ -66,66 +66,62 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
           DP_DIR="${{ steps.dirs.outputs.dp_dir }}"
           RP_DIR="${{ steps.dirs.outputs.rp_dir }}"
-
-          # pack_format: workflow_dispatch input varsa kullan, yoksa mevcut değeri koru
           OVERRIDE="${{ github.event.inputs.pack_format }}"
 
-          python3 << PYEOF
-          import json, pathlib, re
+          python3 - << PYEOF
+import json, pathlib, re, subprocess
 
-          version  = "$VERSION"
-          override = "$OVERRIDE"
-          dirs     = ["$DP_DIR"]
-          if "$RP_DIR":
-              dirs.append("$RP_DIR")
+version  = "$VERSION"
+override = "$OVERRIDE"
+dp_dir   = "$DP_DIR"
+rp_dir   = "$RP_DIR"
 
-          # MC versiyon → pack_format tablosu (1.21.x)
-          FORMAT_MAP = {
-              "1.21.9": 96, "1.21.8": 93, "1.21.7": 91,
-              "1.21.6": 89, "1.21.5": 87, "1.21.4": 86,
-              "1.21.3": 84, "1.21.2": 83, "1.21.1": 82,
-              "1.21":   81,
-          }
+FORMAT_MAP = {
+    "1.21.9": 96, "1.21.8": 93, "1.21.7": 91,
+    "1.21.6": 89, "1.21.5": 87, "1.21.4": 86,
+    "1.21.3": 84, "1.21.2": 83, "1.21.1": 82,
+    "1.21":   81,
+}
 
-          for d in dirs:
-              meta_path = pathlib.Path(d) / "pack.mcmeta"
-              if not meta_path.exists():
-                  continue
+dirs = [dp_dir]
+if rp_dir:
+    dirs.append(rp_dir)
 
-              data = json.loads(meta_path.read_text())
+msg = subprocess.getoutput("git log -1 --pretty=%B")
+mc_ver = re.search(r'\[mc:([\d.]+)\]', msg)
 
-              # pack_format güncelle
-              if override:
-                  fmt = int(override)
-              else:
-                  # Commit mesajından MC versiyonu çek: [mc:1.21.7] gibi
-                  import subprocess
-                  msg = subprocess.getoutput("git log -1 --pretty=%B")
-                  mc_ver = re.search(r'\[mc:([\d.]+)\]', msg)
-                  if mc_ver and mc_ver.group(1) in FORMAT_MAP:
-                      fmt = FORMAT_MAP[mc_ver.group(1)]
-                  else:
-                      fmt = data["pack"].get("pack_format", 81)  # değiştirme
+for d in dirs:
+    meta_path = pathlib.Path(d) / "pack.mcmeta"
+    if not meta_path.exists():
+        continue
 
-              data["pack"]["pack_format"] = fmt
-              data["pack"]["min_format"]  = fmt
-              if "supported_formats" in data["pack"]:
-                  data["pack"]["supported_formats"]["min_inclusive"] = fmt
+    data = json.loads(meta_path.read_text())
 
-              # description fallback'ine versiyon inject et
-              desc = data["pack"].get("description", {})
-              if isinstance(desc, dict) and "fallback" in desc:
-                  data["pack"]["description"]["fallback"] = re.sub(
-                      r'v\d+\.\d+\.\d+', version.lstrip('v'), desc["fallback"]
-                  )
-              elif isinstance(desc, str):
-                  data["pack"]["description"] = re.sub(
-                      r'v\d+\.\d+\.\d+', version.lstrip('v'), desc
-                  )
+    if override:
+        fmt = int(override)
+    elif mc_ver and mc_ver.group(1) in FORMAT_MAP:
+        fmt = FORMAT_MAP[mc_ver.group(1)]
+    else:
+        fmt = data["pack"].get("pack_format", 81)
 
-              meta_path.write_text(json.dumps(data, indent=2, ensure_ascii=False))
-              print(f"Injected: {meta_path} → pack_format={fmt}, version={version}")
-          PYEOF
+    data["pack"]["pack_format"] = fmt
+    data["pack"]["min_format"]  = fmt
+    if "supported_formats" in data["pack"]:
+        data["pack"]["supported_formats"]["min_inclusive"] = fmt
+
+    desc = data["pack"].get("description", {})
+    if isinstance(desc, dict) and "fallback" in desc:
+        data["pack"]["description"]["fallback"] = re.sub(
+            r'v\d+\.\d+\.\d+', version.lstrip('v'), desc["fallback"]
+        )
+    elif isinstance(desc, str):
+        data["pack"]["description"] = re.sub(
+            r'v\d+\.\d+\.\d+', version.lstrip('v'), desc
+        )
+
+    meta_path.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+    print(f"Injected: {meta_path} -> pack_format={fmt}, version={version}")
+PYEOF
 
       - name: Create ZIPs
         run: |
@@ -162,27 +158,27 @@ jobs:
           make_latest: true
           fail_on_unmatched_files: true
           body: |
-            # 🔐 GLC Permissions System
+            # GLC Permissions System
 
-            ## 📦 İndirme
-            | Dosya | Açıklama |
+            ## Indirme
+            | Dosya | Aciklama |
             |-------|----------|
             | `glc_permissions-${{ steps.version.outputs.version }}-DP.zip` | Datapack |
             | `glc_permissions-${{ steps.version.outputs.version }}-RP.zip` | Resource Pack |
 
-            ## ⚙️ Kurulum
-            1. `-DP.zip` → `world/datapacks/` klasörüne çıkart
-            2. `-RP.zip` → `resourcepacks/` klasörüne çıkart
-            3. `/reload` ile yükle
-            4. `/function glc_permissions:setup` ile başlat
+            ## Kurulum
+            1. `-DP.zip` klasorunun icini `world/datapacks/` icine at
+            2. `-RP.zip` klasorunun icini `resourcepacks/` icine at
+            3. `/reload` ile yukle
+            4. `/function glc_permissions:setup` ile baslat
 
-            ## ✨ Özellikler
-            - 🎭 Dinamik rol sistemi
-            - 👥 Grup bazlı izinler
-            - 🔧 Esnek permission yönetimi
-            - 📊 Gerçek zamanlı kontrol
+            ## Ozellikler
+            - Dinamik rol sistemi
+            - Grup bazli izinler
+            - Esnek permission yonetimi
+            - Gercek zamanli kontrol
 
-            ## 📋 Gereksinimler
+            ## Gereksinimler
             - Minecraft 1.21.7+
             - Paper/Spigot/Vanilla
 
