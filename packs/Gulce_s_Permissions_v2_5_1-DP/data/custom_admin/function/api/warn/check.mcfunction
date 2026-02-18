@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Warn: Check (v1.0.0)
+# Warn: Check (v2.5.1)
 # Usage: /function custom_admin:api/warn/check
 #        {player:"Ahmet"}
 # Permission Level: MOD+

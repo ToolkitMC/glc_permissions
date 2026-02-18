@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# TP Coords (v1.0.0)
+# TP Coords (v2.5.1)
 # #tp_x, #tp_y, #tp_z scoreboard değerlerini kullanarak
 # TP yapar - NBT path üzerinden macro
 # ═══════════════════════════════════════════════════

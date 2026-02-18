@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Chat Prefix: Setup Teams (v1.0.0)
+# Chat Prefix: Setup Teams (v2.5.1)
 # Scoreboard team'leri oluşturur - isim rengi için
 # Bir kez load'da çalışır
 # ═══════════════════════════════════════════════════

@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Chat Prefix: Sync Team (v1.0.0)
+# Chat Prefix: Sync Team (v2.5.1)
 # Oyuncuyu doğru team'e atar
 # permission sync ve rol atama sonrasında çağrılır
 # ═══════════════════════════════════════════════════

@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Auto Announce System (v1.0.0)
+# Auto Announce System (v2.5.1)
 # glc:config auto_announcements listesindeki mesajları
 # belirli aralıklarla tüm oyunculara gönderir
 # Her çağrıda bir sonraki mesaja geçer (döngüsel)

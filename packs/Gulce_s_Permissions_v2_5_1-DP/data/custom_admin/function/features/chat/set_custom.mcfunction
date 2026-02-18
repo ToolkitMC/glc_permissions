@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Chat Prefix: Set Custom Prefix (v1.0.0)
+# Chat Prefix: Set Custom Prefix (v2.5.1)
 # Usage: /function custom_admin:features/chat/set_custom
 #        {player:"Ahmet",prefix:"[PATRON]",color:"light_purple"}
 # Permission Level: OWNER

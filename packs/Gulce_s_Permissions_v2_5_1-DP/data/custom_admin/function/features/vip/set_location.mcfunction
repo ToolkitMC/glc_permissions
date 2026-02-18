@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Set VIP Teleport Location (v1.0.0)
+# Set VIP Teleport Location (v2.5.1)
 # Owner panelinden çağrılır
 # Macro: {loc:"spawn|castle|mine|...", x:0, y:64, z:0}
 # ═══════════════════════════════════════════════════

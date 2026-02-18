@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Party Mode (v1.0.0)
+# Party Mode (v2.5.1)
 # ═══════════════════════════════════════════════════
 execute as @a at @s run particle minecraft:totem_of_undying ~ ~1 ~ 0.5 1 0.5 0.1 50
 execute as @a at @s run playsound minecraft:entity.player.levelup master @s ~ ~ ~ 1 1

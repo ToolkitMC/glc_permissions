@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Chat Prefix: Apply Tags (v1.0.0)
+# Chat Prefix: Apply Tags (v2.5.1)
 # Oyuncunun rolüne göre chat prefix tag'ini uygular
 # Her permission sync'te çağrılır
 # ═══════════════════════════════════════════════════

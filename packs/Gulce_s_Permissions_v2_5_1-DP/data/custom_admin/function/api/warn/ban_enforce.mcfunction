@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Warn: Ban Enforce (v1.0.0)
+# Warn: Ban Enforce (v2.5.1)
 # Main loop'ta çağrılır - banlı oyuncuları sürekli atar
 # ═══════════════════════════════════════════════════
 
