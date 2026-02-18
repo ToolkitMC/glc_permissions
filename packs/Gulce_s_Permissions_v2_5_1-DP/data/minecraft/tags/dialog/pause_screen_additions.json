@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "pause_menu_tr",
-    "pause_menu_en"
+    "main:gulce_panel"
   ]
 }

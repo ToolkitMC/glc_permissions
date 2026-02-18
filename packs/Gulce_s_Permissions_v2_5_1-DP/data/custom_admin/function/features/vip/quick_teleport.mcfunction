@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# ✨ GULCE VIP PANEL - QUICK TELEPORT (v2.5.1)
+# ✨ GULCE VIP PANEL - QUICK TELEPORT (v2.2.0)
 # Koordinatlar glc:config teleport_locations storage'da tutulur
 # ═══════════════════════════════════════════════════
 

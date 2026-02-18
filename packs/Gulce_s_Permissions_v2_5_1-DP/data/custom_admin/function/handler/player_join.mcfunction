@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Player Join Handler (v2.5.1)
+# Player Join Handler (v1.0.0)
 # Bu oturumda ilk kez algılanan oyunculara çalışır
 # (glc.joined tag'i olmayanlar = yeni giren)
 # ═══════════════════════════════════════════════════

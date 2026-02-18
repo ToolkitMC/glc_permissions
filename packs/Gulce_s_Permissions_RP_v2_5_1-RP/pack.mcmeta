@@ -1,27 +1,10 @@
 {
   "pack": {
     "description": "§b§lGulces Permissions RP §r§7v2.5.1\n§a✅ TR/EN + Item Modelleri",
-    "pack_format": 64,
+    "pack_format": 46,
     "supported_formats": {
-      "min_inclusive": 64,
-      "max_inclusive": 1000000
-    },
-    "min_format": [
-      64,
-      1
-    ],
-    "max_format": 1000000
-  },
-  "filter": {
-    "block": [
-      {
-        "namespace": "custom_admin",
-        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"
-      },
-      {
-        "namespace": "minecraft",
-        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"
-      }
-    ]
+      "min_inclusive": 46,
+      "max_inclusive": 99
+    }
   }
 }

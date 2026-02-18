@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Save Current Location (v2.5.1)
+# Save Current Location (v1.0.0)
 # Macro: {loc:"spawn|castle|..."}
 # Owner'ın o anki X/Y/Z koordinatlarını storage'a yazar
 # ═══════════════════════════════════════════════════

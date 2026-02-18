@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# TP Run Macro (v2.5.1)
+# TP Run Macro (v1.0.0)
 # glc:temp tp{x,y,z} storage'dan koordinat okur
 # ═══════════════════════════════════════════════════
 execute store result score #tp_x glc.timer run data get storage glc:temp tp.x

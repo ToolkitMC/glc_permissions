@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Welcome Message (v2.5.1)
+# Welcome Message (v1.0.0)
 # Yeni giren oyuncuya karşılama mesajı gönderir
 # ═══════════════════════════════════════════════════
 execute unless data storage glc:config welcome.enabled run return 0

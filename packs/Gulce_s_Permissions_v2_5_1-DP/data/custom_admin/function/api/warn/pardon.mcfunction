@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Warn: Remove / Pardon (v2.5.1)
+# Warn: Remove / Pardon (v1.0.0)
 # Usage: /function custom_admin:api/warn/pardon
 #        {player:"Ahmet"}
 # Permission Level: MOD+

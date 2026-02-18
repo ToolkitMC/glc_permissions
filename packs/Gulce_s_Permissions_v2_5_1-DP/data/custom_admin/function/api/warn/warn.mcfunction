@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Warn: Issue Warning (v2.5.1)
+# Warn: Issue Warning (v1.0.0)
 # Usage: /function custom_admin:api/warn/warn
 #        {player:"Ahmet",reason:"Küfür",mod:"ModAdi"}
 # Permission Level: MOD+

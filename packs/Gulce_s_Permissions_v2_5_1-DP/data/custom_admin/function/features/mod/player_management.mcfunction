@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# ⚡ GULCE MOD PANEL - PLAYER MANAGEMENT (v2.5.1)
+# ⚡ GULCE MOD PANEL - PLAYER MANAGEMENT (v2.2.0)
 # ═══════════════════════════════════════════════════
 
 # 1. YETKİ KONTROLÜ

@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Auto Announce Tick Wrapper (v2.5.1)
+# Auto Announce Tick Wrapper (v1.0.0)
 # Storage'dan interval okur, sayacı ayarlar
 # ═══════════════════════════════════════════════════
 execute unless data storage glc:config auto_announce run return 0
