@@ -18,25 +18,22 @@ jobs:
         id: folders
         run: |
           VERSION="${{ github.event.inputs.version }}"
-          VER_CLEAN=$(echo "$VERSION" | sed 's/^v//' | tr '.' '_')
           
-          # Mevcut klasörleri listele
           echo "📂 Mevcut packs klasörleri:"
           ls packs/
           
-          # Klasör adlarını bul (tam eşleşme yerine arama yap)
-          RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*${VER_CLEAN}*" | head -1)
-          DP_DIR=$(find packs -maxdepth 1 -type d -name "*${VER_CLEAN}*DP*" | head -1)
+          RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
+          DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
           
           echo "🔍 Bulunan RP klasörü: $RP_DIR"
           echo "🔍 Bulunan DP klasörü: $DP_DIR"
           
           if [ -z "$RP_DIR" ]; then
-            echo "❌ RP klasörü bulunamadı! VER_CLEAN=$VER_CLEAN"
+            echo "❌ RP klasörü bulunamadı!"
             exit 1
           fi
           if [ -z "$DP_DIR" ]; then
-            echo "❌ DP klasörü bulunamadı! VER_CLEAN=$VER_CLEAN"
+            echo "❌ DP klasörü bulunamadı!"
             exit 1
           fi
           
