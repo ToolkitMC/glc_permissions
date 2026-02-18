@@ -1,1 +1,0 @@
-data remove storage glc:config auto_announce

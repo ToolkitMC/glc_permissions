@@ -14,8 +14,17 @@ execute if score @s gulce_menu matches 3 run function glc_menu:handler/builder/e
 # Menü 51: Zamanlayıcı (mevcut)
 execute if score @s gulce_menu matches 51 run function custom_admin:handler/schedule/list
 
-# Menü 60: Ayarlar (v2.0.3-fix - New)
+# Menü 60: Ayarlar (v2.0.2 - New)
 execute if score @s gulce_menu matches 60 run function glc_menu:handler/builder/settings
+
+# Menü 20: Uyarı Yönetimi Paneli
+execute if score @s gulce_menu matches 20 run function glc_menu:handler/builder/warn_panel
+
+# Menü 21: NameTag Hızlı Giriş
+execute if score @s gulce_menu matches 21 run function glc_menu:handler/builder/nametag_panel
+
+# Menü 22: Özel Eylem Oluşturucu
+execute if score @s gulce_menu matches 22 run function glc_menu:handler/builder/custom_action_panel
 
 # Kapat
 execute if score @s gulce_menu matches -4 run function glc_menu:handler/close

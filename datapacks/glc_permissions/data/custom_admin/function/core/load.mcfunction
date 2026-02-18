@@ -20,6 +20,18 @@ scoreboard objectives add global dummy "Global System Flags"
 scoreboard players set #admin_loop global 1
 scoreboard players set #system_active global 1
 
+# v2.3.0: Rate limit scoreboardları
+scoreboard objectives add glc.rate_exec dummy "GLC Rate - Action Exec"
+scoreboard objectives add glc.rate_bc dummy "GLC Rate - Broadcast"
+scoreboard objectives add glc.rate_block_timer dummy "GLC Rate - Block Timer"
+scoreboard players set #rate_window glc.timer 0
+
+# v2.4.0: Warn/strike sistemi
+scoreboard objectives add glc.strikes dummy "GLC Warn - Strike Count"
+
+# v2.4.0: Chat prefix team'leri kur
+function custom_admin:features/chat/setup_teams
+
 execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"✅ Admin loop aktifleştirildi",color:"green"}]
 execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"✅ Admin loop aktifleştirildi",color:"green"}]
 
@@ -29,10 +41,10 @@ function custom_admin:internal/storage/init
 # Initialize config if needed
 execute unless data storage glc:config settings run function custom_admin:internal/storage/init_config
 
-# Initialize language system (v2.0.3-fix)
+# Initialize language system (v2.0.2)
 execute unless data storage glc:config language run function custom_admin:internal/storage/init_lang
 
-# Initialize cooldown/timer system (v2.0.3-fix)
+# Initialize cooldown/timer system (v2.0.2)
 execute unless data storage glc:config cooldowns run function custom_admin:internal/storage/init_cooldowns
 
 # Version is managed by init function - no hardcoded checks needed

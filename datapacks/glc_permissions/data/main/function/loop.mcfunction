@@ -4,8 +4,8 @@
 # ═══════════════════════════════════════════════════
 
 # Permission Level Sync - Her 2 saniyede bir (40 tick)
-execute if entity @a if score #permission_sync glc.timer matches ..0 run scoreboard players set #permission_sync glc.timer 4
-execute if entity @a if score #permission_sync glc.timer matches 4 run function custom_admin:permissions/sync_levels
+execute if entity @a if score #permission_sync glc.timer matches ..0 run scoreboard players set #permission_sync glc.timer 1
+execute if entity @a if score #permission_sync glc.timer matches 1 run function custom_admin:permissions/sync_levels
 execute if entity @a run scoreboard players remove #permission_sync glc.timer 1
 
 # Admin Loop - Tek sefer çalışır (oyuncu başına DEĞİL)
@@ -14,8 +14,8 @@ execute if entity @a if score #admin_tick glc.timer matches 1 run function custo
 execute if entity @a run scoreboard players remove #admin_tick glc.timer 1
 
 # Menu Loop - Oyuncu başına çalışır (as @a at @s)
-execute if entity @a if score #menu_tick glc.timer matches ..0 run scoreboard players set #menu_tick glc.timer 2
-execute if entity @a if score #menu_tick glc.timer matches 2 as @a at @s run function glc_menu:handler/tick
+execute if entity @a if score #menu_tick glc.timer matches ..0 run scoreboard players set #menu_tick glc.timer 1
+execute if entity @a if score #menu_tick glc.timer matches 1 as @a at @s run function glc_menu:handler/tick
 execute if entity @a run scoreboard players remove #menu_tick glc.timer 1
 
 # Menu Opener - Carrot on stick kullanımı
@@ -32,3 +32,14 @@ execute as @a[tag=!glc.joined] run function custom_admin:handler/player_join
 
 # Freeze sistemi - donmuş oyuncuları yerinde tut (spectator hariç)
 execute as @a[gamemode=!spectator,tag=ca.freezed] run tp @s @s
+
+# ─── v2.5.0: NameTag Trigger ────────────────────────────────────────────────
+# gulce_nametag trigger: popup-free string input (SelectedItem.custom_name okur)
+execute as @a[scores={gulce_nametag=1..}] run scoreboard players enable @s gulce_nametag
+execute as @a[scores={gulce_nametag=1}] run function custom_admin:features/input/nametag_warn
+execute as @a[scores={gulce_nametag=2}] run function custom_admin:features/input/nametag_check
+execute as @a[scores={gulce_nametag=3}] run function custom_admin:features/input/nametag_pardon
+execute as @a[scores={gulce_nametag=4}] at @s run function custom_admin:features/mod/freeze_freeze
+execute as @a[scores={gulce_nametag=5}] at @s run function custom_admin:features/mod/health_kill
+execute as @a[scores={gulce_nametag=6}] at @s run function custom_admin:features/mod/health_heal
+scoreboard players set @a[scores={gulce_nametag=1..}] gulce_nametag 0

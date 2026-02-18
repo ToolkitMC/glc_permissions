@@ -8,7 +8,7 @@ scoreboard players set @s glc_load_type 1
 function glc_menu:handler/dialog/loading
 scoreboard players set @s gulce_load.dialog 10
 
-# Ana menü JSON'ı hazırla (Bilingual Support v2.0.3-fix)
+# Ana menü JSON'ı hazırla (Bilingual Support v2.0.2)
 execute if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:['',{text:"⚡ GULCE PANEL",color:gold,bold:true}],body:{type:"minecraft:plain_message",contents:"\n§7Sistem ve izin yönetimi için bir kategori seçin:\n "},can_close_with_escape:1b,pause:0b,columns:2,actions:[]}
 
 execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:['',{text:"⚡ GULCE PANEL",color:gold,bold:true}],body:{type:"minecraft:plain_message",contents:"\n§7Select a category for system and permission management:\n "},can_close_with_escape:1b,pause:0b,columns:2,actions:[]}
@@ -92,3 +92,23 @@ execute if score @s gulce_permission_level matches 2.. unless entity @s[tag=glc.
 execute if entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"👑 Owner Kontrol",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 15"}}
 execute if entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👑 Owner Control",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 15"}}
 execute if entity @s[tag=gulce_owner] unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👑 Owner Kontrol",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 15"}}
+
+# v2.5.0: Yeni Paneller
+# Uyarı Yönetimi (MOD+)
+execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"⚠️ Uyarı Yönetimi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 20"}}
+# NameTag Hızlı Giriş (MOD+)
+execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"📛 NameTag Girişi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 21"}}
+# Özel Eylem Oluşturucu (MOD+)
+execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"⚙️ Özel Eylem",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 22"}}
+
+# Uyarı Yönetimi (MOD+)
+execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"⚠️ Warning Manager",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 20"}}
+# NameTag Quick Input (MOD+)
+execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"📛 NameTag Input",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 21"}}
+# Custom Action Builder (MOD+)
+execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"⚙️ Custom Action",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 22"}}
+
+# Fallback (dil tag yoksa)
+execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"⚠️ Uyarı Yönetimi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 20"}}
+execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"📛 NameTag Girişi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 21"}}
+execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"⚙️ Özel Eylem",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 22"}}

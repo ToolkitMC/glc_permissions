@@ -21,7 +21,7 @@ execute if data storage glc:config welcome run function custom_admin:handler/wel
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run function custom_admin:util/lang/apply_tags
 
 # Donmuş oyuncu kontrolü - yeniden giriş yapınca dondurma devam et
-execute if entity @s[tag=ca.freezed] run tellraw @s {"text":"❄️ Donmuş durumdasınız!","color":"aqua"}
+execute if entity @s[tag=ca.freezed] run tellraw @s {text:'❄️ Donmuş durumdasınız!',color:'aqua'}
 
 # Debug log
-execute as @a[tag=gulce_debug] run tellraw @s ["",{"text":"[GULCE] ","color":"gold"},{"text":"👋 Oyuncu girdi: ","color":"gray"},{"selector":"@s","color":"yellow"}]
+execute as @a[tag=gulce_debug] run tellraw @s [{text:'[GULCE] ',color:'gold'},{text:'👋 Oyuncu girdi: ',color:'gray'},{selector:'@s',color:'yellow'}]

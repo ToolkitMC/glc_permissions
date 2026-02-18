@@ -1,0 +1,1 @@
+give @s minecraft:carrot_on_a_stick[minecraft:custom_data={"glcMenu":1b},minecraft:custom_name={"text":"Ana Nenü","italic":false,"color":"green"}]

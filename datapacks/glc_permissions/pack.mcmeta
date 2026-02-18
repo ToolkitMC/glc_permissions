@@ -1,10 +1,10 @@
 {
   "pack": {
-    "description": "§b§lGulce's Permissions §r§7v2.1.0\n§a✅ TR/EN + Dialog API §e⚡ MC 1.21.7+",
+    "description": "§b§lGulces Permissions §r§7v2.4.0\n§a✅ TR/EN + Dialog API + Rate Limit §e⚡ MC 1.21.7+",
     "pack_format": 81,
     "supported_formats": {
       "min_inclusive": 81,
-      "max_inclusive": 94
+      "max_inclusive": 99
     },
     "min_format": 81,
     "max_format": 94
@@ -13,23 +13,23 @@
     "block": [
       {
         "namespace": "custom_admin",
-        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       },
       {
         "namespace": "glc_menu",
-        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       },
       {
         "namespace": "main",
-        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       },
       {
         "namespace": "minecraft",
-        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       },
       {
         "namespace": "glc_permissions",
-        "path": ".*\\.(txt|md|log|bak|tmp|js|html|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
+        "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"
       }
     ]
   },

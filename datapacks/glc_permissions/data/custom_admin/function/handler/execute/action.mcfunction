@@ -6,9 +6,9 @@
 $data modify storage glc:temp temp.exec_action set from storage glc:data actions[{id:"$(id)"}]
 
 # Enabled kontrolü - devre dışı eylemler çalışmaz
-execute if data storage glc:temp temp.exec_action{enabled:false} if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ Eylem devre dışı!",color:"red"}]
-execute if data storage glc:temp temp.exec_action{enabled:false} if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ Action is disabled!",color:"red"}]
-execute if data storage glc:temp temp.exec_action{enabled:false} run return 0
+execute if data storage glc:temp temp.exec_action{enabled:0b} if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ Eylem devre dışı!",color:"red"}]
+execute if data storage glc:temp temp.exec_action{enabled:0b} if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ Action is disabled!",color:"red"}]
+execute if data storage glc:temp temp.exec_action{enabled:0b} run return 0
 
 # Eylem var mı kontrol (Bilingual v2.1.0)
 $execute unless data storage glc:temp temp.exec_action if entity @s[tag=glc.lang_tr] run function custom_admin:util/feedback/error {message:"Eylem bulunamadı: $(id)"}
@@ -42,12 +42,22 @@ execute if data storage glc:temp temp.exec_action{type:'xp'} run function custom
 execute if data storage glc:temp temp.exec_action{type:'kick'} run function custom_admin:handler/execute/types/kick
 execute if data storage glc:temp temp.exec_action{type:'setblock'} run function custom_admin:handler/execute/types/setblock
 
+# YENİ EYLEMLER (v2.3.0)
+execute if data storage glc:temp temp.exec_action{type:'broadcast'} run function custom_admin:handler/execute/types/broadcast
+
+# YENİ EYLEMLER (v2.5.0)
+# custom: Herhangi bir fonksiyonu macro args ile çağırır
+execute if data storage glc:temp temp.exec_action{type:'custom'} run function custom_admin:handler/execute/types/custom
+
 # PERF FIX: Success feedback sadece debug modda (tick'de spam olmasın)
 $execute if entity @s[tag=gulce_debug] if entity @s[tag=glc.lang_tr] run function custom_admin:util/feedback/success {message:"Eylem çalıştırıldı: $(id)"}
 $execute if entity @s[tag=gulce_debug] if entity @s[tag=glc.lang_en] run function custom_admin:util/feedback/success {message:"Action executed: $(id)"}
 
 # Cooldown uygula (v2.1.0 - Configurable)
 execute store result score @s gulce_cooldown run data get storage glc:config cooldowns.action_execute
+
+# Rate limit sayacını artır (v2.3.0)
+scoreboard players add @s glc.rate_exec 1
 
 # PERF FIX: Admin log sadece debug modda
 $execute as @a[tag=gulce_debug,tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"gold",bold:true},{text:"Eylem: ",color:"gray"},{text:"$(id)",color:"yellow"},{text:" → ",color:"gray"},{selector:"@s",color:"aqua"}]

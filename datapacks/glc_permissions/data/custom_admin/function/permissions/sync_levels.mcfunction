@@ -20,3 +20,6 @@ execute as @a[tag=gulce_player,tag=!gulce_vip,tag=!gulce_mod,tag=!gulce_owner] r
 
 # No tag = Level 0
 execute as @a[tag=!gulce_player,tag=!gulce_vip,tag=!gulce_mod,tag=!gulce_owner] run scoreboard players set @s gulce_permission_level 0
+
+# v2.4.0: Chat prefix team sync
+execute as @a run function custom_admin:features/chat/sync_team

@@ -14,7 +14,7 @@ execute unless data storage glc:data scheduled run data modify storage glc:data 
 execute unless data storage glc:data roles run data modify storage glc:data roles set value {owner:[],mod:[],vip:[],player:[]}
 
 # Her zaman version güncelle
-data modify storage glc:data version set value "2.1.0"
+data modify storage glc:data version set value "2.4.0"
 
 # Notify admin
 execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"✅ Storage hazır: glc:data",color:"green"}]

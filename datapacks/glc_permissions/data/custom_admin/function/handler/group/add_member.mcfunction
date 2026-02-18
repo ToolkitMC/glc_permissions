@@ -17,7 +17,7 @@ $execute unless entity $(player) run return 0
 $execute store success score #already_member gulce_id run data get storage glc:data groups[{id:"$(group_id)"}].members[{value:"$(player)"}]
 $execute if score #already_member gulce_id matches 1 if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"yellow",bold:true},{text:"⚠ Oyuncu zaten bu grubun üyesi: $(player)",color:"yellow"}]
 $execute if score #already_member gulce_id matches 1 if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"yellow",bold:true},{text:"⚠ Player is already a member: $(player)",color:"yellow"}]
-$execute if score #already_member gulce_id matches 1 run return 0
+execute if score #already_member gulce_id matches 1 run return 0
 
 # Üye ekle
 $data modify storage glc:data groups[{id:"$(group_id)"}].members append value "$(player)"

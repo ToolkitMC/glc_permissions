@@ -6,6 +6,9 @@
 # Scoreboard'ları oluştur
 scoreboard objectives add gulce.used minecraft.used:minecraft.carrot_on_a_stick
 
+# NameTag input trigger (popup-free string input)
+scoreboard objectives add gulce_nametag trigger
+
 # Timer başlangıç değerleri
 scoreboard players set #admin_tick glc.timer 20
 scoreboard players set #menu_tick glc.timer 10
