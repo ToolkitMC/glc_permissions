@@ -1,26 +1,30 @@
 {
   "pack": {
-    "description": "§b§lGulces Permissions §r§7v2.5.1\n§a✅ TR/EN + Dialog API + Rate Limit §e⚡ MC 1.21.7+",
+    "description": {
+      "type": "minecraft:translatable",
+      "translate": "pack.gulce_permissions.description",
+      "fallback": "Gulces Permissions v2.5.1 | TR/EN + Dialog API + Rate Limit | MC 1.21.7+"
+    },
     "pack_format": 81,
     "min_format": 81,
-    "max_format": 1000000 
+    "max_format": 9999,
     "supported_formats": {
       "min_inclusive": 81,
-      "max_inclusive": 1000000
-    },
-    "min_format": 81,
-    "max_format": 94
+      "max_inclusive": 9999
+    }
   },
   "filter": {
     "block": [
-      {"namespace": "custom_admin", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"},
-      {"namespace": "glc_menu", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"},
-      {"namespace": "main", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"},
-      {"namespace": "minecraft", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"},
-      {"namespace": "glc_permissions", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"}
+      {"namespace": "custom_admin",    "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"},
+      {"namespace": "glc_menu",        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"},
+      {"namespace": "main",            "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"},
+      {"namespace": "minecraft",       "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"},
+      {"namespace": "glc_permissions", "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"}
     ]
   },
   "features": {
-    "enabled": ["minecraft:vanilla"]
+    "enabled": [
+      "minecraft:vanilla"
+    ]
   }
 }
