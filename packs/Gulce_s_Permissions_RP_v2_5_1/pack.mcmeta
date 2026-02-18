@@ -1,8 +1,8 @@
 {
   "pack": {
     "description": "§b§lGulces Permissions §r§7v2.5.6 RP\n§a✅ Custom Item + Lang TR/EN/DE §e⚡ MC 1.21.7+",
-    "pack_format": 46,
-    "min_format": 80,
+    "pack_format": 64,
+    "min_format": 64,
     "max_format": 99999,
     "supported_formats": {
       "min_inclusive": 64,
