@@ -26,7 +26,3 @@ tag @s remove glc.show_pending
 
 # Tag temizle
 tag @s remove closed.glc
-
-# Log
-execute if entity @s[tag=glc.lang_tr,tag=gulce_debug] run tellraw @s [{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog gösterildi",color:"green"}]
-execute if entity @s[tag=glc.lang_en,tag=gulce_debug] run tellraw @s [{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog shown",color:"green"}]
