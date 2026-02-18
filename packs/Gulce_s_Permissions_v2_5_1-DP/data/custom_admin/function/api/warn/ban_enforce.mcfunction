@@ -1,8 +1,5 @@
-# ═══════════════════════════════════════════════════
-# Warn: Ban Enforce (v1.0.0)
-# Main loop'ta çağrılır - banlı oyuncuları sürekli atar
-# ═══════════════════════════════════════════════════
+execute as @a[tag=glc.banned,tag=glc.lang_tr] run function custom_admin:api/warn/ban_enforce_nacro {lang:"tr"}
 
-kick @a[tag=glc.banned,tag=glc.lang_tr] §4§l🔨 BANLANDINIZ §r§c- §fGULCE Admin System
-kick @a[tag=glc.banned,tag=glc.lang_en] §4§l🔨 YOU ARE BANNED §r§c- §fGULCE Admin System
-kick @a[tag=glc.banned,tag=!glc.lang_tr,tag=!glc.lang_en] §4§l🔨 BANLANDINIZ / BANNED §r§c- §fGULCE
+execute as @a[tag=glc.banned,tag=glc.lang_en] run function custom_admin:api/warn/ban_enforce_nacro {lang:"en"}
+
+execute as @a[tag=glc.banned,tag=!glc.lang_tr,tag=!glc.lang_en] run function custom_admin:api/warn/ban_enforce_nacro {lang:"tr"}
