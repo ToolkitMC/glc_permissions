@@ -1,0 +1,190 @@
+name: Lint & Validate
+
+on:
+  push:
+    paths:
+      - 'datapacks/**'
+  pull_request:
+    paths:
+      - 'datapacks/**'
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # ── 1. JSON Lint ─────────────────────────────────────────
+      - name: JSON Lint
+        run: |
+          echo "🔍 JSON dosyaları kontrol ediliyor..."
+          ERRORS=0
+
+          while IFS= read -r f; do
+            if python3 -m json.tool "$f" > /dev/null 2>&1; then
+              echo "  ✓ $f"
+            else
+              echo "  ❌ Bozuk JSON: $f"
+              # Hata satırını göster
+              python3 -m json.tool "$f" 2>&1 | tail -1
+              ERRORS=$((ERRORS+1))
+            fi
+          done < <(find datapacks/ -name "*.json" -o -name "*.mcmeta")
+
+          [ $ERRORS -eq 0 ] || { echo ""; echo "❌ $ERRORS JSON hatası bulundu."; exit 1; }
+          echo "✓ Tüm JSON dosyaları geçerli"
+
+      # ── 2. pack.mcmeta Derinlemesine Kontrolü ────────────────
+      - name: Validate pack.mcmeta
+        run: |
+          python3 -c "
+          import json, sys, pathlib
+
+          errors = []
+          for meta in pathlib.Path('datapacks').rglob('pack.mcmeta'):
+              try:
+                  data = json.loads(meta.read_text())
+              except json.JSONDecodeError as e:
+                  errors.append(f'{meta}: Geçersiz JSON → {e}')
+                  continue
+
+              pack = data.get('pack', {})
+
+              if 'pack_format' not in pack:
+                  errors.append(f'{meta}: pack_format eksik')
+              elif not isinstance(pack['pack_format'], int):
+                  errors.append(f'{meta}: pack_format integer olmalı')
+              elif pack['pack_format'] < 1:
+                  errors.append(f'{meta}: pack_format geçersiz değer ({pack[\"pack_format\"]})')
+              else:
+                  print(f'  ✓ {meta} → pack_format: {pack[\"pack_format\"]}')
+
+              if 'description' not in pack:
+                  errors.append(f'{meta}: description eksik')
+
+          if errors:
+              print('❌ Hatalar:')
+              for e in errors: print(f'  {e}')
+              sys.exit(1)
+
+          print('✓ Tüm pack.mcmeta dosyaları geçerli')
+          "
+
+      # ── 3. mcfunction Encoding & Whitespace ──────────────────
+      - name: mcfunction Lint
+        run: |
+          echo "🔍 .mcfunction dosyaları kontrol ediliyor..."
+          ERRORS=0
+
+          while IFS= read -r f; do
+            # Non-ASCII karakter kontrolü
+            if grep -Pn '[^\x00-\x7F]' "$f"; then
+              echo "  ❌ Non-ASCII karakter: $f"
+              ERRORS=$((ERRORS+1))
+            fi
+
+            # Satır sonu whitespace kontrolü
+            if grep -Pn '\s+$' "$f" > /dev/null 2>&1; then
+              echo "  ⚠️  Trailing whitespace: $f"
+            fi
+
+            # Boş komut satırı (sadece boşluk, yorum değil)
+            EMPTY=$(grep -Pc '^\s+$' "$f" || true)
+            if [ "$EMPTY" -gt 5 ]; then
+              echo "  ⚠️  Çok fazla boş satır ($EMPTY adet): $f"
+            fi
+
+            echo "  ✓ $f"
+          done < <(find datapacks/ -name "*.mcfunction")
+
+          [ $ERRORS -eq 0 ] || { echo "❌ $ERRORS hata bulundu."; exit 1; }
+          echo "✓ Tüm .mcfunction dosyaları temiz"
+
+      # ── 4. Klasör Yapısı ──────────────────────────────────────
+      - name: Datapack Structure Check
+        run: |
+          echo "🔍 Klasör yapısı kontrol ediliyor..."
+          ERRORS=0
+
+          for dir in datapacks/*/; do
+            [ -d "$dir" ] || continue
+            name=$(basename "$dir")
+
+            [ -f "$dir/pack.mcmeta" ] || { echo "  ❌ $name: pack.mcmeta eksik"; ERRORS=$((ERRORS+1)); }
+            [ -d "$dir/data" ]        || { echo "  ❌ $name: data/ dizini eksik"; ERRORS=$((ERRORS+1)); }
+
+            if [ $ERRORS -eq 0 ]; then
+              echo "  ✓ $name yapısı geçerli"
+            fi
+          done
+
+          [ $ERRORS -eq 0 ] || { echo "❌ Yapı hataları bulundu."; exit 1; }
+
+      # ── 5. Dosya Boyutu Kontrolü ──────────────────────────────
+      - name: File Size Check
+        run: |
+          echo "🔍 Dosya boyutları kontrol ediliyor..."
+          ERRORS=0
+
+          # Tek dosya 2MB üstüyse hata
+          while IFS= read -r f; do
+            SIZE=$(stat -c%s "$f")
+            if [ "$SIZE" -gt 2097152 ]; then
+              echo "  ❌ Aşırı büyük dosya: $f ($(du -h "$f" | cut -f1))"
+              ERRORS=$((ERRORS+1))
+            fi
+          done < <(find datapacks/ -type f)
+
+          # Toplam boyut 50MB üstüyse uyar
+          TOTAL=$(du -sb datapacks/ | cut -f1)
+          if [ "$TOTAL" -gt 52428800 ]; then
+            echo "  ⚠️  Toplam datapack boyutu büyük: $(du -sh datapacks/ | cut -f1)"
+          fi
+
+          [ $ERRORS -eq 0 ] || { echo "❌ Boyut limiti aşıldı."; exit 1; }
+          echo "✓ Boyut kontrolleri geçti"
+
+      # ── 6. İzin Verilmeyen Dosya Tipleri ─────────────────────
+      - name: File Type Whitelist
+        run: |
+          echo "🔍 Dosya tipleri kontrol ediliyor..."
+          ALLOWED="json mcmeta mcfunction png nbt md txt"
+          ERRORS=0
+
+          while IFS= read -r f; do
+            EXT="${f##*.}"
+            EXT="${EXT,,}"
+            ALLOWED_FLAG=false
+            for a in $ALLOWED; do
+              [ "$EXT" = "$a" ] && ALLOWED_FLAG=true && break
+            done
+            if [ "$ALLOWED_FLAG" = false ]; then
+              echo "  ❌ İzin verilmeyen dosya tipi: $f (.${EXT})"
+              ERRORS=$((ERRORS+1))
+            fi
+          done < <(find datapacks/ -type f)
+
+          [ $ERRORS -eq 0 ] || { echo "❌ Geçersiz dosya tipleri bulundu."; exit 1; }
+          echo "✓ Tüm dosya tipleri izin listesinde"
+
+      # ── Özet ──────────────────────────────────────────────────
+      - name: Summary
+        if: always()
+        run: |
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "  📋 Lint Özeti"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "  Repo    : ${{ github.repository }}"
+          echo "  Branch  : ${{ github.ref_name }}"
+          echo "  Commit  : ${{ github.sha }}"
+          echo "  Tarih   : $(date -u '+%Y-%m-%d %H:%M UTC')"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          find datapacks/ -name "*.mcfunction" | wc -l | xargs -I{} echo "  Fonksiyon sayısı : {}"
+          find datapacks/ -name "*.json"       | wc -l | xargs -I{} echo "  JSON dosyası     : {}"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
