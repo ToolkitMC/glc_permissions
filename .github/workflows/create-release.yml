@@ -1,10 +1,11 @@
 name: Release Datapack
+
 on:
   push:
     branches:
       - main
     paths:
-      - 'packs/**'  # FIX 1: packs → glc_permissions
+      - 'packs/**'
   workflow_dispatch:
     inputs:
       version:
@@ -31,36 +32,61 @@ jobs:
           else
             VERSION=$(git log -1 --pretty=%B | grep -oP 'v\d+\.\d+\.\d+' | head -1)
             if [ -z "$VERSION" ]; then
-              VERSION="v1.0.${GITHUB_RUN_NUMBER}"  # FIX 2: $() dışında, doğrudan env var olarak expand olur
+              VERSION="v1.0.${GITHUB_RUN_NUMBER}"
             fi
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Releasing version: $VERSION"
 
+      - name: Find Pack Directories
+        id: dirs
+        run: |
+          # packs/ altındaki DP ve RP klasörlerini otomatik bul
+          DP_DIR=$(find packs/ -maxdepth 1 -type d -name "*-DP" | head -1)
+          RP_DIR=$(find packs/ -maxdepth 1 -type d -name "*-RP" | head -1)
+
+          echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
+          echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
+
+          echo "DP: $DP_DIR"
+          echo "RP: $RP_DIR"
+
       - name: Validate Datapack
         run: |
-          DIR="datapacks/glc_permissions"
-          [ -d "$DIR" ] || { echo "Datapack directory not found"; exit 1; }
-          [ -f "$DIR/pack.mcmeta" ] || { echo "pack.mcmeta not found"; exit 1; }
-          [ -d "$DIR/data" ] || { echo "data directory not found"; exit 1; }
-          echo "✓ Datapack structure validated"
+          DIR="${{ steps.dirs.outputs.dp_dir }}"
+          [ -n "$DIR" ]          || { echo "DP klasoru bulunamadi (packs/*-DP)"; exit 1; }
+          [ -d "$DIR" ]          || { echo "Datapack directory not found: $DIR"; exit 1; }
+          [ -f "$DIR/pack.mcmeta" ] || { echo "pack.mcmeta not found: $DIR"; exit 1; }
+          [ -d "$DIR/data" ]     || { echo "data/ not found: $DIR"; exit 1; }
+          echo "✓ Datapack structure validated: $DIR"
 
-      - name: Create ZIP
+      - name: Create ZIPs
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          DIR="datapacks/glc_permissions"
-          ZIP="glc_permissions-${VERSION}.zip"
-          cd "$DIR"
-          zip -r "$GITHUB_WORKSPACE/$ZIP" .
+          DP_DIR="${{ steps.dirs.outputs.dp_dir }}"
+          RP_DIR="${{ steps.dirs.outputs.rp_dir }}"
+
+          # Datapack ZIP
+          DP_ZIP="glc_permissions-${VERSION}-DP.zip"
+          cd "$DP_DIR"
+          zip -r "$GITHUB_WORKSPACE/$DP_ZIP" .
           cd "$GITHUB_WORKSPACE"
-          echo "Created: $ZIP"
-          ls -lh "$ZIP"
+          echo "Created: $DP_ZIP"
+
+          # Resource Pack ZIP (varsa)
+          if [ -n "$RP_DIR" ] && [ -d "$RP_DIR" ]; then
+            RP_ZIP="glc_permissions-${VERSION}-RP.zip"
+            cd "$RP_DIR"
+            zip -r "$GITHUB_WORKSPACE/$RP_ZIP" .
+            cd "$GITHUB_WORKSPACE"
+            echo "Created: $RP_ZIP"
+          fi
+
+          ls -lh glc_permissions-*.zip
 
       - name: Generate Checksum
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          ZIP="glc_permissions-${VERSION}.zip"
-          sha256sum "$ZIP" > checksums.txt
+          sha256sum glc_permissions-*.zip > checksums.txt
           cat checksums.txt
 
       - name: Create Release
@@ -68,19 +94,22 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.version }}
           name: GLC Permissions ${{ steps.version.outputs.version }}
-          # FIX 3: Aynı tag varsa güncelle, fail etme
           make_latest: true
           fail_on_unmatched_files: true
           body: |
             # 🔐 GLC Permissions System
 
             ## 📦 İndirme
-            `glc_permissions-${{ steps.version.outputs.version }}.zip`
+            | Dosya | Açıklama |
+            |-------|----------|
+            | `glc_permissions-${{ steps.version.outputs.version }}-DP.zip` | Datapack |
+            | `glc_permissions-${{ steps.version.outputs.version }}-RP.zip` | Resource Pack |
 
             ## ⚙️ Kurulum
-            1. ZIP'i `world/datapacks/` klasörüne at
-            2. `/reload` komutu ile yükle
-            3. `/function glc_permissions:setup` ile başlat
+            1. `-DP.zip` → `world/datapacks/` klasörüne çıkart
+            2. `-RP.zip` → `resourcepacks/` klasörüne çıkart
+            3. `/reload` ile yükle
+            4. `/function glc_permissions:setup` ile başlat
 
             ## ✨ Özellikler
             - 🎭 Dinamik rol sistemi
@@ -95,7 +124,8 @@ jobs:
             ---
             **Build:** #${{ github.run_number }}
           files: |
-            glc_permissions-${{ steps.version.outputs.version }}.zip
+            glc_permissions-${{ steps.version.outputs.version }}-DP.zip
+            glc_permissions-${{ steps.version.outputs.version }}-RP.zip
             checksums.txt
           draft: false
           prerelease: false
