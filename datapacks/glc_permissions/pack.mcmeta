@@ -1,6 +1,6 @@
 {
   "pack": {
-    "description": "§b§lGulces Permissions §r§7v2.4.0\n§a✅ TR/EN + Dialog API + Rate Limit §e⚡ MC 1.21.7+",
+    "description": "§b§lGulces Permissions §r§7v2.5.0\n§a✅ TR/EN + Dialog API + Rate Limit §e⚡ MC 1.21.7+",
     "pack_format": 81,
     "supported_formats": {
       "min_inclusive": 81,
@@ -37,5 +37,37 @@
     "enabled": [
       "minecraft:vanilla"
     ]
+  },
+  "overlays": {
+    "entries": [
+      {
+        "formats": {
+          "min_inclusive": 81,
+          "max_inclusive": 99
+        },
+        "directory": "overlay_main"
+      }
+    ]
+  },
+  "language": {
+    "glc_tr": {
+      "name": "Türkçe (GLC)",
+      "region": "Türkiye",
+      "bidirectional": false
+    },
+    "glc_en": {
+      "name": "English (GLC)",
+      "region": "United States",
+      "bidirectional": false
+    }
+  },
+  "__meta": {
+    "id": "glc_permissions",
+    "version": "2.4.0",
+    "authors": ["ToolkitMC"],
+    "license": "MIT",
+    "homepage": "https://github.com/ToolkitMC/glc_permissions",
+    "mc_version": "1.21.7+",
+    "tags": ["permissions", "admin", "menu", "dialog"]
   }
 }
