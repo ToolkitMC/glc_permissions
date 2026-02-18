@@ -9,3 +9,7 @@ $execute unless entity @p[tag=gulce_admin,limit=1,name=$(NAME)] run return 0
 
 # Dialog Göster (Player head selector'dan gelen NAME ile)
 $execute as $(NAME) at @s run dialog show @s $(ui)
+
+# Log
+execute if entity @s[tag=glc.lang_tr,tag=gulce_debug] run tellraw @s [{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog gösterildi",color:"green"}]
+execute if entity @s[tag=glc.lang_en,tag=gulce_debug] run tellraw @s [{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog shown",color:"green"}]
