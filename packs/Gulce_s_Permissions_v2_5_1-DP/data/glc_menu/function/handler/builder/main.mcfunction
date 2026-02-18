@@ -83,3 +83,8 @@ execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang
 execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"⚠️ Uyarı Yönetimi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 20"}}
 execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"📛 NameTag Girişi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 21"}}
 execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"⚙️ Özel Eylem",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 22"}}
+
+# v2.5.7: Item Kit Butonu
+execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"🎒 Item Kiti Al",action:{type:"minecraft:run_command",command:"/function glc_menu:items/give_kit"}}
+execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🎒 Get Item Kit",action:{type:"minecraft:run_command",command:"/function glc_menu:items/give_kit"}}
+execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🎒 Item Kiti Al",action:{type:"minecraft:run_command",command:"/function glc_menu:items/give_kit"}}

@@ -14,6 +14,13 @@ data modify storage glc:sys loaded set value 1b
 
 # Scoreboard'ları oluştur
 scoreboard objectives add gulce.used minecraft.used:minecraft.carrot_on_a_stick
+# v2.5.7: Yeni item objective'leri
+scoreboard objectives add glc.used.mod_kit minecraft.used:minecraft.carrot_on_a_stick
+scoreboard objectives add glc.used.admin_panel minecraft.used:minecraft.carrot_on_a_stick
+scoreboard objectives add glc.used.quick_action minecraft.used:minecraft.carrot_on_a_stick
+scoreboard objectives add glc.used.spy minecraft.used:minecraft.carrot_on_a_stick
+scoreboard objectives add glc.used.broadcast minecraft.used:minecraft.carrot_on_a_stick
+
 
 # NameTag input trigger (popup-free string input)
 scoreboard objectives add gulce_nametag trigger

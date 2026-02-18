@@ -6,7 +6,7 @@
 # ═══════════════════════════════════════════════════
 
 # Yetki kontrolü
-execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] run return 0
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_admin] unless entity @s[tag=gulce_owner] run return 0
 
 # Strike sayısı
 $execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:'[GULCE] ',color:'gold',bold:true},{text:'📋 Uyarı bilgisi: ',color:'aqua'},{text:'$(player)',color:'yellow'}]

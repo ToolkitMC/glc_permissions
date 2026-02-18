@@ -7,9 +7,9 @@
 # ═══════════════════════════════════════════════════
 
 # Yetki kontrolü
-execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run tellraw @s [{text:'[GULCE] ',color:'dark_red',bold:true},{text:'🚫 Yetersiz yetki! Gerekli: ',color:'red'},{text:'mod',color:'yellow'}]
-execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run tellraw @s [{text:'[GULCE] ',color:'dark_red',bold:true},{text:'🚫 Insufficient permission! Required: ',color:'red'},{text:'mod',color:'yellow'}]
-execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] run return 0
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_admin] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run tellraw @s [{text:'[GULCE] ',color:'dark_red',bold:true},{text:'🚫 Yetersiz yetki! Gerekli: ',color:'red'},{text:'mod',color:'yellow'}]
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_admin] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run tellraw @s [{text:'[GULCE] ',color:'dark_red',bold:true},{text:'🚫 Insufficient permission! Required: ',color:'red'},{text:'mod',color:'yellow'}]
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_admin] unless entity @s[tag=gulce_owner] run return 0
 
 # Rate limit
 execute if score @s gulce_cooldown matches 1.. run function custom_admin:util/rate_limit/deny

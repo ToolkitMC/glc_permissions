@@ -7,6 +7,9 @@
 # OWNER seviyesi kontrolü (Level 4)
 execute if entity @s[tag=gulce_owner] run return 1
 
+# ADMIN seviyesi kontrolü (Level 3.5 - owner-assigned admin)
+execute if entity @s[tag=gulce_admin,tag=!gulce_owner] run return 1
+
 # MOD seviyesi kontrolü (Level 3)
 execute if entity @s[tag=gulce_mod] run return 1
 

@@ -33,7 +33,7 @@ scoreboard objectives add glc.strikes dummy "GLC Warn - Strike Count"
 function custom_admin:features/chat/setup_teams
 
 execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"✅ Admin loop aktifleştirildi",color:"green"}]
-execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"✅ Admin loop aktifleştirildi",color:"green"}]
+execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"✅ Admin loop activated",color:"green"}]
 
 # Initialize storage if needed
 function custom_admin:internal/storage/init

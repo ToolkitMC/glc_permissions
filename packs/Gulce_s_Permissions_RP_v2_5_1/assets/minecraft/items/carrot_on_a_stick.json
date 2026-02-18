@@ -10,6 +10,41 @@
           "type": "minecraft:model",
           "model": "custom_admin:item/gulce_menu"
         }
+      },
+      {
+        "when": "{glcModKit:1b}",
+        "model": {
+          "type": "minecraft:model",
+          "model": "custom_admin:item/glc_mod_kit"
+        }
+      },
+      {
+        "when": "{glcAdminPanel:1b}",
+        "model": {
+          "type": "minecraft:model",
+          "model": "custom_admin:item/glc_admin_panel"
+        }
+      },
+      {
+        "when": "{glcQuickAction:1b}",
+        "model": {
+          "type": "minecraft:model",
+          "model": "custom_admin:item/glc_quick_action"
+        }
+      },
+      {
+        "when": "{glcSpy:1b}",
+        "model": {
+          "type": "minecraft:model",
+          "model": "custom_admin:item/glc_spy"
+        }
+      },
+      {
+        "when": "{glcBroadcast:1b}",
+        "model": {
+          "type": "minecraft:model",
+          "model": "custom_admin:item/glc_broadcast"
+        }
       }
     ],
     "fallback": {

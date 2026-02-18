@@ -14,8 +14,6 @@ execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run 
 
 # ─── BÖLÜM 1: CEZA SİSTEMİ ───────────────────────────────────────
 
-# [🔇] SUSTUR / UNMUTE
-data modify storage glc:ui ui.actions append value {label:"🔇 Sustur / Unmute",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"🔇 Mute Paneli",inputs:[{type:"minecraft:text",key:'p',label:"Oyuncu / Player"},{type:"minecraft:single_option",key:'act',label:"İşlem / Action",options:[{id:"add glc.muted",display:"🔇 Sustur"},{id:"remove glc.muted",display:"🔊 Ses Aç"}]}],actions:[{label:"✅ Uygula",action:{type:"minecraft:dynamic/run_command",template:"/execute as @a[name=\"$(p)\"] run tag @s $(act)"}}]}}}
 
 # [⚠️] UYARI - Herkese veya sadece oyuncuya
 data modify storage glc:ui ui.actions append value {label:"⚠️ Uyarı Gönder",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"⚠️ Uyarı",inputs:[{type:"minecraft:text",key:'p',label:"Oyuncu Adı"},{type:"minecraft:text",key:'m',label:"Mesaj"},{type:"minecraft:single_option",key:'target',label:"Kime",options:[{id:"@a",display:"Herkese"},{id:"@a[name=\"$(p)\"]",display:"Sadece oyuncuya"}]}],actions:[{label:"✉ Gönder",action:{type:"minecraft:dynamic/run_command",template:"/tellraw @a[name=\"$(p)\"] [\"\",{\"text\":\"[UYARI] \",\"color\":\"red\",\"bold\":1b},{\"text\":\"$(m)\",\"color\":\"white\"}]"}}]}}}

@@ -1,9 +1,16 @@
+# ═══════════════════════════════════════════════════
+# Ban Enforce - Nacro (MACRO)
+# DÜZELTİLDİ v2.5.7: ban @s selector hata → player_name ile isim al
+# @s: banlı oyuncu (glc.banned tag'li), lang=$(lang) macro parametresi
+# ═══════════════════════════════════════════════════
+
 $data modify storage glc:temp lang set value "$(lang)"
 
-execute if data storage glc:temp {lang:"tr"} run  ban @s[tag=glc.banned,tag=glc.lang_tr] BANLANDINIZ - GULCE Admin System
+# Oyuncunun adını al (player_name sistemi)
+function glc_menu:handler/utils/player_name
 
-execute if data storage glc:temp {lang:"en"} run  ban @s[tag=glc.banned,tag=glc.lang_en] YOU ARE BANNED - GULCE Admin System
+# İsmini temp storage'a kopyala
+data modify storage glc:temp ban_target set from storage glc_menu:names temp.NAME
 
-execute unless data storage glc:temp {lang:"tr"} unless data storage glc:temp {lang:"en"} run ban @s[tag=glc.banned,tag=!glc.lang_tr,tag=!glc.lang_en] BANLANDINIZ / BANNED - GULCE
-
-data remove storage glc:temp lang
+# Ban uygula (macro ile isim kullan)
+function custom_admin:api/warn/ban_enforce_do with storage glc:temp

@@ -8,6 +8,10 @@ function glc_menu:handler/utils/player_name
 # ui parametresini glc:ui'dan glc_menu:names'e kopyala
 data modify storage glc_menu:names temp.ui set from storage glc:ui ui
 
+# Yetki kontrol
+execute unless entity @s[tag=gulce_admin] run function glc_menu:handler/dialog/not_permission with storage glc_menu:names temp
+execute unless entity @s[tag=gulce_admin] run return 0
+
 # Cooldown uygula (v2.0.2 - Configurable)
 execute store result score @s gulce_cooldown run data get storage glc:config cooldowns.menu_open
 

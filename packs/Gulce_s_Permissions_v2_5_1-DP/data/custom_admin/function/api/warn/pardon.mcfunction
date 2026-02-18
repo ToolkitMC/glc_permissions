@@ -6,9 +6,9 @@
 # ═══════════════════════════════════════════════════
 
 # Yetki kontrolü
-execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run tellraw @s [{text:'[GULCE] ',color:'dark_red',bold:true},{text:'🚫 Yetersiz yetki! Gerekli: ',color:'red'},{text:'mod',color:'yellow'}]
-execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run tellraw @s [{text:'[GULCE] ',color:'dark_red',bold:true},{text:'🚫 Insufficient permission! Required: ',color:'red'},{text:'mod',color:'yellow'}]
-execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_owner] run return 0
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_admin] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run tellraw @s [{text:'[GULCE] ',color:'dark_red',bold:true},{text:'🚫 Yetersiz yetki! Gerekli: ',color:'red'},{text:'mod',color:'yellow'}]
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_admin] unless entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run tellraw @s [{text:'[GULCE] ',color:'dark_red',bold:true},{text:'🚫 Insufficient permission! Required: ',color:'red'},{text:'mod',color:'yellow'}]
+execute unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_admin] unless entity @s[tag=gulce_owner] run return 0
 
 # Strike'ları sıfırla
 $scoreboard players set $(player) glc.strikes 0
