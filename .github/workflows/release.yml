@@ -1,15 +1,10 @@
 name: Release GLC Permissions
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'new_versions/**'
   workflow_dispatch:
     inputs:
-      mc_version:
-        description: 'Minecraft versiyonu (örn: v2.5.1)'
+      version:
+        description: 'Versiyon (örn: v2.5.1)'
         required: true
         type: string
 
@@ -22,79 +17,69 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Detect Version
-        id: version
+      - name: Set Folder Names
+        id: folders
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION="${{ github.event.inputs.mc_version }}"
-            echo "mc_version=$VERSION" >> $GITHUB_OUTPUT
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          else
-            # Push ile tetiklendi — değişen klasörü bul
-            PARENT=$(git rev-parse HEAD^ 2>/dev/null || echo "")
-            if [ -z "$PARENT" ]; then
-              echo "has_changes=false" >> $GITHUB_OUTPUT
-              exit 0
-            fi
+          VERSION="${{ github.event.inputs.version }}"
+          # v2.5.1 → 2_5_1
+          VER_CLEAN=$(echo "$VERSION" | sed 's/^v//' | tr '.' '_')
 
-            changed=$(git diff --name-only HEAD^ HEAD | grep '^new_versions/' | cut -d'/' -f2 | sort -uV | tail -n1)
+          RP_DIR="packs/Gulce_s_Permissions_RP_${VER_CLEAN}-RP"
+          DP_DIR="packs/Gulce_s_Permissions_${VER_CLEAN}-DP"
 
-            if [ -z "$changed" ]; then
-              echo "has_changes=false" >> $GITHUB_OUTPUT
-              exit 0
-            fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
+          echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
+          echo "rp_zip=Gulce_s_Permissions_RP_${VERSION}.zip" >> $GITHUB_OUTPUT
+          echo "dp_zip=Gulce_s_Permissions_DP_${VERSION}.zip" >> $GITHUB_OUTPUT
 
-            echo "mc_version=$changed" >> $GITHUB_OUTPUT
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Validate Datapack
-        if: steps.version.outputs.has_changes == 'true'
+      - name: Validate Folders
         run: |
-          DIR="new_versions/${{ steps.version.outputs.mc_version }}/datapack"
-          if [ ! -d "$DIR" ]; then
-            echo "❌ Klasör bulunamadı: $DIR"
+          RP="${{ steps.folders.outputs.rp_dir }}"
+          DP="${{ steps.folders.outputs.dp_dir }}"
+
+          if [ ! -d "$RP" ]; then
+            echo "❌ RP klasörü bulunamadı: $RP"
             exit 1
           fi
-          if [ ! -f "$DIR/pack.mcmeta" ]; then
-            echo "❌ pack.mcmeta bulunamadı"
+          if [ ! -d "$DP" ]; then
+            echo "❌ DP klasörü bulunamadı: $DP"
             exit 1
           fi
-          if [ ! -d "$DIR/data" ]; then
-            echo "❌ data/ klasörü bulunamadı"
-            exit 1
-          fi
-          echo "✅ Datapack doğrulandı"
+          echo "✅ Her iki klasör doğrulandı"
 
-      - name: Create ZIP
-        if: steps.version.outputs.has_changes == 'true'
+      - name: Create RP ZIP
         run: |
-          VERSION="${{ steps.version.outputs.mc_version }}"
-          DIR="new_versions/$VERSION/datapack"
-          ZIP="glc_permissions-${VERSION}.zip"
-          cd "$DIR"
-          zip -r "$GITHUB_WORKSPACE/$ZIP" .
-          echo "zip_name=$ZIP" >> $GITHUB_ENV
+          cd "${{ steps.folders.outputs.rp_dir }}"
+          zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
+          echo "✅ RP ZIP oluşturuldu"
+
+      - name: Create DP ZIP
+        run: |
+          cd "${{ steps.folders.outputs.dp_dir }}"
+          zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
+          echo "✅ DP ZIP oluşturuldu"
 
       - name: Create Release
-        if: steps.version.outputs.has_changes == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.version.outputs.mc_version }}
-          name: GLC Permissions ${{ steps.version.outputs.mc_version }}
+          tag_name: ${{ steps.folders.outputs.version }}
+          name: GLC Permissions ${{ steps.folders.outputs.version }}
           body: |
             ## 🔒 GLC Permissions System
 
             ### 📦 İndirme
-            `glc_permissions-${{ steps.version.outputs.mc_version }}.zip`
+            | Dosya | Açıklama |
+            |-------|----------|
+            | `Gulce_s_Permissions_RP_${{ steps.folders.outputs.version }}.zip` | Resource Pack |
+            | `Gulce_s_Permissions_DP_${{ steps.folders.outputs.version }}.zip` | Data Pack |
 
             ### ⚙️ Kurulum
-            1. ZIP'i `world/datapacks/` klasörüne at
-            2. `/reload` komutu ile yükle
-            3. `/function glc_permissions:setup` ile başlat
+            1. DP ZIP'i `world/datapacks/` klasörüne at
+            2. RP ZIP'i `resourcepacks/` klasörüne at
+            3. `/reload` komutu ile yükle
+            4. `/function glc_permissions:setup` ile başlat
 
             ### ✨ Özellikler
             - 👥 Dinamik rol sistemi
@@ -104,7 +89,9 @@ jobs:
 
             ---
             > Build: `${{ github.run_number }}` | Commit: `${{ github.sha }}`
-          files: glc_permissions-${{ steps.version.outputs.mc_version }}.zip
+          files: |
+            ${{ steps.folders.outputs.rp_zip }}
+            ${{ steps.folders.outputs.dp_zip }}
           make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
