@@ -1,0 +1,12 @@
+{
+  "death.attack.admin.punish": "%1$s bir admin tarafından cezalandırıldı",
+  "death.attack.admin.punish.player": "%1$s, %2$s tarafından cezalandırıldı",
+  "death.attack.admin.punish.item": "%1$s, %2$s tarafından %3$s ile cezalandırıldı",
+
+  "item.custom_admin.gulce_menu": "GULCE Paneli",
+
+  "tag.gulce_admin": "Admin",
+  "tag.gulce_mod": "Moderatör",
+  "tag.gulce_vip": "VIP",
+  "tag.gulce_owner": "Sahip"
+}

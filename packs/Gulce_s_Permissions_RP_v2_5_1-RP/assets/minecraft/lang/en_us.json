@@ -1,0 +1,12 @@
+{
+  "death.attack.admin.punish": "%1$s was punished by an admin",
+  "death.attack.admin.punish.player": "%1$s was punished by %2$s",
+  "death.attack.admin.punish.item": "%1$s was punished by %2$s using %3$s",
+
+  "item.custom_admin.gulce_menu": "GULCE Panel",
+
+  "tag.gulce_admin": "Admin",
+  "tag.gulce_mod": "Moderator",
+  "tag.gulce_vip": "VIP",
+  "tag.gulce_owner": "Owner"
+}

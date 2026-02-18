@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:multi_action",
+  "title": "GPERMS (Gulce's Permissions)",
+  "body": {
+    "type": "minecraft:plain_message",
+    "contents": "Seçenekler:"
+  },
+  "can_close_with_escape": true,
+  "pause": false,
+  "after_action": "close",
+  "columns": 3,
+  "actions": [
+    {
+      "label": "1",
+      "tooltip": "Gülce Menü",
+      "width": 23,
+      "action": {
+        "type": "minecraft:run_command",
+        "command": "/trigger gulce_menu"
+      }
+    },
+    {
+      "label": "2",
+      "tooltip": "Gülce Menü (Varsayılan)",
+      "width": 23,
+      "action": {
+        "type": "minecraft:run_command",
+        "command": "/trigger gulce_trigger"
+      }
+    },
+    {
+      "label": "3",
+      "tooltip": "Menüyü Kapat",
+      "width": 23,
+      "action": {
+        "type": "minecraft:suggest_command",
+        "command": " "
+      }
+    }
+  ]
+}

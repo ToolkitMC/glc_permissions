@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    {
-      "id": "glc_permissions:setup",
-      "required": false
-    }
-  ]
-}
