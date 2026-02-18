@@ -25,8 +25,8 @@ jobs:
           # v2.5.1 → 2_5_1
           VER_CLEAN=$(echo "$VERSION" | sed 's/^v//' | tr '.' '_')
 
-          RP_DIR="packs/Gulce_s_Permissions_RP_${VER_CLEAN}-RP"
-          DP_DIR="packs/Gulce_s_Permissions_${VER_CLEAN}-DP"
+          RP_DIR="packs/Gulce_s_Permissions_RP_v${VER_CLEAN}-RP"
+          DP_DIR="packs/Gulce_s_Permissions_v${VER_CLEAN}-DP"
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
