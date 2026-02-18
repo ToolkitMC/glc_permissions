@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Unfreeze (v2.0.2)
+# Unfreeze (v2.5.0)
 # ═══════════════════════════════════════════════════
 tag @s remove ca.freezed
 execute if entity @s[tag=glc.lang_tr] run tellraw @s {text:'🔥 Çözüldünüz! Tekrar hareket edebilirsiniz.',color:'green'}

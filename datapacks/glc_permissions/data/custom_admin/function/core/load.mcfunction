@@ -41,10 +41,10 @@ function custom_admin:internal/storage/init
 # Initialize config if needed
 execute unless data storage glc:config settings run function custom_admin:internal/storage/init_config
 
-# Initialize language system (v2.0.2)
+# Initialize language system (v2.5.0)
 execute unless data storage glc:config language run function custom_admin:internal/storage/init_lang
 
-# Initialize cooldown/timer system (v2.0.2)
+# Initialize cooldown/timer system (v2.5.0)
 execute unless data storage glc:config cooldowns run function custom_admin:internal/storage/init_cooldowns
 
 # Version is managed by init function - no hardcoded checks needed

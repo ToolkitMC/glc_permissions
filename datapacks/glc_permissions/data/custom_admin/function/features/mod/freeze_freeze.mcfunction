@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# Freeze (v2.0.2)
+# Freeze (v2.5.0)
 # Tag: ca.freezed — main loop'ta tp @s @s ile kilitlenir
 # ═══════════════════════════════════════════════════
 tag @s add ca.freezed
