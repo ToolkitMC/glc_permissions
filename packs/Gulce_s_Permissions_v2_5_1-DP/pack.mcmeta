@@ -2,9 +2,11 @@
   "pack": {
     "description": "§b§lGulces Permissions §r§7v2.5.1\n§a✅ TR/EN + Dialog API + Rate Limit §e⚡ MC 1.21.7+",
     "pack_format": 81,
+    "min_format": 81,
+    "max_format": 1000000 
     "supported_formats": {
       "min_inclusive": 81,
-      "max_inclusive": 99
+      "max_inclusive": 1000000
     },
     "min_format": 81,
     "max_format": 94
