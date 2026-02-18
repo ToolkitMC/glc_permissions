@@ -7,19 +7,34 @@
     },
     "pack_format": 81,
     "min_format": 81,
-    "max_format": 9999,
+    "max_format": 40000,
     "supported_formats": {
       "min_inclusive": 81,
-      "max_inclusive": 9999
+      "max_inclusive": 40000
     }
   },
   "filter": {
     "block": [
-      {"namespace": "custom_admin",    "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"},
-      {"namespace": "glc_menu",        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"},
-      {"namespace": "main",            "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"},
-      {"namespace": "minecraft",       "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"},
-      {"namespace": "glc_permissions", "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"}
+      {
+        "namespace": "custom_admin",
+        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"
+      },
+      {
+        "namespace": "glc_menu",
+        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"
+      },
+      {
+        "namespace": "main",
+        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"
+      },
+      {
+        "namespace": "minecraft",
+        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"
+      },
+      {
+        "namespace": "glc_permissions",
+        "path": ".*\\.(txt|log|bak|tmp|js|ts|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py|rb|php|go|rs|java|class|dll|so|dylib|html|htm|xml|svg|yaml|yml|toml|ini|cfg|conf|db|sqlite|csv|pdf|doc|docx|xls|xlsx)$"
+      }
     ]
   },
   "features": {
