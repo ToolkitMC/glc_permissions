@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════
-# ✨ GULCE VIP PANEL - SPECIAL EFFECTS (v2.2.0)
+# ✨ GULCE VIP PANEL - SPECIAL EFFECTS (v2.5.0-fix)
 # ═══════════════════════════════════════════════════
 
 # 1. YETKİ KONTROLÜ

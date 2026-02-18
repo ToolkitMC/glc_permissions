@@ -8,7 +8,7 @@ scoreboard players set @s glc_load_type 1
 function glc_menu:handler/dialog/loading
 scoreboard players set @s gulce_load.dialog 10
 
-# Ana menü JSON'ı hazırla (Bilingual Support v2.5.0)
+# Ana menü JSON'ı hazırla (Bilingual Support v2.5.0-fix)
 execute if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:['',{text:"⚡ GULCE PANEL",color:gold,bold:true}],body:{type:"minecraft:plain_message",contents:"\n§7Sistem ve izin yönetimi için bir kategori seçin:\n "},can_close_with_escape:1b,pause:0b,columns:2,actions:[]}
 
 execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:['',{text:"⚡ GULCE PANEL",color:gold,bold:true}],body:{type:"minecraft:plain_message",contents:"\n§7Select a category for system and permission management:\n "},can_close_with_escape:1b,pause:0b,columns:2,actions:[]}
@@ -62,7 +62,7 @@ execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run 
 
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"◀️ Ana Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
 
-# v2.2.0: Rol bazlı ek butonlar
+# v2.5.0-fix: Rol bazlı ek butonlar
 # Eğlence Paneli (MOD+)
 execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"🎉 Eğlence Paneli",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 10"}}
 execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🎉 Fun Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 10"}}
@@ -93,7 +93,7 @@ execute if entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_tr] run data mod
 execute if entity @s[tag=gulce_owner] if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👑 Owner Control",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 15"}}
 execute if entity @s[tag=gulce_owner] unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👑 Owner Kontrol",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 15"}}
 
-# v2.5.0: Yeni Paneller
+# v2.5.0-fix: Yeni Paneller
 # Uyarı Yönetimi (MOD+)
 execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"⚠️ Uyarı Yönetimi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 20"}}
 # NameTag Hızlı Giriş (MOD+)

@@ -12,6 +12,7 @@ scoreboard objectives add glc.timer dummy "GLC Timer System"
 scoreboard objectives add gulce_menu trigger "GLC Menu Trigger"
 scoreboard objectives add glc_load_type dummy "GLC Load Type"
 scoreboard objectives add gulce_permission_level dummy "Permission Level"
+scoreboard objectives add gulce_nametag trigger
 
 # DÜZELTME v1.2.0: Global objective oluştur
 scoreboard objectives add global dummy "Global System Flags"
@@ -41,10 +42,10 @@ function custom_admin:internal/storage/init
 # Initialize config if needed
 execute unless data storage glc:config settings run function custom_admin:internal/storage/init_config
 
-# Initialize language system (v2.5.0)
+# Initialize language system (v2.5.0-fix)
 execute unless data storage glc:config language run function custom_admin:internal/storage/init_lang
 
-# Initialize cooldown/timer system (v2.5.0)
+# Initialize cooldown/timer system (v2.5.0-fix)
 execute unless data storage glc:config cooldowns run function custom_admin:internal/storage/init_cooldowns
 
 # Version is managed by init function - no hardcoded checks needed
@@ -87,15 +88,15 @@ execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"  ✅ S
 execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
 execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"═══════════════════════════════════",color:"gold",bold:true}]
 
-# v2.2.0: Yeni timer başlangıç değerleri
+# v2.5.0-fix: Yeni timer başlangıç değerleri
 execute unless score #auto_ann_tick glc.timer matches -2147483648.. run scoreboard players set #auto_ann_tick glc.timer 1200
 execute unless score #permission_sync glc.timer matches -2147483648.. run scoreboard players set #permission_sync glc.timer 40
 
-# v2.2.0: Welcome config yoksa varsayılan oluştur
+# v2.5.0-fix: Welcome config yoksa varsayılan oluştur
 execute unless data storage glc:config welcome run data modify storage glc:config welcome set value {enabled:1b,message:"Sunucuya hoş geldin!"}
 
-# v2.2.0: Auto announce config yoksa oluştur
+# v2.5.0-fix: Auto announce config yoksa oluştur
 execute unless data storage glc:config auto_announce run data modify storage glc:config auto_announce set value {enabled:0b,messages:["GULCE Admin Power aktif!","VIP için yetkili ile görüşün."],interval:2400,current_index:0}
 
-# v2.2.0: VIP teleport locations yoksa spawn varsayılanı ekle
+# v2.5.0-fix: VIP teleport locations yoksa spawn varsayılanı ekle
 execute unless data storage glc:config teleport_locations run data modify storage glc:config teleport_locations set value {spawn:{x:0,y:64,z:0},castle:{x:0,y:64,z:0},mine:{x:0,y:20,z:0},forest:{x:100,y:64,z:100},ocean:{x:200,y:62,z:200},mountain:{x:0,y:120,z:0}}

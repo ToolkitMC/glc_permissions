@@ -22,3 +22,6 @@ execute if score #has_scheduled gulce_id matches 1.. run function custom_admin:h
 # Loop counter (0-19 arası döngü)
 scoreboard players add #custom_timer glc.timer 1
 execute if score #custom_timer glc.timer matches 20.. run scoreboard players set #custom_timer glc.timer 0
+
+# NT Input
+scoreboard players enable @a[tag=gulce_admin] gulce_nametag
