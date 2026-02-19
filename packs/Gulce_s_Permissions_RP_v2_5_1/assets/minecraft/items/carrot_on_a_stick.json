@@ -45,6 +45,27 @@
           "type": "minecraft:model",
           "model": "custom_admin:item/glc_broadcast"
         }
+      },
+      {
+        "when": "{glcTpa:1b}",
+        "model": {
+          "type": "minecraft:model",
+          "model": "custom_admin:item/glc_tpa"
+        }
+      },
+      {
+        "when": "{glcHome:1b}",
+        "model": {
+          "type": "minecraft:model",
+          "model": "custom_admin:item/glc_home"
+        }
+      },
+      {
+        "when": "{glcVote:1b}",
+        "model": {
+          "type": "minecraft:model",
+          "model": "custom_admin:item/glc_vote"
+        }
       }
     ],
     "fallback": {

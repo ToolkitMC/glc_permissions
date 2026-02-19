@@ -22,3 +22,18 @@ execute if score #has_scheduled gulce_id matches 1.. run function custom_admin:h
 # Loop counter (0-19 arası döngü)
 scoreboard players add #custom_timer glc.timer 1
 execute if score #custom_timer glc.timer matches 20.. run scoreboard players set #custom_timer glc.timer 0
+# v2.5.7: Kit cooldown azalt
+execute as @a[scores={glc.kit_cd=1..}] run scoreboard players remove @s glc.kit_cd 1
+
+# v2.5.7: Confirm trigger
+execute as @a[scores={glc.confirm=1..}] run function custom_admin:handler/confirm/resolve
+
+# v2.5.7: TPA trigger
+execute as @a[scores={glc.tpa=1..}] run function custom_admin:api/tpa/resolve
+
+# v2.5.7: Vote trigger
+execute as @a[scores={glc.vote=1..}] run function custom_admin:api/vote/cast
+
+# v2.5.7: Vote timer countdown
+execute if data storage glc:vote active if score #vote_timer glc.timer matches 1.. run scoreboard players remove #vote_timer glc.timer 1
+execute if data storage glc:vote active if score #vote_timer glc.timer matches 0 run function custom_admin:api/vote/end

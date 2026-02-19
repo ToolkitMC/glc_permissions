@@ -11,5 +11,8 @@
   "item.custom_admin.glc_admin_panel": "Admin-Panel",
   "item.custom_admin.glc_quick_action": "Schnellaktion",
   "item.custom_admin.glc_spy": "Spionage",
-  "item.custom_admin.glc_broadcast": "Ankündigungs-Stab"
+  "item.custom_admin.glc_broadcast": "Ankündigungs-Stab",
+  "item.custom_admin.glc_tpa": "TPA-Stab",
+  "item.custom_admin.glc_home": "Heimort-Kompass",
+  "item.custom_admin.glc_vote": "Abstimmungs-Stab"
 }

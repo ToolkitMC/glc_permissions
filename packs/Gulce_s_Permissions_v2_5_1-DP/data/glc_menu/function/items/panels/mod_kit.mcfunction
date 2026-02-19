@@ -62,3 +62,13 @@ execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run 
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"◀ Geri",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
 
 function glc_menu:handler/dialog/show with storage glc:ui ui
+
+# v2.5.7: Spectate ve Vanish butonları
+execute if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"👁 Spectate",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"👁 Oyuncu İzle",inputs:[{type:"minecraft:text",key:"p",label:"Oyuncu adı",max_length:16,label_visible:1b}],can_close_with_escape:1b,pause:0b,actions:[{label:"👁 İzle",action:{type:"minecraft:dynamic/run_command",template:"/function custom_admin:features/spectate/watch {player:\"$(p)\"}"}}]}}}
+execute if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"👻 Vanish",action:{type:"minecraft:run_command",command:"/function custom_admin:features/vanish/toggle"}}
+
+execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👁 Spectate",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"👁 Watch Player",inputs:[{type:"minecraft:text",key:"p",label:"Player name",max_length:16,label_visible:1b}],can_close_with_escape:1b,pause:0b,actions:[{label:"👁 Watch",action:{type:"minecraft:dynamic/run_command",template:"/function custom_admin:features/spectate/watch {player:\"$(p)\"}"}}]}}}
+execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👻 Vanish",action:{type:"minecraft:run_command",command:"/function custom_admin:features/vanish/toggle"}}
+
+execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"👁 Beobachten",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"👁 Spieler beobachten",inputs:[{type:"minecraft:text",key:"p",label:"Spielername",max_length:16,label_visible:1b}],can_close_with_escape:1b,pause:0b,actions:[{label:"👁 Beobachten",action:{type:"minecraft:dynamic/run_command",template:"/function custom_admin:features/spectate/watch {player:\"$(p)\"}"}}]}}}
+execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"👻 Unsichtbar",action:{type:"minecraft:run_command",command:"/function custom_admin:features/vanish/toggle"}}

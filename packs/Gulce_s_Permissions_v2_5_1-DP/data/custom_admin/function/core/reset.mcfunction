@@ -61,3 +61,28 @@ execute as @a[tag=glc.lang_en] run tellraw @s [{text:"• ",color:"gray"},{text:
 execute as @a run tellraw @s [{text:"[i]",color:"aqua"},":"," ",{text:"Tekrar başlatmak için: ",color:"yellow"},{text:"/function glc_permissions:setup",color:"aqua"}]
 execute as @a[tag=glc.lang_tr] run tellraw @s {text:"═══════════════════════════════",color:"dark_gray",bold:true}
 execute as @a[tag=glc.lang_en] run tellraw @s {text:"═══════════════════════════════",color:"dark_gray",bold:true}
+
+# v2.5.7: Yeni scoreboard'lar
+scoreboard objectives remove glc.used.tpa
+scoreboard objectives remove glc.used.home
+scoreboard objectives remove glc.used.vote
+scoreboard objectives remove glc.tpa
+scoreboard objectives remove glc.vote
+scoreboard objectives remove glc.confirm
+
+# v2.5.7: Yeni tag'ler
+tag @a remove glc.tpa_pending
+tag @a remove glc.vanish
+tag @a remove glc.spectating
+tag @a remove glc.confirm_pending
+tag @a remove glc.voting
+
+# v2.5.7: Yeni storage'lar
+data remove storage glc:tpa requests
+data remove storage glc:tpa pending
+data remove storage glc:homes data
+data remove storage glc:vote current
+data remove storage glc:confirm pending
+
+# v2.5.7 ekleme - kit cooldown
+scoreboard objectives remove glc.kit_cd

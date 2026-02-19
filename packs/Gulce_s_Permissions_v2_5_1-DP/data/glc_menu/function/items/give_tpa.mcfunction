@@ -1,0 +1,6 @@
+# v2.5.8: TPA item ver (carrot_on_a_stick + custom_data)
+execute unless entity @s[tag=gulce_vip] unless entity @s[tag=gulce_mod] unless entity @s[tag=gulce_admin] unless entity @s[tag=gulce_owner] run return 0
+execute if entity @s[tag=glc.lang_tr] run give @s minecraft:carrot_on_a_stick[minecraft:custom_data={glcTpa:1b},minecraft:custom_name={translate:"item.custom_admin.glc_tpa",color:"aqua",bold:true,italic:false},minecraft:lore=[{text:"TPA isteği gönder",color:"gray",italic:true}]}
+execute if entity @s[tag=glc.lang_en] run give @s minecraft:carrot_on_a_stick[minecraft:custom_data={glcTpa:1b},minecraft:custom_name={translate:"item.custom_admin.glc_tpa",color:"aqua",bold:true,italic:false},minecraft:lore=[{text:"Send a teleport request",color:"gray",italic:true}]}
+execute if entity @s[tag=glc.lang_de] run give @s minecraft:carrot_on_a_stick[minecraft:custom_data={glcTpa:1b},minecraft:custom_name={translate:"item.custom_admin.glc_tpa",color:"aqua",bold:true,italic:false},minecraft:lore=[{text:"Teleportanfrage senden",color:"gray",italic:true}]}
+execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] unless entity @s[tag=glc.lang_de] run give @s minecraft:carrot_on_a_stick[minecraft:custom_data={glcTpa:1b},minecraft:custom_name={translate:"item.custom_admin.glc_tpa",color:"aqua",bold:true,italic:false}]

@@ -9,7 +9,7 @@
 scoreboard objectives add gulce_id dummy "GLC ID Counter"
 scoreboard objectives add gulce_cooldown dummy "GLC Cooldown"
 scoreboard objectives add glc.timer dummy "GLC Timer System"
-scoreboard objectives add gulce_menu trigger "GLC Menu Trigger"
+scoreboard objectives add gulce_menu trigger
 scoreboard objectives add glc_load_type dummy "GLC Load Type"
 scoreboard objectives add gulce_permission_level dummy "Permission Level"
 
@@ -99,3 +99,11 @@ execute unless data storage glc:config auto_announce run data modify storage glc
 
 # v2.5.4: VIP teleport locations yoksa spawn varsayılanı ekle
 execute unless data storage glc:config teleport_locations run data modify storage glc:config teleport_locations set value {spawn:{x:0,y:64,z:0},castle:{x:0,y:64,z:0},mine:{x:0,y:20,z:0},forest:{x:100,y:64,z:100},ocean:{x:200,y:62,z:200},mountain:{x:0,y:120,z:0}}
+
+# v2.5.7: VIP Kit cooldown + triggerlar
+scoreboard objectives add glc.kit_cd dummy "VIP Kit Cooldown"
+
+# v2.5.7: Yeni trigger scoreboardları
+scoreboard objectives add glc.tpa trigger
+scoreboard objectives add glc.vote trigger
+scoreboard objectives add glc.confirm trigger

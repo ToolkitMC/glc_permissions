@@ -3,7 +3,7 @@
 # ═══════════════════════════════════════════════════
 
 # Scoreboards oluştur
-scoreboard objectives add gulce_trigger trigger "GULCE Trigger"
+scoreboard objectives add gulce_trigger trigger
 
 # Trigger'ı aktif et
 scoreboard players enable @a gulce_trigger

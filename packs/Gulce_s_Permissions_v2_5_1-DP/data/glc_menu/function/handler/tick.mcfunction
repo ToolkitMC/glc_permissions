@@ -25,3 +25,16 @@ tag @a[tag=glc.close_dialog] remove glc.close_dialog
 scoreboard players enable @a[tag=gulce_admin] gulce_trigger
 scoreboard players enable @a[tag=gulce_admin] gulce_menu
 
+
+# v2.5.7: Yeni trigger'ları etkinleştir
+scoreboard players enable @a glc.tpa
+scoreboard players enable @a glc.vote
+scoreboard players enable @a[tag=glc.confirm_pending] glc.confirm
+
+# v2.5.7: Yeni item kullanımı
+execute as @a[scores={glc.used.tpa=1..}] run function glc_menu:items/panels/tpa_item
+execute as @a[scores={glc.used.home=1..}] run function glc_menu:items/panels/home_item
+execute as @a[scores={glc.used.vote=1..},tag=gulce_admin] run function glc_menu:items/panels/vote_item
+scoreboard players set @a glc.used.tpa 0
+scoreboard players set @a glc.used.home 0
+scoreboard players set @a glc.used.vote 0

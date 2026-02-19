@@ -11,5 +11,8 @@
   "item.custom_admin.glc_admin_panel": "Admin Panel",
   "item.custom_admin.glc_quick_action": "Quick Action",
   "item.custom_admin.glc_spy": "Spy Monocle",
-  "item.custom_admin.glc_broadcast": "Broadcast Wand"
+  "item.custom_admin.glc_broadcast": "Broadcast Wand",
+  "item.custom_admin.glc_tpa": "TPA Wand",
+  "item.custom_admin.glc_home": "Home Compass",
+  "item.custom_admin.glc_vote": "Vote Wand"
 }

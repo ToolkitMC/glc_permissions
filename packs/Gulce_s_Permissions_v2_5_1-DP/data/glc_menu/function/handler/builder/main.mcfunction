@@ -88,3 +88,19 @@ execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.
 execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"🎒 Item Kiti Al",action:{type:"minecraft:run_command",command:"/function glc_menu:items/give_kit"}}
 execute if score @s gulce_permission_level matches 3.. if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🎒 Get Item Kit",action:{type:"minecraft:run_command",command:"/function glc_menu:items/give_kit"}}
 execute if score @s gulce_permission_level matches 3.. unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🎒 Item Kiti Al",action:{type:"minecraft:run_command",command:"/function glc_menu:items/give_kit"}}
+
+# v2.5.7: Yeni butonlar
+execute if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"📍 TPA",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 30"}}
+execute if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"🏠 Home",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 31"}}
+execute if entity @s[tag=glc.lang_tr,tag=gulce_admin] run data modify storage glc:ui ui.actions append value {label:"📊 Oylama",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 32"}}
+execute if entity @s[tag=glc.lang_tr] run data modify storage glc:ui ui.actions append value {label:"📋 Rapor",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 33"}}
+
+execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"📍 TPA",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 30"}}
+execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"🏠 Home",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 31"}}
+execute if entity @s[tag=glc.lang_en,tag=gulce_admin] run data modify storage glc:ui ui.actions append value {label:"📊 Vote",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 32"}}
+execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"📋 Report",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 33"}}
+
+execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"📍 TPA",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 30"}}
+execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"🏠 Heimort",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 31"}}
+execute if entity @s[tag=glc.lang_de,tag=gulce_admin] run data modify storage glc:ui ui.actions append value {label:"📊 Abstimmung",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 32"}}
+execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"📋 Meldung",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 33"}}

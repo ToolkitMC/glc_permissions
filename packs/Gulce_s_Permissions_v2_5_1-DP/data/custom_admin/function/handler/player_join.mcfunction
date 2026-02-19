@@ -25,3 +25,9 @@ execute if entity @s[tag=ca.freezed] run tellraw @s {text:'❄️ Donmuş durumd
 
 # Debug log
 execute as @a[tag=gulce_debug] run tellraw @s [{text:'[GULCE] ',color:'gold'},{text:'👋 Oyuncu girdi: ',color:'gray'},{selector:'@s',color:'yellow'}]
+
+# v2.5.7: Yeni trigger'ları etkinleştir
+scoreboard players enable @s glc.tpa
+scoreboard players enable @s glc.vote
+scoreboard players enable @s glc.confirm
+scoreboard players enable @s gulce_nametag

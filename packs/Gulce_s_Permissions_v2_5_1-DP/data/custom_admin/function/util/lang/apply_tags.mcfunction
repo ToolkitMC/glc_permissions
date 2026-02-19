@@ -1,7 +1,8 @@
 # ═══════════════════════════════════════════════════
-# Player Language Tag Applier
+# Player Language Tag Applier (v2.5.7)
 # Purpose: Default Turkish if no tag exists
+# DE desteği eklendi
 # ═══════════════════════════════════════════════════
 
-# If player has no language tag at all, give them Turkish
-execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run tag @s add glc.lang_tr
+# Hiç dil tag'i yoksa Türkçe ata
+execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] unless entity @s[tag=glc.lang_de] run tag @s add glc.lang_tr
