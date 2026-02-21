@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════
 # Setup - Simplified (Dynamic version from storage)
-# v2.5.7: DE dil desteği, yeni scoreboard'lar eklendi
+# v2.5.9: Duplicate scoreboard'lar kaldırıldı
 # ═══════════════════════════════════════════════════
 
 # ── Tek Seferlik Yükleme Koruması ──────────────────
@@ -11,7 +11,7 @@ execute if data storage glc:sys loaded as @a[tag=gulce_admin] run playsound mine
 execute if data storage glc:sys loaded run return 0
 data modify storage glc:sys loaded set value 1b
 
-# Scoreboard'ları oluştur
+# Scoreboard'ları oluştur (Carrot on a stick kullanım sayaçları)
 scoreboard objectives add gulce.used minecraft.used:minecraft.carrot_on_a_stick
 scoreboard objectives add glc.used.mod_kit minecraft.used:minecraft.carrot_on_a_stick
 scoreboard objectives add glc.used.admin_panel minecraft.used:minecraft.carrot_on_a_stick
@@ -26,17 +26,10 @@ scoreboard objectives add glc.used.vote minecraft.used:minecraft.carrot_on_a_sti
 # NameTag input trigger
 scoreboard objectives add gulce_nametag trigger
 
-# v2.5.7: TPA, Oylama, Onay triggerleri
-scoreboard objectives add glc.tpa trigger
-scoreboard objectives add glc.vote trigger
-scoreboard objectives add glc.confirm trigger
+# NOT v2.5.9: glc.tpa, glc.vote, glc.confirm objective'leri
+# custom_admin:core/load tarafından zaten oluşturulduğu için burada tekrarlanmıyor.
 
-# Timer başlangıç değerleri
-scoreboard players set #admin_tick glc.timer 20
-scoreboard players set #menu_tick glc.timer 10
-scoreboard players set #custom_timer glc.timer 0
-
-# Core sistem yükle
+# Core sistem yükle (bu, yukarıdaki objective'leri de oluşturur)
 function custom_admin:core/load
 
 # Diğer sistemleri yükle

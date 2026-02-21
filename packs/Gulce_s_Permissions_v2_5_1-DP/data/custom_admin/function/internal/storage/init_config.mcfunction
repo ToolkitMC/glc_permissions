@@ -16,6 +16,7 @@ data modify storage glc:config settings set value {\
   rate_limit: 20\
 }
 
-# Notify admin
-execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"📝 Config created with default values",color:"gray"}]
+# Notify admin - DÜZELTME v2.5.9: TR mesajı Türkçe, DE mesajı Almanca
+execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"📝 Config varsayılan değerlerle oluşturuldu",color:"gray"}]
 execute as @a[tag=glc.lang_en,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"📝 Config created with default values",color:"gray"}]
+execute as @a[tag=glc.lang_de,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"📝 Konfiguration mit Standardwerten erstellt",color:"gray"}]

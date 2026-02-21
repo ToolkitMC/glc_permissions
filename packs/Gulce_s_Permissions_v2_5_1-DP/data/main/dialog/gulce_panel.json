@@ -3,11 +3,28 @@
   "title": {
     "text": "⚙️ GULCE ",
     "extra": [
-      {"text": "- ", "color": "yellow", "bold": true, "italic": false},
-      {"text": "Admin Power ", "color": "green", "bold": true, "italic": false},
-      {"text": "Kontrol Paneli", "color": "gold", "bold": true, "italic": false}
+      {
+        "text": "- ",
+        "color": "yellow",
+        "bold": true,
+        "italic": false
+      },
+      {
+        "text": "Admin Power ",
+        "color": "green",
+        "bold": true,
+        "italic": false
+      },
+      {
+        "text": "Kontrol Paneli",
+        "color": "gold",
+        "bold": true,
+        "italic": false
+      }
     ],
-    "color": "aqua", "bold": true, "italic": false
+    "color": "aqua",
+    "bold": true,
+    "italic": false
   },
   "body": {
     "type": "minecraft:plain_message",
@@ -17,7 +34,10 @@
   "pause": false,
   "exit_action": {
     "label": "❌ Kapat",
-    "action": {"type": "minecraft:suggest_command", "command": "/say Panel kapatılıyor..."}
+    "action": {
+      "type": "minecraft:suggest_command",
+      "command": " "
+    }
   },
   "actions": [
     {
@@ -28,16 +48,54 @@
           "type": "minecraft:multi_action",
           "title": "🧩 NBT / Dosya Düzenleme",
           "inputs": [
-            {"type": "minecraft:text", "key": "str", "label": "📁 Dosya Adı (namespace:path)", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "so", "label": "🔊 Ses Efekti", "max_length": 5000},
-            {"type": "minecraft:text", "key": "mn", "label": "📝 Düzenlenecek NBT", "max_length": 10000000},
-            {"type": "minecraft:text", "key": "ac", "label": "⚡ İşlem Tipi (Örnek: value [])", "max_length": 10000000},
-            {"type": "minecraft:text", "key": "nbt", "label": "📦 NBT Değeri", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "p", "label": "🎯 Oyuncu", "max_length": 50000}
+            {
+              "type": "minecraft:text",
+              "key": "str",
+              "label": "📁 Dosya Adı (namespace:path)",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "so",
+              "label": "🔊 Ses Efekti",
+              "max_length": 5000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "mn",
+              "label": "📝 Düzenlenecek NBT",
+              "max_length": 10000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "ac",
+              "label": "⚡ İşlem Tipi (Örnek: value [])",
+              "max_length": 10000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "nbt",
+              "label": "📦 NBT Değeri",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "p",
+              "label": "🎯 Oyuncu",
+              "max_length": 50000
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
-          "actions": [{"label": "💾 Kaydet ve Uygula", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:api/nbt/modify {file:\"$(str)\",player:\"$(p)\",sound:\"$(so)\",nbt:\"$(nbt)\",action:\"$(ac)\",modify_nbt:\"$(mn)\""}}]
+          "actions": [
+            {
+              "label": "💾 Kaydet ve Uygula",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:api/nbt/modify {file:\"$(str)\",player:\"$(p)\",sound:\"$(so)\",nbt:\"$(nbt)\",action:\"$(ac)\",modify_nbt:\"$(mn)\""
+              }
+            }
+          ]
         }
       }
     },
@@ -49,15 +107,42 @@
           "type": "minecraft:multi_action",
           "title": "⚙️ Komut Yürütücü",
           "inputs": [
-            {"type": "minecraft:text", "key": "s", "label": "🔊 Ses (opsiyonel)", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "cmd", "label": "💻 Komut", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "p", "label": "🎯 Oyuncu Adı", "max_length": 100000000}
+            {
+              "type": "minecraft:text",
+              "key": "s",
+              "label": "🔊 Ses (opsiyonel)",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "cmd",
+              "label": "💻 Komut",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "p",
+              "label": "🎯 Oyuncu Adı",
+              "max_length": 100000000
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
           "actions": [
-            {"label": "🚀 Yürüt", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:api/run_command {cmd:\"$(cmd)\",selector:\"$(p)\",sound:\"$(s)\"}"}},
-            {"label": "❌ Kapat", "action": {"type": "minecraft:suggest_command", "command": "/say Komut yürütme kapatıldı."}}
+            {
+              "label": "🚀 Yürüt",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:api/run_command {cmd:\"$(cmd)\",selector:\"$(p)\",sound:\"$(s)\"}"
+              }
+            },
+            {
+              "label": "❌ Kapat",
+              "action": {
+                "type": "minecraft:suggest_command",
+                "command": " "
+              }
+            }
           ]
         }
       }
@@ -70,15 +155,42 @@
           "type": "minecraft:multi_action",
           "title": "💬 Mesaj Gönderici",
           "inputs": [
-            {"type": "minecraft:text", "key": "s", "label": "🔊 Ses", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "msg", "label": "💬 Mesaj", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "p", "label": "🎯 Oyuncu", "max_length": 100000000}
+            {
+              "type": "minecraft:text",
+              "key": "s",
+              "label": "🔊 Ses",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "msg",
+              "label": "💬 Mesaj",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "p",
+              "label": "🎯 Oyuncu",
+              "max_length": 100000000
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
           "actions": [
-            {"label": "📨 Gönder", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:api/send_message {selector:\"$(p)\",message:\"$(msg)\",sound:\"$(s)\"}"}},
-            {"label": "❌ Kapat", "action": {"type": "minecraft:suggest_command", "command": "/say Mesaj gönderme iptal edildi."}}
+            {
+              "label": "📨 Gönder",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:api/send_message {selector:\"$(p)\",message:\"$(msg)\",sound:\"$(s)\"}"
+              }
+            },
+            {
+              "label": "❌ Kapat",
+              "action": {
+                "type": "minecraft:suggest_command",
+                "command": " "
+              }
+            }
           ]
         }
       }
@@ -91,15 +203,42 @@
           "type": "minecraft:multi_action",
           "title": "🎯 Oyuncu Işınlama",
           "inputs": [
-            {"type": "minecraft:text", "key": "from", "label": "🚹 Kaynak Oyuncu", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "to", "label": "🎯 Hedef Oyuncu veya Koordinat (~ ~ ~)", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "s", "label": "🔊 Ses Efekti", "max_length": 10000000}
+            {
+              "type": "minecraft:text",
+              "key": "from",
+              "label": "🚹 Kaynak Oyuncu",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "to",
+              "label": "🎯 Hedef Oyuncu veya Koordinat (~ ~ ~)",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "s",
+              "label": "🔊 Ses Efekti",
+              "max_length": 10000000
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
           "actions": [
-            {"label": "🚀 Işınla", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:api/teleport {from:\"$(from)\",to:\"$(to)\",sound:\"$(s)\"}"}},
-            {"label": "❌ Kapat", "action": {"type": "minecraft:suggest_command", "command": "/say Işınlama iptal edildi."}}
+            {
+              "label": "🚀 Işınla",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:api/teleport {from:\"$(from)\",to:\"$(to)\",sound:\"$(s)\"}"
+              }
+            },
+            {
+              "label": "❌ Kapat",
+              "action": {
+                "type": "minecraft:suggest_command",
+                "command": " "
+              }
+            }
           ]
         }
       }
@@ -112,16 +251,49 @@
           "type": "minecraft:multi_action",
           "title": "🧨 Varlık veya Efekt Oluştur",
           "inputs": [
-            {"type": "minecraft:text", "key": "ent", "label": "🔹 Varlık ID (örn: minecraft:zombie)", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "nbt", "label": "📦 NBT Verisi", "initial": "{}", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "loc", "label": "📍 Konum (~ ~ ~)", "max_length": 100000000},
-            {"type": "minecraft:text", "key": "s", "label": "🔊 Ses Efekti", "max_length": 100000000}
+            {
+              "type": "minecraft:text",
+              "key": "ent",
+              "label": "🔹 Varlık ID (örn: minecraft:zombie)",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "nbt",
+              "label": "📦 NBT Verisi",
+              "initial": "{}",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "loc",
+              "label": "📍 Konum (~ ~ ~)",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "s",
+              "label": "🔊 Ses Efekti",
+              "max_length": 100000000
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
           "actions": [
-            {"label": "🧨 Oluştur", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:api/spawn_entity {entity:\"$(ent)\",nbt:\"$(nbt)\",pos:\"$(loc)\",sound:\"$(s)\"}"}},
-            {"label": "❌ Kapat", "action": {"type": "minecraft:suggest_command", "command": "/say Varlık/efekt oluşturma iptal edildi."}}
+            {
+              "label": "🧨 Oluştur",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:api/spawn_entity {entity:\"$(ent)\",nbt:\"$(nbt)\",pos:\"$(loc)\",sound:\"$(s)\"}"
+              }
+            },
+            {
+              "label": "❌ Kapat",
+              "action": {
+                "type": "minecraft:suggest_command",
+                "command": " "
+              }
+            }
           ]
         }
       }
@@ -134,23 +306,80 @@
           "type": "minecraft:multi_action",
           "title": "📢 Başlık / Actionbar Gönderici",
           "inputs": [
-            {"type": "minecraft:text", "key": "txt", "label": "📝 Metin", "max_length": 100000000},
-            {"type": "minecraft:single_option", "key": "typ", "label": "Tür", "options": [
-              {"id": "title", "display": "Başlık"},
-              {"id": "actionbar", "display": "Actionbar"},
-              {"id": "subtitle", "display": "Alt Başlık"}
-            ]},
-            {"type": "minecraft:text", "key": "u", "label": "🎯 Hedef Oyuncu", "max_length": 5000000},
-            {"type": "minecraft:text", "key": "co", "label": "🎨 Renk (örn: yellow veya #ffaa00)", "max_length": 5555555},
-            {"type": "minecraft:boolean", "key": "bol", "label": "🟨 Kalın (bold)"},
-            {"type": "minecraft:boolean", "key": "it", "label": "🟪 İtalik (italic)"},
-            {"type": "minecraft:boolean", "key": "und", "label": "🟩 Altı Çizili (underlined)"},
-            {"type": "minecraft:boolean", "key": "str", "label": "🟥 Üstü Çizili (strikethrough)"},
-            {"type": "minecraft:boolean", "key": "obf", "label": "🌀 Karışık (obfuscated)"}
+            {
+              "type": "minecraft:text",
+              "key": "txt",
+              "label": "📝 Metin",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:single_option",
+              "key": "typ",
+              "label": "Tür",
+              "options": [
+                {
+                  "id": "title",
+                  "display": "Başlık"
+                },
+                {
+                  "id": "actionbar",
+                  "display": "Actionbar"
+                },
+                {
+                  "id": "subtitle",
+                  "display": "Alt Başlık"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:text",
+              "key": "u",
+              "label": "🎯 Hedef Oyuncu",
+              "max_length": 5000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "co",
+              "label": "🎨 Renk (örn: yellow veya #ffaa00)",
+              "max_length": 5555555
+            },
+            {
+              "type": "minecraft:boolean",
+              "key": "bol",
+              "label": "🟨 Kalın (bold)"
+            },
+            {
+              "type": "minecraft:boolean",
+              "key": "it",
+              "label": "🟪 İtalik (italic)"
+            },
+            {
+              "type": "minecraft:boolean",
+              "key": "und",
+              "label": "🟩 Altı Çizili (underlined)"
+            },
+            {
+              "type": "minecraft:boolean",
+              "key": "str",
+              "label": "🟥 Üstü Çizili (strikethrough)"
+            },
+            {
+              "type": "minecraft:boolean",
+              "key": "obf",
+              "label": "🌀 Karışık (obfuscated)"
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
-          "actions": [{"label": "✅ Gönder", "action": {"type": "minecraft:dynamic/run_command", "template": "/title $(u) $(typ) {\"text\":\"$(txt)\",\"color\":\"$(co)\",\"bold\":$(bol),\"italic\":$(it),\"underlined\":$(und),\"strikethrough\":$(str),\"obfuscated\":$(obf)}"}}]
+          "actions": [
+            {
+              "label": "✅ Gönder",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/title $(u) $(typ) {\"text\":\"$(txt)\",\"color\":\"$(co)\",\"bold\":$(bol),\"italic\":$(it),\"underlined\":$(und),\"strikethrough\":$(str),\"obfuscated\":$(obf)}"
+              }
+            }
+          ]
         }
       }
     },
@@ -162,18 +391,53 @@
           "type": "minecraft:multi_action",
           "title": "🎮 Oyun Modu Değiştir",
           "inputs": [
-            {"type": "minecraft:text", "key": "s", "label": "🔊 Ses Efekti", "max_length": 1000000},
-            {"type": "minecraft:single_option", "key": "mod", "label": "🎮 Oyun Modu Seç", "options": [
-              {"id": "creative", "display": "Yaratıcı"},
-              {"id": "survival", "display": "Hayatta Kalma"},
-              {"id": "spectator", "display": "Gözlemci"},
-              {"id": "adventure", "display": "Macera"}
-            ]},
-            {"type": "minecraft:text", "key": "pl", "label": "🎯 Oyuncu", "max_length": 1000000}
+            {
+              "type": "minecraft:text",
+              "key": "s",
+              "label": "🔊 Ses Efekti",
+              "max_length": 1000000
+            },
+            {
+              "type": "minecraft:single_option",
+              "key": "mod",
+              "label": "🎮 Oyun Modu Seç",
+              "options": [
+                {
+                  "id": "creative",
+                  "display": "Yaratıcı"
+                },
+                {
+                  "id": "survival",
+                  "display": "Hayatta Kalma"
+                },
+                {
+                  "id": "spectator",
+                  "display": "Gözlemci"
+                },
+                {
+                  "id": "adventure",
+                  "display": "Macera"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:text",
+              "key": "pl",
+              "label": "🎯 Oyuncu",
+              "max_length": 1000000
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
-          "actions": [{"label": "✅ Değiştir", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:handler/execute/types/gamemode_run {selector:\"$(pl)\",mode:\"$(mod)\",sound:\"$(s)\""}}]
+          "actions": [
+            {
+              "label": "✅ Değiştir",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:handler/execute/types/gamemode_run {selector:\"$(pl)\",mode:\"$(mod)\",sound:\"$(s)\""
+              }
+            }
+          ]
         }
       }
     },
@@ -185,14 +449,44 @@
           "type": "minecraft:multi_action",
           "title": "🎨 GUI Aç",
           "inputs": [
-            {"type": "minecraft:text", "key": "GUI", "label": "🖼️ Dialog JSON", "max_length": 1000000000},
-            {"type": "minecraft:single_option", "key": "p", "label": "🎯 Hedef Oyuncu", "options": [
-              {"id": "@a"}, {"id": "@p"}, {"id": "@s"}
-            ]}
+            {
+              "type": "minecraft:text",
+              "key": "GUI",
+              "label": "🖼️ Dialog JSON",
+              "max_length": 1000000000
+            },
+            {
+              "type": "minecraft:single_option",
+              "key": "p",
+              "label": "🎯 Hedef Oyuncu",
+              "options": [
+                {
+                  "id": "@a"
+                },
+                {
+                  "id": "@p"
+                },
+                {
+                  "id": "@s"
+                }
+              ]
+            }
           ],
           "actions": [
-            {"label": "✅ Aç", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:api/open_gui {dialog:'$(GUI)',selector:\"$(p)\"}"}},
-            {"label": "❌ Kapat", "action": {"type": "minecraft:suggest_command", "command": "/say GUI açma iptal edildi."}}
+            {
+              "label": "✅ Aç",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:api/open_gui {dialog:'$(GUI)',selector:\"$(p)\"}"
+              }
+            },
+            {
+              "label": "❌ Kapat",
+              "action": {
+                "type": "minecraft:suggest_command",
+                "command": " "
+              }
+            }
           ]
         }
       }
@@ -205,12 +499,32 @@
           "type": "minecraft:multi_action",
           "title": "🎨 GUI Aç",
           "inputs": [
-            {"type": "minecraft:text", "key": "dia", "label": "Dialog File", "initial": ":", "max_length": 10000000},
-            {"type": "minecraft:text", "key": "p", "label": "Hedef Oyuncu", "initial": "@s", "max_length": 10000000}
+            {
+              "type": "minecraft:text",
+              "key": "dia",
+              "label": "Dialog File",
+              "initial": ":",
+              "max_length": 10000000
+            },
+            {
+              "type": "minecraft:text",
+              "key": "p",
+              "label": "Hedef Oyuncu",
+              "initial": "@s",
+              "max_length": 10000000
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
-          "actions": [{"label": "✅ Aç", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:api/open_gui_file {selector:\"$(p)\",dialog:\"$(dia)\""}}]
+          "actions": [
+            {
+              "label": "✅ Aç",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:api/open_gui_file {selector:\"$(p)\",dialog:\"$(dia)\""
+              }
+            }
+          ]
         }
       }
     },
@@ -222,23 +536,95 @@
           "type": "minecraft:multi_action",
           "title": "🐼 Panda Oluşturucu",
           "inputs": [
-            {"type": "minecraft:text", "key": "Name", "label": "Panda Adı", "initial": "Çılgın Panda", "max_length": 100},
-            {"type": "minecraft:single_option", "key": "MG", "label": "Ana Gen (MainGene)", "options": [
-              {"id": "normal", "display": "Normal"}, {"id": "lazy", "display": "Tembel"},
-              {"id": "worried", "display": "Endişeli"}, {"id": "playful", "display": "Oyunbaz"},
-              {"id": "aggressive", "display": "Agresif"}, {"id": "weak", "display": "Zayıf"},
-              {"id": "brown", "display": "Kahverengi"}
-            ]},
-            {"type": "minecraft:single_option", "key": "HG", "label": "Gizli Gen (HiddenGene)", "options": [
-              {"id": "normal", "display": "Normal"}, {"id": "lazy", "display": "Tembel"},
-              {"id": "worried", "display": "Endişeli"}, {"id": "playful", "display": "Oyunbaz"},
-              {"id": "aggressive", "display": "Agresif"}, {"id": "weak", "display": "Zayıf"},
-              {"id": "brown", "display": "Kahverengi"}
-            ]}
+            {
+              "type": "minecraft:text",
+              "key": "Name",
+              "label": "Panda Adı",
+              "initial": "Çılgın Panda",
+              "max_length": 100
+            },
+            {
+              "type": "minecraft:single_option",
+              "key": "MG",
+              "label": "Ana Gen (MainGene)",
+              "options": [
+                {
+                  "id": "normal",
+                  "display": "Normal"
+                },
+                {
+                  "id": "lazy",
+                  "display": "Tembel"
+                },
+                {
+                  "id": "worried",
+                  "display": "Endişeli"
+                },
+                {
+                  "id": "playful",
+                  "display": "Oyunbaz"
+                },
+                {
+                  "id": "aggressive",
+                  "display": "Agresif"
+                },
+                {
+                  "id": "weak",
+                  "display": "Zayıf"
+                },
+                {
+                  "id": "brown",
+                  "display": "Kahverengi"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:single_option",
+              "key": "HG",
+              "label": "Gizli Gen (HiddenGene)",
+              "options": [
+                {
+                  "id": "normal",
+                  "display": "Normal"
+                },
+                {
+                  "id": "lazy",
+                  "display": "Tembel"
+                },
+                {
+                  "id": "worried",
+                  "display": "Endişeli"
+                },
+                {
+                  "id": "playful",
+                  "display": "Oyunbaz"
+                },
+                {
+                  "id": "aggressive",
+                  "display": "Agresif"
+                },
+                {
+                  "id": "weak",
+                  "display": "Zayıf"
+                },
+                {
+                  "id": "brown",
+                  "display": "Kahverengi"
+                }
+              ]
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
-          "actions": [{"label": "🐾 Çağır", "action": {"type": "minecraft:dynamic/run_command", "template": "/summon minecraft:panda ~ ~ ~ {CustomName:{\"text\":\"$(Name)\",\"color\":\"#ffaa00\",\"bold\":true},MainGene:\"$(MG)\",HiddenGene:\"$(HG)\""}}]
+          "actions": [
+            {
+              "label": "🐾 Çağır",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/summon minecraft:panda ~ ~ ~ {CustomName:{\"text\":\"$(Name)\",\"color\":\"#ffaa00\",\"bold\":true},MainGene:\"$(MG)\",HiddenGene:\"$(HG)\""
+              }
+            }
+          ]
         }
       }
     },
@@ -250,14 +636,44 @@
           "type": "minecraft:multi_action",
           "title": "ℹ️ Hızlı Bilgi / Uyarı",
           "inputs": [
-            {"type": "minecraft:text", "key": "Contents", "label": "📄 Mesaj İçeriği", "initial": "{\"text\":\"\",\"color\":\"white\",\"italic\":false}", "max_length": 100000000},
-            {"type": "minecraft:single_option", "key": "p", "label": "🎯 Hedef Oyuncu", "options": [
-              {"id": "@a"}, {"id": "@p"}, {"id": "@r"}, {"id": "@s"}
-            ]}
+            {
+              "type": "minecraft:text",
+              "key": "Contents",
+              "label": "📄 Mesaj İçeriği",
+              "initial": "{\"text\":\"\",\"color\":\"white\",\"italic\":false}",
+              "max_length": 100000000
+            },
+            {
+              "type": "minecraft:single_option",
+              "key": "p",
+              "label": "🎯 Hedef Oyuncu",
+              "options": [
+                {
+                  "id": "@a"
+                },
+                {
+                  "id": "@p"
+                },
+                {
+                  "id": "@r"
+                },
+                {
+                  "id": "@s"
+                }
+              ]
+            }
           ],
           "can_close_with_escape": true,
           "pause": false,
-          "actions": [{"label": "✅ Göster", "action": {"type": "minecraft:dynamic/run_command", "template": "/function custom_admin:api/show_notice {selector:\"$(p)\",contents:'$(Contents)'"}}]
+          "actions": [
+            {
+              "label": "✅ Göster",
+              "action": {
+                "type": "minecraft:dynamic/run_command",
+                "template": "/function custom_admin:api/show_notice {selector:\"$(p)\",contents:'$(Contents)'"
+              }
+            }
+          ]
         }
       }
     },
@@ -270,7 +686,10 @@
           "title": "⚙️ GULCE - Diğer Araçlar",
           "exit_action": {
             "label": "❌ Kapat",
-            "action": {"type": "minecraft:suggest_command", "command": "/say Panel kapatılıyor..."}
+            "action": {
+              "type": "minecraft:suggest_command",
+              "command": " "
+            }
           },
           "actions": [
             {
@@ -280,8 +699,23 @@
                 "dialog": {
                   "type": "minecraft:multi_action",
                   "title": "💡 Hızlı Komutlar",
-                  "inputs": [{"type": "minecraft:text", "key": "cmd", "label": "💻 Komut", "max_length": 100000}],
-                  "actions": [{"label": "🚀 Yürüt", "action": {"type": "minecraft:dynamic/run_command", "template": "$(cmd)"}}]
+                  "inputs": [
+                    {
+                      "type": "minecraft:text",
+                      "key": "cmd",
+                      "label": "💻 Komut",
+                      "max_length": 100000
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "label": "🚀 Yürüt",
+                      "action": {
+                        "type": "minecraft:dynamic/run_command",
+                        "template": "$(cmd)"
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -293,10 +727,29 @@
                   "type": "minecraft:multi_action",
                   "title": "🎵 Müzik Çalar",
                   "inputs": [
-                    {"type": "minecraft:text", "key": "track", "label": "🎶 Müzik ID", "max_length": 100000},
-                    {"type": "minecraft:text", "key": "player", "label": "🎯 Oyuncu", "initial": "@s", "max_length": 1000}
+                    {
+                      "type": "minecraft:text",
+                      "key": "track",
+                      "label": "🎶 Müzik ID",
+                      "max_length": 100000
+                    },
+                    {
+                      "type": "minecraft:text",
+                      "key": "player",
+                      "label": "🎯 Oyuncu",
+                      "initial": "@s",
+                      "max_length": 1000
+                    }
                   ],
-                  "actions": [{"label": "▶️ Çal", "action": {"type": "minecraft:dynamic/run_command", "template": "/playsound $(track) master $(player)"}}]
+                  "actions": [
+                    {
+                      "label": "▶️ Çal",
+                      "action": {
+                        "type": "minecraft:dynamic/run_command",
+                        "template": "/playsound $(track) master $(player)"
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -308,10 +761,29 @@
                   "type": "minecraft:multi_action",
                   "title": "🌳 Blok Yerleştir",
                   "inputs": [
-                    {"type": "minecraft:text", "key": "block", "label": "🪴 Blok ID", "max_length": 100000},
-                    {"type": "minecraft:text", "key": "pos", "label": "📍 Konum (~ ~ ~)", "initial": "~ ~ ~", "max_length": 1000}
+                    {
+                      "type": "minecraft:text",
+                      "key": "block",
+                      "label": "🪴 Blok ID",
+                      "max_length": 100000
+                    },
+                    {
+                      "type": "minecraft:text",
+                      "key": "pos",
+                      "label": "📍 Konum (~ ~ ~)",
+                      "initial": "~ ~ ~",
+                      "max_length": 1000
+                    }
                   ],
-                  "actions": [{"label": "🌱 Yerleştir", "action": {"type": "minecraft:dynamic/run_command", "template": "/setblock $(pos) $(block)"}}]
+                  "actions": [
+                    {
+                      "label": "🌱 Yerleştir",
+                      "action": {
+                        "type": "minecraft:dynamic/run_command",
+                        "template": "/setblock $(pos) $(block)"
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -322,12 +794,36 @@
                 "dialog": {
                   "type": "minecraft:multi_action",
                   "title": "🔥 Hava Durumu Değiştir",
-                  "inputs": [{"type": "minecraft:single_option", "key": "weather", "label": "☁️ Hava Türü", "options": [
-                    {"id": "clear", "display": "Güneşli"},
-                    {"id": "rain", "display": "Yağmur"},
-                    {"id": "thunder", "display": "Fırtına"}
-                  ]}],
-                  "actions": [{"label": "⚡ Uygula", "action": {"type": "minecraft:dynamic/run_command", "template": "/weather $(weather)"}}]
+                  "inputs": [
+                    {
+                      "type": "minecraft:single_option",
+                      "key": "weather",
+                      "label": "☁️ Hava Türü",
+                      "options": [
+                        {
+                          "id": "clear",
+                          "display": "Güneşli"
+                        },
+                        {
+                          "id": "rain",
+                          "display": "Yağmur"
+                        },
+                        {
+                          "id": "thunder",
+                          "display": "Fırtına"
+                        }
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "label": "⚡ Uygula",
+                      "action": {
+                        "type": "minecraft:dynamic/run_command",
+                        "template": "/weather $(weather)"
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -339,10 +835,30 @@
                   "type": "minecraft:multi_action",
                   "title": "💣 Patlama Oluştur",
                   "inputs": [
-                    {"type": "minecraft:text", "key": "pos", "label": "📍 Konum (~ ~ ~)", "initial": "~ ~ ~", "max_length": 1000},
-                    {"type": "minecraft:text", "key": "power", "label": "💥 Güç", "initial": "4", "max_length": 10}
+                    {
+                      "type": "minecraft:text",
+                      "key": "pos",
+                      "label": "📍 Konum (~ ~ ~)",
+                      "initial": "~ ~ ~",
+                      "max_length": 1000
+                    },
+                    {
+                      "type": "minecraft:text",
+                      "key": "power",
+                      "label": "💥 Güç",
+                      "initial": "4",
+                      "max_length": 10
+                    }
                   ],
-                  "actions": [{"label": "💥 Patlat", "action": {"type": "minecraft:dynamic/run_command", "template": "/summon minecraft:fireball $(pos) {ExplosionPower:$(power)}"}}]
+                  "actions": [
+                    {
+                      "label": "💥 Patlat",
+                      "action": {
+                        "type": "minecraft:dynamic/run_command",
+                        "template": "/summon minecraft:fireball $(pos) {ExplosionPower:$(power)}"
+                      }
+                    }
+                  ]
                 }
               }
             },
@@ -356,9 +872,27 @@
                   "can_close_with_escape": true,
                   "pause": false,
                   "actions": [
-                    {"label": "Evet", "action": {"type": "minecraft:run_command", "command": "/reload"}},
-                    {"label": "Panoya Kopyala", "action": {"type": "minecraft:copy_to_clipboard", "value": "/reload"}},
-                    {"label": "Hayır", "action": {"type": "minecraft:suggest_command", "command": " "}}
+                    {
+                      "label": "Evet",
+                      "action": {
+                        "type": "minecraft:run_command",
+                        "command": "/reload"
+                      }
+                    },
+                    {
+                      "label": "Panoya Kopyala",
+                      "action": {
+                        "type": "minecraft:copy_to_clipboard",
+                        "value": "/reload"
+                      }
+                    },
+                    {
+                      "label": "Hayır",
+                      "action": {
+                        "type": "minecraft:suggest_command",
+                        "command": " "
+                      }
+                    }
                   ]
                 }
               }
