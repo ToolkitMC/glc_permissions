@@ -1,0 +1,27 @@
+name: "🔒 Security Report"
+description: Güvenlik veya exploit bildirimi
+title: "[SECURITY] "
+labels: ["security"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Güvenlik açıkları herkese açık yazılmamalıdır.
+        Mümkünse özel iletişim yolunu tercih edin.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Açıklama
+      description: Exploit nasıl çalışıyor?
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Etki
+      description: Ne kadar kritik?
+    validations:
+      required: true
