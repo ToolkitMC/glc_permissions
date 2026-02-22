@@ -1,0 +1,29 @@
+name: "📝 Genel Issue"
+description: Diğer konular, sorular veya geri bildirimler
+title: "[GENERAL] "
+labels: ["discussion"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bu alan genel konular içindir.
+        Lütfen bug veya feature talepleri için ilgili şablonları kullanın.
+
+  - type: textarea
+    id: content
+    attributes:
+      label: Konu
+      description: Açıklamak istediğiniz şeyi buraya yazın
+      placeholder: |
+        Detaylı açıklama...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Ek Bilgi (Opsiyonel)
+      description: Log, bağlantı veya ekran görüntüsü
+    validations:
+      required: false
