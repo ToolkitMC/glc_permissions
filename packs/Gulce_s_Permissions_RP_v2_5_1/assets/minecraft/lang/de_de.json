@@ -14,5 +14,6 @@
   "item.custom_admin.glc_broadcast": "Ankündigungs-Stab",
   "item.custom_admin.glc_tpa": "TPA-Stab",
   "item.custom_admin.glc_home": "Heimort-Kompass",
-  "item.custom_admin.glc_vote": "Abstimmungs-Stab"
+  "item.custom_admin.glc_vote": "Abstimmungs-Stab",
+  "item.custom_admin.glc_pm": "Berechtigungsverwaltung"
 }

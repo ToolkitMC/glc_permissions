@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "🆕 Grup Oluştur", "color": "green", "bold": true, "italic": false},
+  "external_title": {"text": "🆕 Grup Oluştur", "color": "green", "italic": false},
+  "can_close_with_escape": true,
+  "pause": false,
+  "inputs": [
+    {"type": "minecraft:text", "key": "id", "label": "🔑 Grup ID (örn: moderators)", "max_length": 32},
+    {"type": "minecraft:text", "key": "name", "label": "📝 Görünen Ad", "max_length": 32}
+  ],
+  "actions": [
+    {
+      "label": "✅ Oluştur",
+      "action": {
+        "type": "minecraft:dynamic/run_command",
+        "template": "/function custom_admin:api/group/create {id:\"$(id)\",name:\"$(name)\"}"
+      }
+    },
+    {"label": "❌ İptal", "action": {"type": "minecraft:suggest_command", "command": " "}}
+  ]
+}

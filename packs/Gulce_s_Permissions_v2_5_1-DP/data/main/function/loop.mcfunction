@@ -31,6 +31,7 @@ execute as @a[scores={gulce.used=1..}] if entity @s[predicate=glc_menu:glc_admin
 execute as @a[scores={gulce.used=1..}] if entity @s[predicate=glc_menu:glc_quick_action] run function glc_menu:items/panels/quick_action
 execute as @a[scores={gulce.used=1..}] if entity @s[predicate=glc_menu:glc_spy] run function glc_menu:items/spy
 execute as @a[scores={gulce.used=1..}] if entity @s[predicate=glc_menu:glc_broadcast] run function glc_menu:items/panels/broadcast
+execute as @a[scores={gulce.used=1..}] if entity @s[predicate=glc_menu:glc_pm] run function glc_menu:items/panels/pm
 
 scoreboard players set @a[scores={gulce.used=1..}] gulce.used 0
 # ─── v2.5.4 EKLEMELERİ ───────────────────────────────────────────

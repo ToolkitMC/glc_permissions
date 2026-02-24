@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "🗑️ İzin Sil", "color": "red", "bold": true, "italic": false},
+  "external_title": {"text": "🗑️ İzin Sil", "color": "red", "italic": false},
+  "body": {"type": "minecraft:plain_message", "contents": "§cBu işlem geri alınamaz."},
+  "can_close_with_escape": true,
+  "pause": false,
+  "inputs": [
+    {"type": "minecraft:text", "key": "id", "label": "🔑 Silinecek İzin ID", "max_length": 64}
+  ],
+  "actions": [
+    {
+      "label": "🗑️ Sil",
+      "action": {
+        "type": "minecraft:dynamic/run_command",
+        "template": "/function custom_admin:api/delete/permission {id:\"$(id)\"}"
+      }
+    },
+    {
+      "label": "❌ İptal",
+      "action": {"type": "minecraft:suggest_command", "command": " "}
+    }
+  ]
+}

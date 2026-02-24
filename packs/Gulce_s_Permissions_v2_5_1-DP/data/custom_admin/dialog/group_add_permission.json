@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "🔐 Gruba İzin Ekle", "color": "aqua", "bold": true, "italic": false},
+  "external_title": {"text": "🔐 Gruba İzin Ekle", "color": "aqua", "italic": false},
+  "can_close_with_escape": true,
+  "pause": false,
+  "inputs": [
+    {"type": "minecraft:text", "key": "id", "label": "🔑 Grup ID", "max_length": 32},
+    {"type": "minecraft:text", "key": "permission", "label": "🔐 İzin Adı", "max_length": 64},
+    {"type": "minecraft:number_range", "key": "level", "label": "⭐ Seviye", "start": 1, "end": 5, "step": 1, "initial": 1}
+  ],
+  "actions": [
+    {
+      "label": "✅ Ekle",
+      "action": {
+        "type": "minecraft:dynamic/run_command",
+        "template": "/function custom_admin:api/group/add_permission {id:\"$(id)\",permission:\"$(permission)\",level:$(level)}"
+      }
+    },
+    {"label": "❌ İptal", "action": {"type": "minecraft:suggest_command", "command": " "}}
+  ]
+}

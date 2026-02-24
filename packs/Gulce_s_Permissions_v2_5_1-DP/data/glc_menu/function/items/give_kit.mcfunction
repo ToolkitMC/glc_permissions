@@ -14,6 +14,8 @@ execute if score @s gulce_permission_level matches 3.. run function glc_menu:ite
 # ADMIN/OWNER → Admin Panel + Quick Action
 execute if score @s gulce_permission_level matches 4.. run function glc_menu:items/give_admin_panel
 execute if score @s gulce_permission_level matches 3.. run function glc_menu:items/give_quick_action
+execute if score @s gulce_permission_level matches 4.. run give @s minecraft:carrot_on_a_stick[minecraft:custom_data={glcPermissionManager:1b},minecraft:custom_name={"translate":"item.custom_admin.glc_pm","color":"green","bold":true,"italic":false},minecraft:lore=[{"text":"İzinleri yönet","color":"gray","italic":true}]]
+execute if score @s gulce_permission_level matches 3.. run give @s minecraft:carrot_on_a_stick[minecraft:custom_data={glcPermissionManager:1b},minecraft:custom_name={"translate":"item.custom_admin.glc_pm","color":"green","bold":true,"italic":false},minecraft:lore=[{"text":"İzinleri yönet","color":"gray","italic":true}]]
 
 # Bildirim - TR
 execute if entity @s[tag=glc.lang_tr] run tellraw @s ["",{"text":"[GULCE] ","color":"gold","bold":true},{"text":"🎒 Eşyalar envanterinize eklendi!","color":"green"}]

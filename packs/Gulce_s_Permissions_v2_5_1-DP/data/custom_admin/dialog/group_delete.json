@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "🗑️ Grubu Sil", "color": "red", "bold": true, "italic": false},
+  "external_title": {"text": "🗑️ Grubu Sil", "color": "red", "italic": false},
+  "body": {"type": "minecraft:plain_message", "contents": "§cBu işlem geri alınamaz.\n§8Gruptaki tüm üyeler ve izinler silinir."},
+  "can_close_with_escape": true,
+  "pause": false,
+  "inputs": [
+    {"type": "minecraft:text", "key": "id", "label": "🔑 Silinecek Grup ID", "max_length": 32}
+  ],
+  "actions": [
+    {
+      "label": "🗑️ Evet, Sil",
+      "action": {
+        "type": "minecraft:dynamic/run_command",
+        "template": "/function custom_admin:api/group/delete {id:\"$(id)\"}"
+      }
+    },
+    {"label": "❌ İptal", "action": {"type": "minecraft:suggest_command", "command": " "}}
+  ]
+}

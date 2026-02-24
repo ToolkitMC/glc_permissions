@@ -14,5 +14,6 @@
   "item.custom_admin.glc_broadcast": "Duyuru Asası",
   "item.custom_admin.glc_tpa": "TPA Asası",
   "item.custom_admin.glc_home": "Ev Pusulası",
-  "item.custom_admin.glc_vote": "Oylama Asası"
+  "item.custom_admin.glc_vote": "Oylama Asası",
+  "item.custom_admin.glc_pm": "İzin Yönetimi"
 }

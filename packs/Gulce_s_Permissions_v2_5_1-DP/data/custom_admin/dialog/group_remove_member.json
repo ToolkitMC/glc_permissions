@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "➖ Gruptan Üye Çıkar", "color": "red", "bold": true, "italic": false},
+  "external_title": {"text": "➖ Gruptan Üye Çıkar", "color": "red", "italic": false},
+  "can_close_with_escape": true,
+  "pause": false,
+  "inputs": [
+    {"type": "minecraft:text", "key": "id", "label": "🔑 Grup ID", "max_length": 32},
+    {"type": "minecraft:text", "key": "player", "label": "👤 Oyuncu Adı", "max_length": 16}
+  ],
+  "actions": [
+    {
+      "label": "✅ Çıkar",
+      "action": {
+        "type": "minecraft:dynamic/run_command",
+        "template": "/function custom_admin:api/group/remove_member {id:\"$(id)\",player:\"$(player)\"}"
+      }
+    },
+    {"label": "❌ İptal", "action": {"type": "minecraft:suggest_command", "command": " "}}
+  ]
+}
