@@ -13,8 +13,8 @@
 
 # args'ı flat storage'a kopyala
 data modify storage glc:dispatch flat.action_id set from storage glc:dispatch Route.args.action_id
-data modify storage glc:dispatch flat.delay     set from storage glc:dispatch Route.args.delay
-data modify storage glc:dispatch flat.player    set from storage glc:dispatch Route.args.player
+data modify storage glc:dispatch flat.delay set from storage glc:dispatch Route.args.delay
+data modify storage glc:dispatch flat.player set from storage glc:dispatch Route.args.player
 
 # Flat storage ile schedule/add çağır
 function custom_admin:handler/dispatch/schedule_bridge_run with storage glc:dispatch flat
