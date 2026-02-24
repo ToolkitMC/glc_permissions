@@ -5,16 +5,7 @@
 # ═══════════════════════════════════════════════════
 
 # Default settings
-data modify storage glc:config settings set value {\
-  cooldown_ticks: 20,\
-  max_permissions: 1000,\
-  max_groups: 100,\
-  max_actions: 500,\
-  enable_debug: 0b,\
-  auto_save: 1b,\
-  log_actions: 1b,\
-  rate_limit: 20\
-}
+data modify storage glc:config settings set value {cooldown_ticks:20,max_permissions:1000,max_groups:100,max_actions:500,enable_debug:0b,auto_save:1b,log_actions:1b,rate_limit:20}
 
 # Notify admin - DÜZELTME v2.5.9: TR mesajı Türkçe, DE mesajı Almanca
 execute as @a[tag=glc.lang_tr,tag=gulce_admin] run tellraw @s ['',{text:"[GULCE] ",color:"gold"},{text:"📝 Config varsayılan değerlerle oluşturuldu",color:"gray"}]
