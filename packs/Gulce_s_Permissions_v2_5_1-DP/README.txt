@@ -5,7 +5,8 @@
 KURULUM:
 1. Bu klasörü sunucunuzun world/datapacks/ dizinine koyun
 2. /reload komutu ile yükleyin
-3. /function minecraft:open_gulce_menu ile menüyü açın
+3. /tag <Oyuncu Adı> add gulce_admin komutunu yazın
+4. /function minecraft:open_gulce_menu ile menüyü açın
 
 GEREKSİNİMLER:
 - Minecraft 1.21.7 veya üzeri
