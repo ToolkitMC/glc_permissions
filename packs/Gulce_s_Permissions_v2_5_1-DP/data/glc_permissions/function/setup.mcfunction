@@ -3,6 +3,10 @@
 # v2.5.9: Duplicate scoreboard'lar kaldırıldı
 # ═══════════════════════════════════════════════════
 
+# Log'a yaz (Starting...)
+summon minecraft:interaction ~ ~ ~ {Tags:["glc.setup"],CustomName:{"text":"[GULCE]"}}
+execute as @e[type=minecraft:interaction,tag=glc.setup,limit=1] run say Starting...
+
 # ── Tek Seferlik Yükleme Koruması ──────────────────
 execute if data storage glc:sys loaded as @a[tag=glc.lang_tr] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"⏭ Zaten yüklendi, setup atlandı.",color:"gray"}]
 execute if data storage glc:sys loaded as @a[tag=glc.lang_en] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"⏭ Already loaded, setup skipped.",color:"gray"}]
@@ -43,6 +47,11 @@ execute as @a[tag=glc.lang_de] run tellraw @s [{text:"[Gulce's Permissions] ",co
 # v2.5.7: Vanish team kurulumu
 execute unless score #glc.vanish_init global matches 1 run team add glc.vanish
 execute unless score #glc.vanish_init global matches 1 run team modify glc.vanish nametagVisibility never
+
+# Log'a yaz (Setup is complete.)
+execute as @e[type=minecraft:interaction,tag=glc.setup,limit=1] run say Setup is complete.
+kill @e[type=minecraft:interaction,tag=glc.setup]
+
 execute unless score #glc.vanish_init global matches 1 run team modify glc.vanish color dark_gray
 execute unless score #glc.vanish_init global matches 1 run scoreboard players set #glc.vanish_init global 1
 
