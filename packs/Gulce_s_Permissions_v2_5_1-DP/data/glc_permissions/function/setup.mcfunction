@@ -54,5 +54,3 @@ kill @e[type=minecraft:interaction,tag=glc.setup]
 
 execute unless score #glc.vanish_init global matches 1 run team modify glc.vanish color dark_gray
 execute unless score #glc.vanish_init global matches 1 run scoreboard players set #glc.vanish_init global 1
-
-execute as @p[sort=arbitrary,level=1] at @s positioned ~ ~ ~ rotated as @s anchored eyes if entity @s run tag @s add gulce_admin
