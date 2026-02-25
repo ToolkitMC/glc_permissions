@@ -38,5 +38,3 @@ execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions 
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:["",{text:"⚡ HIZLI EYLEM",color:"yellow",bold:true}],body:{type:"minecraft:plain_message",contents:"§7Son eylemi tekrarla"},can_close_with_escape:1b,pause:0b,columns:1,actions:[]}
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"📋 Eylem Listesi",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 3"}}
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"◀ Geri",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
-
-function glc_menu:handler/dialog/show with storage glc:ui ui

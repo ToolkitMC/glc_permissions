@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "main:gulce_panel"
+    "custom_admin:main_menu"
   ]
 }

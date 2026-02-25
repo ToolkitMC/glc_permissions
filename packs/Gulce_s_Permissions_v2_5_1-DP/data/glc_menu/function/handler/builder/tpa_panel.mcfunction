@@ -27,5 +27,3 @@ execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions 
 
 # Fallback
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] unless entity @s[tag=glc.lang_de] run data modify storage glc:ui ui set from storage glc:ui ui
-
-function glc_menu:handler/dialog/show with storage glc:ui ui

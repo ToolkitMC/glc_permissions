@@ -20,4 +20,3 @@ execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui set valu
 execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"📋 Meldung senden",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"📋 Spieler melden",inputs:[{type:"minecraft:text",key:"t",label:"Spielername",max_length:16,label_visible:1b},{type:"minecraft:text",key:"r",label:"Grund",initial:"Regelverstoß",max_length:100,label_visible:1b}],can_close_with_escape:1b,pause:0b,actions:[{label:"📨 Senden",action:{type:"minecraft:dynamic/run_command",template:"/function custom_admin:api/report/send {target:\"$(t)\",reason:\"$(r)\"}"}}]}}}
 execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"◀ Zurück",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
 
-function glc_menu:handler/dialog/show with storage glc:ui ui

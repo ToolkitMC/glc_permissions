@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "main:pause_menu_tr",
-    "main:pause_menu_en"
+    "custom_admin:main_menu"
   ]
 }

@@ -30,4 +30,3 @@ execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions 
 execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"📌 Heimort setzen",action:{type:"minecraft:show_dialog",dialog:{type:"minecraft:multi_action",title:"📌 Heimort setzen",inputs:[{type:"minecraft:text",key:"n",label:"Heimortname",initial:"home",max_length:32,label_visible:1b}],can_close_with_escape:1b,pause:0b,actions:[{label:"💾 Speichern",action:{type:"minecraft:dynamic/run_command",template:"/function custom_admin:api/home/set {name:\"$(n)\"}"}}]}}}
 execute if entity @s[tag=glc.lang_de] run data modify storage glc:ui ui.actions append value {label:"◀ Zurück",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
 
-function glc_menu:handler/dialog/show with storage glc:ui ui

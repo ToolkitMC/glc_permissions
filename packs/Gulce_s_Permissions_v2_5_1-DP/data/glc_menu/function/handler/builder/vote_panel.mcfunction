@@ -20,4 +20,3 @@ execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions 
 execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"⏹ End Vote",action:{type:"minecraft:run_command",command:"/function custom_admin:api/vote/end"}}
 execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"◀ Back",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
 
-function glc_menu:handler/dialog/show with storage glc:ui ui

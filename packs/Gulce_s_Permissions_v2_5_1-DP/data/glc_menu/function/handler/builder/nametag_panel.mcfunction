@@ -31,6 +31,3 @@ execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions 
 execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"❤️ NameTag: Heal",action:{type:"minecraft:run_command",command:"/trigger gulce_nametag set 6"}}
 execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"⚠️ Warning Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_menu set 20"}}
 execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"◀️ Main Panel",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
-
-# Panel göster
-function glc_menu:handler/dialog/show with storage glc:ui ui

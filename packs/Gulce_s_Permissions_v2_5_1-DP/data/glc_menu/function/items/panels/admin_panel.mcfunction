@@ -39,5 +39,3 @@ execute if entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions 
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui set value {type:"minecraft:multi_action",title:["",{text:"👑 ADMİN PANEL",color:"dark_red",bold:true}],body:{type:"minecraft:plain_message",contents:"§7Yönetim Merkezi"},can_close_with_escape:1b,pause:0b,columns:2,actions:[]}
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"👑 Roller",action:{type:"minecraft:run_command",command:"/function custom_admin:role/menu"}}
 execute unless entity @s[tag=glc.lang_tr] unless entity @s[tag=glc.lang_en] run data modify storage glc:ui ui.actions append value {label:"◀ Geri",action:{type:"minecraft:run_command",command:"/trigger gulce_trigger set 1"}}
-
-function glc_menu:handler/dialog/show with storage glc:ui ui
