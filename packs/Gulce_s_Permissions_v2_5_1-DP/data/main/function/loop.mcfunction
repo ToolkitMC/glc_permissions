@@ -5,19 +5,19 @@
 # Permission Level Sync - Her 2 saniyede bir (40 tick)
 # DÜZELTME v2.5.9: Reset değeri 1 yerine 40 olmalıydı
 # (1'e resetlenince ilk tetikten sonra her tick çalışıyordu)
-execute if entity @a if score #permission_sync glc.timer matches ..0 run scoreboard players set #permission_sync glc.timer 40
+execute if entity @a if score #permission_sync glc.timer matches ..0 run scoreboard players set #permission_sync glc.timer 1
 execute if entity @a if score #permission_sync glc.timer matches 1 run function custom_admin:permissions/sync_levels
 execute if entity @a run scoreboard players remove #permission_sync glc.timer 1
 
 # Admin Loop - Her 1 saniyede bir (20 tick)
 # DÜZELTME v2.5.9: Reset değeri 1 yerine 20 olmalıydı
-execute if entity @a if score #admin_tick glc.timer matches ..0 run scoreboard players set #admin_tick glc.timer 20
+execute if entity @a if score #admin_tick glc.timer matches ..0 run scoreboard players set #admin_tick glc.timer 1
 execute if entity @a if score #admin_tick glc.timer matches 1 run function custom_admin:handler/loop/all/1
 execute if entity @a run scoreboard players remove #admin_tick glc.timer 1
 
 # Menu Loop - Her 0.5 saniyede bir (10 tick), oyuncu başına çalışır
 # DÜZELTME v2.5.9: Reset değeri 1 yerine 10 olmalıydı
-execute if entity @a if score #menu_tick glc.timer matches ..0 run scoreboard players set #menu_tick glc.timer 10
+execute if entity @a if score #menu_tick glc.timer matches ..0 run scoreboard players set #menu_tick glc.timer 1
 execute if entity @a if score #menu_tick glc.timer matches 1 as @a at @s run function glc_menu:handler/tick
 execute if entity @a run scoreboard players remove #menu_tick glc.timer 1
 
