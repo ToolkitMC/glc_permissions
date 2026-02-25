@@ -1,5 +1,6 @@
 # ═══════════════════════════════════════════════════
-# API: Add Effect Action
+# API: Add XP Action
 # ═══════════════════════════════════════════════════
 
-$function custom_admin:api/add/action_effect {duration:"$(duration)",amplifier:"$(amplifier)",effect:"$(type)",id:"$(id)",selector:"$(player)"}
+
+$function custom_admin:api/add/action_xp {id:"$(id)",mode:"$(mode)",amount:$(amount),type:"$(type)",selector:"$(player)"}
