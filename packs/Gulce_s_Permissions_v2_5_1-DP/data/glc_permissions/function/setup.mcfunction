@@ -3,10 +3,6 @@
 # v2.5.9: Duplicate scoreboard'lar kaldırıldı
 # ═══════════════════════════════════════════════════
 
-# Log'a yaz (Starting...)
-summon minecraft:interaction ~ ~ ~ {Tags:["glc.setup"],CustomName:{"text":"[GULCE]"}}
-execute as @e[type=minecraft:interaction,tag=glc.setup,limit=1] run say Starting...
-
 # ── Tek Seferlik Yükleme Koruması ──────────────────
 execute if data storage glc:sys loaded as @a[tag=glc.lang_tr] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"⏭ Zaten yüklendi, setup atlandı.",color:"gray"}]
 execute if data storage glc:sys loaded as @a[tag=glc.lang_en] run tellraw @s ['',{text:"[GULCE] ",color:"gold",bold:true},{text:"⏭ Already loaded, setup skipped.",color:"gray"}]
@@ -14,6 +10,10 @@ execute if data storage glc:sys loaded as @a[tag=glc.lang_de] run tellraw @s [''
 execute if data storage glc:sys loaded as @a[tag=gulce_admin] run playsound minecraft:block.note_block.bass master @s ~ ~ ~ 1 0.5
 execute if data storage glc:sys loaded run return 0
 data modify storage glc:sys loaded set value 1b
+
+# Log'a yaz (Starting...)
+summon minecraft:interaction ~ ~ ~ {Tags:["glc.setup"],CustomName:{"text":"[GULCE]"}}
+execute as @e[type=minecraft:interaction,tag=glc.setup,limit=1] run say Starting...
 
 # Scoreboard'ları oluştur (Carrot on a stick kullanım sayaçları)
 scoreboard objectives add gulce.used minecraft.used:minecraft.carrot_on_a_stick
