@@ -1,0 +1,21 @@
+{
+  "pack": {
+    "description": "§b§lGulces Permissions §r§7v3.0.2\n§a✅ TR/EN/DE + Dialog API + Rate Limit §e⚡ MC 1.21.7+",
+    "pack_format": 81,
+    "min_format": 81,
+    "max_format": 99,
+    "supported_formats": [81, 99]
+  },
+  "filter": {
+    "block": [
+      {"namespace": "custom_admin", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"},
+      {"namespace": "glc_menu", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"},
+      {"namespace": "main", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"},
+      {"namespace": "minecraft", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"},
+      {"namespace": "glc_permissions", "path": ".*\\.(txt|log|bak|tmp|js|tsx|sh|c|css|exe|jar|zip|apk|cmd|bat|py)$"}
+    ]
+  },
+  "features": {
+    "enabled": ["minecraft:vanilla"]
+  }
+}

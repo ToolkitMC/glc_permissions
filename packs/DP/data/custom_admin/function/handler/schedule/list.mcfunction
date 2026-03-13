@@ -1,0 +1,33 @@
+# ═══════════════════════════════════════════════════
+# Aktif Zamanlamaları Listele (Chat)
+# ═══════════════════════════════════════════════════
+
+# Başlık
+execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"═══════════════════════════════════",color:"aqua",bold:true}]
+execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"═══════════════════════════════════",color:"aqua",bold:true}]
+execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"⏰ Aktif Zamanlamalar",color:"gold",bold:true}]
+execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"⏰ Aktif Zamanlamalar",color:"gold",bold:true}]
+execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"═══════════════════════════════════",color:"aqua",bold:true}]
+execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"═══════════════════════════════════",color:"aqua",bold:true}]
+
+# Sayı kontrolü
+execute store result score #scheduled_count gulce_id run data get storage glc:data scheduled
+
+# Boş kontrol
+execute if score #scheduled_count gulce_id matches 0 if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"  ❌ Aktif zamanlama yok",color:"red"}]
+execute if score #scheduled_count gulce_id matches 0 if entity @s[tag=glc.lang_en] run tellraw @s [{text:"  ❌ Aktif zamanlama yok",color:"red"}]
+execute if score #scheduled_count gulce_id matches 0 if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"═══════════════════════════════════",color:"aqua",bold:true}]
+execute if score #scheduled_count gulce_id matches 0 if entity @s[tag=glc.lang_en] run tellraw @s [{text:"═══════════════════════════════════",color:"aqua",bold:true}]
+execute if score #scheduled_count gulce_id matches 0 run return 0
+
+# Liste hazırla
+data modify storage glc:temp temp.list_scheduled set from storage glc:data scheduled
+function custom_admin:handler/schedule/list_loop
+
+# Toplam
+execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"  📊 Toplam: ",color:"gray"},{score:{name:'#scheduled_count',objective:'gulce_id'},color:"yellow"},{text:" zamanlama",color:"gray"}]
+execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"  📊 Toplam: ",color:"gray"},{score:{name:'#scheduled_count',objective:'gulce_id'},color:"yellow"},{text:" zamanlama",color:"gray"}]
+
+# Alt çizgi
+execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"═══════════════════════════════════",color:"aqua",bold:true}]
+execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"═══════════════════════════════════",color:"aqua",bold:true}]

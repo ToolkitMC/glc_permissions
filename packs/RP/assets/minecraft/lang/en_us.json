@@ -1,0 +1,19 @@
+{
+  "death.attack.admin.punish": "%1$s was punished by an admin",
+  "death.attack.admin.punish.player": "%1$s was punished by %2$s",
+  "death.attack.admin.punish.item": "%1$s was punished by %2$s using %3$s",
+  "item.custom_admin.gulce_menu": "GULCE Panel",
+  "tag.gulce_admin": "Admin",
+  "tag.gulce_mod": "Moderator",
+  "tag.gulce_vip": "VIP",
+  "tag.gulce_owner": "Owner",
+  "item.custom_admin.glc_mod_kit": "Mod Tools",
+  "item.custom_admin.glc_admin_panel": "Admin Panel",
+  "item.custom_admin.glc_quick_action": "Quick Action",
+  "item.custom_admin.glc_spy": "Spy Monocle",
+  "item.custom_admin.glc_broadcast": "Broadcast Wand",
+  "item.custom_admin.glc_tpa": "TPA Wand",
+  "item.custom_admin.glc_home": "Home Compass",
+  "item.custom_admin.glc_vote": "Vote Wand",
+  "item.custom_admin.glc_pm": "Permission Management"
+}

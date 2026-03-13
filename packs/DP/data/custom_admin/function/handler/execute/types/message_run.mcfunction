@@ -1,0 +1,1 @@
+$tellraw $(selector) $(message)

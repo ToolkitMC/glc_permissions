@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "custom_admin:handler/edit/name",
+      "required": false
+    }
+  ]
+}

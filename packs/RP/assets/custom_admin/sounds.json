@@ -1,0 +1,218 @@
+{
+  "ui.success": {
+    "sounds": [
+      {
+        "name": "custom_admin:ui/success",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "ui.error": {
+    "sounds": [
+      {
+        "name": "custom_admin:ui/error",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "ui.info": {
+    "sounds": [
+      {
+        "name": "custom_admin:ui/info",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "ui.click": {
+    "sounds": [
+      {
+        "name": "custom_admin:ui/click",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "ui.open": {
+    "sounds": [
+      {
+        "name": "custom_admin:ui/open",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "mod.warn": {
+    "sounds": [
+      {
+        "name": "custom_admin:mod/warn",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "mod.freeze": {
+    "sounds": [
+      {
+        "name": "custom_admin:mod/freeze",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "player.join": {
+    "sounds": [
+      {
+        "name": "custom_admin:player/join",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "player.welcome": {
+    "sounds": [
+      {
+        "name": "custom_admin:player/welcome",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "mod.unfreeze": {
+    "sounds": [
+      {
+        "name": "custom_admin:mod/unfreeze",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "mod.kick": {
+    "sounds": [
+      {
+        "name": "custom_admin:mod/kick",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "mod.ban": {
+    "sounds": [
+      {
+        "name": "custom_admin:mod/ban",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "mod.pardon": {
+    "sounds": [
+      {
+        "name": "custom_admin:mod/pardon",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "player.tpa_sent": {
+    "sounds": [
+      {
+        "name": "custom_admin:player/tpa_sent",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "player.tpa_accept": {
+    "sounds": [
+      {
+        "name": "custom_admin:player/tpa_accept",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "player.tpa_deny": {
+    "sounds": [
+      {
+        "name": "custom_admin:player/tpa_deny",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "system.rate_limit": {
+    "sounds": [
+      {
+        "name": "custom_admin:system/rate_limit",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  },
+  "system.confirm_ok": {
+    "sounds": [
+      {
+        "name": "custom_admin:system/confirm_ok",
+        "volume": 1.0,
+        "pitch": 1.0,
+        "weight": 1,
+        "stream": false,
+        "type": "file"
+      }
+    ]
+  }
+}

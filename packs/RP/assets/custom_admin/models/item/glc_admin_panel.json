@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "custom_admin:item/glc_admin_panel",
+    "particle": "custom_admin:item/glc_admin_panel"
+  }
+}

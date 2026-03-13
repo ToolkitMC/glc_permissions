@@ -1,0 +1,1 @@
+execute at @s run function glc_menu:handler/builder/main
