@@ -41,15 +41,122 @@ jobs:
 
       - name: Validate pack.mcmeta
         run: |
-          echo "aW1wb3J0IGpzb24sIHN5cywgcGF0aGxpYgplcnJvcnMgPSBbXQpmb3IgbWV0YSBpbiBwYXRobGliLlBhdGgoJ3BhY2tzJykucmdsb2IoJ3BhY2subWNtZXRhJyk6CiAgICB0cnk6CiAgICAgICAgZGF0YSA9IGpzb24ubG9hZHMobWV0YS5yZWFkX3RleHQoKSkKICAgIGV4Y2VwdCBqc29uLkpTT05EZWNvZGVFcnJvciBhcyBlOgogICAgICAgIGVycm9ycy5hcHBlbmQoc3RyKG1ldGEpICsgJzogR2VjZXJzaXogSlNPTiAtPiAnICsgc3RyKGUpKQogICAgICAgIGNvbnRpbnVlCiAgICBwYWNrID0gZGF0YS5nZXQoJ3BhY2snLCB7fSkKICAgIGlmICdwYWNrX2Zvcm1hdCcgbm90IGluIHBhY2s6CiAgICAgICAgZXJyb3JzLmFwcGVuZChzdHIobWV0YSkgKyAnOiBwYWNrX2Zvcm1hdCBla3NpaycpCiAgICBlbGlmIG5vdCBpc2luc3RhbmNlKHBhY2tbJ3BhY2tfZm9ybWF0J10sIGludCk6CiAgICAgICAgZXJyb3JzLmFwcGVuZChzdHIobWV0YSkgKyAnOiBwYWNrX2Zvcm1hdCBpbnRlZ2VyIG9sbWFsaScpCiAgICBlbGlmIHBhY2tbJ3BhY2tfZm9ybWF0J10gPCAxOgogICAgICAgIGVycm9ycy5hcHBlbmQoc3RyKG1ldGEpICsgJzogcGFja19mb3JtYXQgZ2VjZXJzaXonKQogICAgZWxzZToKICAgICAgICBwcmludCgnICBPSyAnICsgc3RyKG1ldGEpICsgJyAtPiBwYWNrX2Zvcm1hdDogJyArIHN0cihwYWNrWydwYWNrX2Zvcm1hdCddKSkKICAgIGlmICdkZXNjcmlwdGlvbicgbm90IGluIHBhY2s6CiAgICAgICAgZXJyb3JzLmFwcGVuZChzdHIobWV0YSkgKyAnOiBkZXNjcmlwdGlvbiBla3NpaycpCmlmIGVycm9yczoKICAgIGZvciBlIGluIGVycm9yczogcHJpbnQoJyAgSEFUQSAnICsgZSkKICAgIHN5cy5leGl0KDEpCnByaW50KCdUdW0gcGFjay5tY21ldGEgZ2VjZXJsaScpCg==" | base64 -d | python3
+          python3 - <<'EOF'
+          import json, sys, pathlib
+          errors = []
+          for meta in pathlib.Path('packs').rglob('pack.mcmeta'):
+              try:
+                  data = json.loads(meta.read_text())
+              except json.JSONDecodeError as e:
+                  errors.append(f"{meta}: Gecersiz JSON -> {e}")
+                  continue
+              pack = data.get('pack', {})
+              if 'pack_format' not in pack:
+                  errors.append(f"{meta}: pack_format eksik")
+              elif not isinstance(pack['pack_format'], int):
+                  errors.append(f"{meta}: pack_format integer olmali")
+              elif pack['pack_format'] < 1:
+                  errors.append(f"{meta}: pack_format gecersiz")
+              else:
+                  print(f"  OK {meta} -> pack_format: {pack['pack_format']}")
+              if 'description' not in pack:
+                  errors.append(f"{meta}: description eksik")
+          if errors:
+              for e in errors: print(f"  HATA {e}")
+              sys.exit(1)
+          print("Tum pack.mcmeta gecerli")
+          EOF
 
       - name: mcfunction Lint and Macro Validator
         run: |
-          echo "aW1wb3J0IHJlLCBzeXMKZnJvbSBwYXRobGliIGltcG9ydCBQYXRoClZBTElEID0gcmUuY29tcGlsZShyJ15cJFwoW2EtekEtWl9dW2EtekEtWjAtOV9dKlwpJCcpCklOViA9IFsKICAgIChyZS5jb21waWxlKHInXCRcKFxzKlwpJyksICdib3MgbWFrcm8nKSwKICAgIChyZS5jb21waWxlKHInXCRcKFteKV0qXHNbXildKlwpJyksICdib3NsdWsgaWNlcmVuJyksCiAgICAocmUuY29tcGlsZShyJ1wkXChbXildKlxkW14pXSpcLlteKV0qXCknKSwgJ3Jha2FtK25va3RhJyksCiAgICAocmUuY29tcGlsZShyJ1wkXChbXildKlteXHgwMC1ceDdGXVteKV0qXCknKSwgJ25vbi1BU0NJSScpLAogICAgKHJlLmNvbXBpbGUocidcJFwoW14pXSpcLlteKV0qXCknKSwgJ25va3RhIGljZXJlbicpLApdCkJBRCA9IFsKICAgIChyZS5jb21waWxlKHInXig/IVwkP1xzKiMpZXhlY3V0ZVxiKD8hLipcYnJ1blxiKS4qJCcsIHJlLkkpLCAnZXhlY3V0ZSBydW4geW9rJyksCl0KZXJyb3JzLCB3YXJuaW5ncywgb2sgPSBbXSwgW10sIDAKZm9yIGYgaW4gc29ydGVkKFBhdGgoJ3BhY2tzJykucmdsb2IoJyoubWNmdW5jdGlvbicpKToKICAgIGZlID0gMAogICAgZm9yIG4sIGxpbmUgaW4gZW51bWVyYXRlKGYucmVhZF90ZXh0KGVuY29kaW5nPSd1dGYtOCcsIGVycm9ycz0ncmVwbGFjZScpLnNwbGl0bGluZXMoKSwgMSk6CiAgICAgICAgcyA9IGxpbmUuc3RyaXAoKQogICAgICAgIGlmIG5vdCBzIG9yIHMuc3RhcnRzd2l0aCgnIycpOiBjb250aW51ZQogICAgICAgIGZvciBtYWNybyBpbiByZS5maW5kYWxsKHInXCRcKFteKV0qXCknLCBzKToKICAgICAgICAgICAgbSA9IG5leHQoKHIgZm9yIHAsciBpbiBJTlYgaWYgcC5zZWFyY2gobWFjcm8pKSwgTm9uZSkKICAgICAgICAgICAgaWYgbToKICAgICAgICAgICAgICAgIGVycm9ycyArPSBbc3RyKGYpKyc6JytzdHIobikrJzogZ2VjZXJzaXogbWFrcm8gJytyZXByKG1hY3JvKSsnIC0+ICcrbSwgJyAgICB8ICcrc1s6MTAwXV0KICAgICAgICAgICAgICAgIGZlICs9IDEKICAgICAgICAgICAgZWxpZiBub3QgVkFMSUQubWF0Y2gobWFjcm8pOgogICAgICAgICAgICAgICAgZXJyb3JzICs9IFtzdHIoZikrJzonK3N0cihuKSsnOiB0YW5pbXNpeiBtYWtybyAnK3JlcHIobWFjcm8pLCAnICAgIHwgJytzWzoxMDBdXQogICAgICAgICAgICAgICAgZmUgKz0gMQogICAgICAgIGZvciBwLHIgaW4gQkFEOgogICAgICAgICAgICBpZiBwLnNlYXJjaChzKToKICAgICAgICAgICAgICAgIHdhcm5pbmdzICs9IFtzdHIoZikrJzonK3N0cihuKSsnOiAnK3IsICcgICAgfCAnK3NbOjEwMF1dCiAgICAgICAgICAgICAgICBicmVhawogICAgICAgIGlmIGxpbmUgIT0gbGluZS5yc3RyaXAoKTogd2FybmluZ3MuYXBwZW5kKHN0cihmKSsnOicrc3RyKG4pKyc6IHRyYWlsaW5nIHdoaXRlc3BhY2UnKQogICAgaWYgZmUgPT0gMDogb2sgKz0gMQp0b3RhbCA9IGxlbihsaXN0KFBhdGgoJ3BhY2tzJykucmdsb2IoJyoubWNmdW5jdGlvbicpKSkKcHJpbnQoc3RyKHRvdGFsKSArICcgbWNmdW5jdGlvbiB0YXJhbmRpLCAnICsgc3RyKG9rKSArICcgdGVtaXonKQppZiB3YXJuaW5nczoKICAgIGZvciB3IGluIHdhcm5pbmdzOiBwcmludCgnICAnICsgdykKaWYgZXJyb3JzOgogICAgZm9yIGUgaW4gZXJyb3JzOiBwcmludCgnICAnICsgZSkKICAgIHN5cy5leGl0KDEpCnByaW50KCdUdW0gbWNmdW5jdGlvbiB0ZW1peicpCg==" | base64 -d | python3
+          python3 - <<'EOF'
+          import re, sys
+          from pathlib import Path
+
+          VALID = re.compile(r'^\$\([a-zA-Z_][a-zA-Z0-9_]*\)$')
+          INV = [
+              (re.compile(r'\$\(\s*\)'),                    'bos makro'),
+              (re.compile(r'\$\([^)]*\s[^)]*\)'),           'bosluk iceren'),
+              (re.compile(r'\$\([^)]*\d[^)]*\.[^)]*\)'),   'rakam+nokta'),
+              (re.compile(r'\$\([^)]*[^\x00-\x7F][^)]*\)'), 'non-ASCII'),
+              (re.compile(r'\$\([^)]*\.[^)]*\)'),           'nokta iceren'),
+          ]
+          BAD = [
+              (re.compile(r'^(?!\$?\s*#)execute\b(?!.*\brun\b).*$', re.I), 'execute run yok'),
+          ]
+
+          errors, warnings, ok = [], [], 0
+          for f in sorted(Path('packs').rglob('*.mcfunction')):
+              fe = 0
+              for n, line in enumerate(f.read_text(encoding='utf-8', errors='replace').splitlines(), 1):
+                  s = line.strip()
+                  if not s or s.startswith('#'):
+                      continue
+                  for macro in re.findall(r'\$\([^)]*\)', s):
+                      m = next((r for p, r in INV if p.search(macro)), None)
+                      if m:
+                          errors += [f"{f}:{n}: gecersiz makro {repr(macro)} -> {m}", f"    | {s[:100]}"]
+                          fe += 1
+                      elif not VALID.match(macro):
+                          errors += [f"{f}:{n}: tanimsiz makro {repr(macro)}", f"    | {s[:100]}"]
+                          fe += 1
+                  for p, r in BAD:
+                      if p.search(s):
+                          warnings += [f"{f}:{n}: {r}", f"    | {s[:100]}"]
+                          break
+                  if line != line.rstrip():
+                      warnings.append(f"{f}:{n}: trailing whitespace")
+              if fe == 0:
+                  ok += 1
+
+          total = len(list(Path('packs').rglob('*.mcfunction')))
+          print(f"{total} mcfunction tarandi, {ok} temiz")
+          if warnings:
+              for w in warnings: print(f"  {w}")
+          if errors:
+              for e in errors: print(f"  {e}")
+              sys.exit(1)
+          print("Tum mcfunction temiz")
+          EOF
 
       - name: Namespace Reference Check
         run: |
-          echo "aW1wb3J0IHJlLCBzeXMKZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCmtub3duID0gc2V0KCkKZm9yIGQgaW4gUGF0aCgncGFja3MnKS5yZ2xvYignZGF0YScpOgogICAgaWYgZC5pc19kaXIoKToKICAgICAgICBmb3IgYyBpbiBkLml0ZXJkaXIoKToKICAgICAgICAgICAgaWYgYy5pc19kaXIoKToga25vd24uYWRkKGMubmFtZSkKVkFOSUxMQSA9IHsnbWluZWNyYWZ0JywnZm9yZ2UnLCduZW9mb3JnZSd9CnByaW50KCdOYW1lc3BhY2VsZXI6ICcgKyAnLCAnLmpvaW4oc29ydGVkKGtub3duKSkpClJFRiA9IHJlLmNvbXBpbGUocidcYmZ1bmN0aW9uXHMrKFthLXpBLVowLTlfLV0rKTooW2EtekEtWjAtOV8vLV0rKScsIHJlLkkpCmVycm9ycywgd2FybmluZ3MgPSBbXSwgW10KZm9yIGYgaW4gc29ydGVkKFBhdGgoJ3BhY2tzJykucmdsb2IoJyoubWNmdW5jdGlvbicpKToKICAgIGZvciBuLCBsaW5lIGluIGVudW1lcmF0ZShmLnJlYWRfdGV4dChlbmNvZGluZz0ndXRmLTgnLCBlcnJvcnM9J3JlcGxhY2UnKS5zcGxpdGxpbmVzKCksIDEpOgogICAgICAgIHMgPSBsaW5lLnN0cmlwKCkKICAgICAgICBpZiBub3QgcyBvciBzLnN0YXJ0c3dpdGgoJyMnKTogY29udGludWUKICAgICAgICBmb3IgbSBpbiBSRUYuZmluZGl0ZXIocyk6CiAgICAgICAgICAgIG5zLCBwYXRoID0gbS5ncm91cCgxKSwgbS5ncm91cCgyKQogICAgICAgICAgICBpZiBucyBpbiBWQU5JTExBOiBjb250aW51ZQogICAgICAgICAgICBpZiBucyBub3QgaW4ga25vd246CiAgICAgICAgICAgICAgICBlcnJvcnMgKz0gW3N0cihmKSsnOicrc3RyKG4pKyc6IGJpbGlubWV5ZW4gbnMgJytyZXByKG5zKSwgJyAgICB8ICcrc1s6MTAwXV0KICAgICAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgICAgIGlmIG5vdCBsaXN0KFBhdGgoJ3BhY2tzJykucmdsb2IoJ2RhdGEvJytucysnL2Z1bmN0aW9uLycrcGF0aCsnLm1jZnVuY3Rpb24nKSk6CiAgICAgICAgICAgICAgICB3YXJuaW5ncy5hcHBlbmQoc3RyKGYpKyc6JytzdHIobikrJzogZm9ua3NpeW9uIHlvayAtPiAnK25zKyc6JytwYXRoKQppZiB3YXJuaW5nczoKICAgIGZvciB3IGluIHdhcm5pbmdzOiBwcmludCgnICAnICsgdykKaWYgZXJyb3JzOgogICAgZm9yIGUgaW4gZXJyb3JzOiBwcmludCgnICAnICsgZSkKICAgIHN5cy5leGl0KDEpCnByaW50KCdOYW1lc3BhY2UgcmVmZXJhbnNsYXJpIGdlY2VybGknKQo=" | base64 -d | python3
+          python3 - <<'EOF'
+          import re, sys
+          from pathlib import Path
+
+          known = set()
+          for d in Path('packs').rglob('data'):
+              if d.is_dir():
+                  for c in d.iterdir():
+                      if c.is_dir(): known.add(c.name)
+
+          VANILLA = {'minecraft', 'forge', 'neoforge'}
+          print('Namespaceler: ' + ', '.join(sorted(known)))
+
+          REF = re.compile(r'\bfunction\s+([a-zA-Z0-9_-]+):([a-zA-Z0-9_/-]+)', re.I)
+          errors, warnings = [], []
+
+          for f in sorted(Path('packs').rglob('*.mcfunction')):
+              for n, line in enumerate(f.read_text(encoding='utf-8', errors='replace').splitlines(), 1):
+                  s = line.strip()
+                  if not s or s.startswith('#'): continue
+                  for m in REF.finditer(s):
+                      ns, path = m.group(1), m.group(2)
+                      if ns in VANILLA: continue
+                      if ns not in known:
+                          errors += [f"{f}:{n}: bilinmeyen ns {repr(ns)}", f"    | {s[:100]}"]
+                          continue
+                      if not list(Path('packs').rglob(f'data/{ns}/function/{path}.mcfunction')):
+                          warnings.append(f"{f}:{n}: fonksiyon yok -> {ns}:{path}")
+
+          if warnings:
+              for w in warnings: print(f"  {w}")
+          if errors:
+              for e in errors: print(f"  {e}")
+              sys.exit(1)
+          print("Namespace referanslari gecerli")
+          EOF
 
       - name: Datapack Structure Check
         run: |
@@ -81,7 +188,7 @@ jobs:
 
       - name: File Type Whitelist
         run: |
-          ALLOWED="json mcmeta mcfunction png nbt md txt"
+          ALLOWED="json mcmeta mcfunction png nbt md txt ogg"
           ERRORS=0
           while IFS= read -r f; do
             EXT="${f##*.}"
