@@ -1,1 +1,0 @@
-function custom_admin:handler/schedule/clear_all

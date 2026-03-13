@@ -1,3 +1,0 @@
-execute if entity @s[tag=glc.lang_tr] run execute as @a[tag=gulce_debug,limit=1,sort=arbitrary] at @s positioned ~ ~ ~ rotated as @s run tellraw @s [{text:"[GLC] ",color:'light_purple',bold:true},{text:"Dialog gösteriliyor...",color:"green"}]
-execute if entity @s[tag=glc.lang_en] run execute as @a[tag=gulce_debug,limit=1,sort=arbitrary] at @s positioned ~ ~ ~ rotated as @s run tellraw @s [{text:"[GLC] ",color:'light_purple',bold:true},{text:"Showing dialog...",color:"green"}]
-$trigger gulce_menu set $(id)

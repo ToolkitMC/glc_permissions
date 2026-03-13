@@ -1,9 +1,0 @@
-# ═══════════════════════════════════════════════════
-# Edit Name - İsim değiştirir (MACRO)
-# ═══════════════════════════════════════════════════
-
-$data modify storage glc:data permissions[{permission:"$(old_name)"}] set value "$(new_name)"
-
-# Feedback
-$execute if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"gold",bold:true},{text:"İsim değiştirildi: ",color:"green"},{text:"$(old_name)",color:"red"},{text:" → ",color:"gray"},{text:"$(new_name)",color:"yellow"}]
-$execute if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"gold",bold:true},{text:"İsim değiştirildi: ",color:"green"},{text:"$(old_name)",color:"red"},{text:" → ",color:"gray"},{text:"$(new_name)",color:"yellow"}]
