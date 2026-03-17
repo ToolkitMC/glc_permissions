@@ -192,11 +192,19 @@ jobs:
           ERRORS=0
           while IFS= read -r f; do
             EXT="${f##*.}"
-            EXT="${EXT,,}"
+            EXT="$(echo "$EXT" | tr '[:upper:]' '[:lower:]' | tr -d '\r')"
+
             OK=false
-            for a in $ALLOWED; do [ "$EXT" = "$a" ] && OK=true && break; done
-            [ "$OK" = false ] && { echo "  HATA Izin verilmeyen: $f (.${EXT})"; ERRORS=$((ERRORS+1)); }
+            for a in $ALLOWED; do
+              [ "$EXT" = "$a" ] && OK=true && break
+            done
+
+            if [ "$OK" = false ]; then
+              echo "  HATA Izin verilmeyen: $f (.$EXT)"
+              ERRORS=$((ERRORS+1))
+            fi
           done < <(find packs/ -type f)
+
           [ $ERRORS -eq 0 ] || { echo "Gecersiz dosya tipleri."; exit 1; }
           echo "Dosya tipleri OK"
 
