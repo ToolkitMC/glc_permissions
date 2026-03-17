@@ -190,9 +190,9 @@ jobs:
         run: |
           ALLOWED="json mcmeta mcfunction png nbt md txt ogg wav lang csv properties fsh vsh glsl"
           ERRORS=0
-          while IFS= read -r f; do
+          find packs/ -type f -print0 | while IFS= read -r -d '' f; do
             EXT="${f##*.}"
-            EXT="$(echo "$EXT" | tr '[:upper:]' '[:lower:]' | tr -d '\r')"
+            EXT="$(printf '%s' "$EXT" | tr '[:upper:]' '[:lower:]' | tr -d '\r\n')"
 
             OK=false
             for a in $ALLOWED; do
@@ -203,7 +203,7 @@ jobs:
               echo "  HATA Izin verilmeyen: $f (.$EXT)"
               ERRORS=$((ERRORS+1))
             fi
-          done < <(find packs/ -type f)
+          done
 
           [ $ERRORS -eq 0 ] || { echo "Gecersiz dosya tipleri."; exit 1; }
           echo "Dosya tipleri OK"
@@ -259,4 +259,3 @@ jobs:
                 owner: context.repo.owner, repo: context.repo.repo,
                 issue_number: context.issue.number, body,
               });
-            }
