@@ -188,7 +188,7 @@ jobs:
 
       - name: File Type Whitelist
         run: |
-          ALLOWED="json mcmeta mcfunction png nbt md txt ogg"
+          ALLOWED="json mcmeta mcfunction png nbt md txt ogg wav lang csv properties fsh vsh glsl"
           ERRORS=0
           while IFS= read -r f; do
             EXT="${f##*.}"
