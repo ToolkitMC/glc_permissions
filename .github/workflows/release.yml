@@ -10,13 +10,12 @@ on:
 permissions:
   contents: write
 
-# Bu blok Node.js 20 uyarısını eklentiyi değiştirmeden çözer
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   release:
     runs-on: ubuntu-latest
+    # Uyarıyı tüm adımlar için kökten çözmek adına Job seviyesinde tanımlıyoruz:
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
 
