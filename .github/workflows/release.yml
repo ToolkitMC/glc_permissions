@@ -1,9 +1,7 @@
 name: Release GLC Permissions
 
-# 🚀 KESİN ÇÖZÜM: 
-# Değişkeni buraya (en tepeye) koyarak GitHub'ın uyarı motoruna 
-# "Ben Node 24 kullanıyorum, bana uyarı basma" demiş oluyoruz.
 env:
+  # Sadece bunu bırakıyoruz, GitHub CLI buna ihtiyaç duymaz ama genel ortamı temiz tutar.
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 on:
@@ -21,16 +19,12 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      # Örnekte gördüğün v5'e geçmek, uyarıyı %90 oranında tek başına keser.
       - uses: actions/checkout@v5
 
       - name: Set Folder Names
         id: folders
         run: |
           VERSION="${{ github.event.inputs.version }}"
-          echo "📂 Mevcut packs klasörleri:"
-          ls packs/
-          
           RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
           DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
           
@@ -40,54 +34,38 @@ jobs:
           fi
           
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
-          echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
           echo "rp_zip=Gulce_s_Permissions_RP_${VERSION}.zip" >> $GITHUB_OUTPUT
           echo "dp_zip=Gulce_s_Permissions_DP_${VERSION}.zip" >> $GITHUB_OUTPUT
+          echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
+          echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
 
-      - name: Create RP ZIP
+      - name: Create ZIPs
         run: |
           cd "${{ steps.folders.outputs.rp_dir }}"
           zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
-          echo "✅ RP ZIP oluşturuldu"
-
-      - name: Create DP ZIP
-        run: |
-          cd "${{ steps.folders.outputs.dp_dir }}"
+          cd "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_dir }}"
           zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
-          echo "✅ DP ZIP oluşturuldu"
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.folders.outputs.version }}
-          name: GLC Permissions ${{ steps.folders.outputs.version }}
-          body: |
-            ## 🔒 GLC Permissions System
-            
-            ### 📦 İndirme
-            | Dosya | Açıklama |
-            |-------|----------|
-            | `Gulce_s_Permissions_RP_${{ steps.folders.outputs.version }}.zip` | Resource Pack |
-            | `Gulce_s_Permissions_DP_${{ steps.folders.outputs.version }}.zip` | Data Pack |
-            
-            ### ⚙️ Kurulum
-            1. DP ZIP'i `world/datapacks/` klasörüne at
-            2. RP ZIP'i `resourcepacks/` klasörüne at
-            3. `/reload` komutu ile yükle
-            4. `/function glc_permissions:setup` ile başlat
-            
-            ### ✨ Özellikler
-            - 👥 Dinamik rol sistemi
-            - 🔑 Grup bazlı izinler
-            - ⚡ Fonksiyon bazlı yönetim
-            - 🌐 TR/EN dil desteği
-            
-            ---
-            > Build: `${{ github.run_number }}` | Commit: `${{ github.sha }}`
-          files: |
-            ${{ steps.folders.outputs.rp_zip }}
-            ${{ steps.folders.outputs.dp_zip }}
-          make_latest: true
+      - name: Create GitHub Release
+        # BURASI KRİTİK: Dışarıdan "softprops" eklentisini çağırmıyoruz. 
+        # GitHub'ın kendi 'gh' aracını kullanıyoruz. Node.js uyarısı ALMAN İMKANSIZ.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.event.inputs.version }}" \
+            "${{ steps.folders.outputs.rp_zip }}" \
+            "${{ steps.folders.outputs.dp_zip }}" \
+            --title "GLC Permissions ${{ github.event.inputs.version }}" \
+            --notes "## 🔒 GLC Permissions System
+            
+            ### 📦 İndirme
+            - Resource Pack: ${{ steps.folders.outputs.rp_zip }}
+            - Data Pack: ${{ steps.folders.outputs.dp_zip }}
+            
+            ### ⚙️ Kurulum
+            1. DP'yi world/datapacks içine at.
+            2. RP'yi resourcepacks içine at.
+            3. /reload yap.
+            
+            ---
+            > Build: ${{ github.run_number }} | Commit: ${{ github.sha }}"
