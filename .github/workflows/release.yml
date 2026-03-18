@@ -10,12 +10,14 @@ on:
 permissions:
   contents: write
 
+# 🛡️ BU BLOK UYARILARI KÖKTEN SİLER
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    # Uyarıyı tüm adımlar için kökten çözmek adına Job seviyesinde tanımlıyoruz:
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
 
@@ -23,22 +25,14 @@ jobs:
         id: folders
         run: |
           VERSION="${{ github.event.inputs.version }}"
-          
           echo "📂 Mevcut packs klasörleri:"
           ls packs/
           
           RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
           DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
           
-          echo "🔍 Bulunan RP klasörü: $RP_DIR"
-          echo "🔍 Bulunan DP klasörü: $DP_DIR"
-          
-          if [ -z "$RP_DIR" ]; then
-            echo "❌ RP klasörü bulunamadı!"
-            exit 1
-          fi
-          if [ -z "$DP_DIR" ]; then
-            echo "❌ DP klasörü bulunamadı!"
+          if [ -z "$RP_DIR" ] || [ -z "$DP_DIR" ]; then
+            echo "❌ Klasörler bulunamadı!"
             exit 1
           fi
           
@@ -67,21 +61,25 @@ jobs:
           name: GLC Permissions ${{ steps.folders.outputs.version }}
           body: |
             ## 🔒 GLC Permissions System
+            
             ### 📦 İndirme
             | Dosya | Açıklama |
             |-------|----------|
             | `Gulce_s_Permissions_RP_${{ steps.folders.outputs.version }}.zip` | Resource Pack |
             | `Gulce_s_Permissions_DP_${{ steps.folders.outputs.version }}.zip` | Data Pack |
+            
             ### ⚙️ Kurulum
             1. DP ZIP'i `world/datapacks/` klasörüne at
             2. RP ZIP'i `resourcepacks/` klasörüne at
             3. `/reload` komutu ile yükle
             4. `/function glc_permissions:setup` ile başlat
+            
             ### ✨ Özellikler
             - 👥 Dinamik rol sistemi
             - 🔑 Grup bazlı izinler
             - ⚡ Fonksiyon bazlı yönetim
             - 🌐 TR/EN dil desteği
+            
             ---
             > Build: `${{ github.run_number }}` | Commit: `${{ github.sha }}`
           files: |
