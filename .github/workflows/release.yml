@@ -1,4 +1,4 @@
-```yaml
+
 name: Release GLC Permissions
 
 on:
@@ -103,4 +103,3 @@ jobs:
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
