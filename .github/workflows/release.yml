@@ -1,7 +1,7 @@
 name: Release GLC Permissions
 
+# FORCE env'sini tutuyoruz (Haziran 2026'ya kadar yardımcı olur, sonra kaldırabilirsin)
 env:
-  # Artık gerek kalmayabilir ama zararı yok – tutabilirsin
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 on:
@@ -19,7 +19,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4          # ← bu zaten iyi (Node 24 destekliyor)
+      # checkout'u v5'e yükselttik (Node 24 runtime kullanıyor, Ağustos 2025'ten beri resmi)
+      - uses: actions/checkout@v5
 
       - name: Set Folder Names
         id: folders
@@ -63,9 +64,8 @@ jobs:
           echo "✅ DP ZIP oluşturuldu"
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2    # ← v2 yazmak en güncel minor sürümü alır (şu an v2.6.1)
-        # istersen daha net olmak için tam tag verebilirsin:
-        # uses: softprops/action-gh-release@v2.6.1
+        # En güncel Node 24 destekli sürüm (v2.6.1 - Mart 2026)
+        uses: softprops/action-gh-release@v2.6.1
         with:
           tag_name: ${{ steps.folders.outputs.version }}
           name: GLC Permissions ${{ steps.folders.outputs.version }}
