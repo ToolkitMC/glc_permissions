@@ -26,50 +26,49 @@ jobs:
         run: |
           VERSION="${{ github.event.inputs.version }}"
 
-          RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1 || true)
-          DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1 || true)
+          # Klasörleri bul
+          RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
+          DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
 
-          echo "RP: $RP_DIR"
-          echo "DP: $DP_DIR"
+          echo "RP klasörü: $RP_DIR"
+          echo "DP klasörü: $DP_DIR"
 
-          # Eğer klasör yoksa uyar, ama exit 1 verme
+          # Eğer klasör yoksa fail etme (sadece uyarı)
           if [ -z "$RP_DIR" ]; then
-            echo "⚠️ RP klasörü bulunamadı, ZIP oluşturulmayacak."
+            echo "⚠️ RP klasörü bulunamadı!"
           fi
           if [ -z "$DP_DIR" ]; then
-            echo "⚠️ DP klasörü bulunamadı, ZIP oluşturulmayacak."
+            echo "⚠️ DP klasörü bulunamadı!"
           fi
 
+          # Output olarak kaydet
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
           echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
           echo "rp_zip=Gulce_s_Permissions_RP_${VERSION}.zip" >> $GITHUB_OUTPUT
           echo "dp_zip=Gulce_s_Permissions_DP_${VERSION}.zip" >> $GITHUB_OUTPUT
 
-      - name: Create ZIPs
+      - name: Create RP ZIP
         run: |
-          if [ -n "${{ steps.folders.outputs.rp_dir }}" ]; then
-            cd "${{ steps.folders.outputs.rp_dir }}"
-            zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
-          fi
+          echo "📦 Creating RP ZIP"
+          cd "${{ steps.folders.outputs.rp_dir }}"
+          zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
+          echo "✅ RP ZIP oluşturuldu"
 
-          if [ -n "${{ steps.folders.outputs.dp_dir }}" ]; then
-            cd "${{ steps.folders.outputs.dp_dir }}"
-            zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
-          fi
+      - name: Create DP ZIP
+        run: |
+          echo "📦 Creating DP ZIP"
+          cd "${{ steps.folders.outputs.dp_dir }}"
+          zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
+          echo "✅ DP ZIP oluşturuldu"
 
       - name: Create Release Notes
-        id: notes
         run: |
           echo "## 🔒 GLC Permissions System" > release_notes.md
           echo "" >> release_notes.md
           echo "### 📦 İndirme" >> release_notes.md
-          if [ -n "${{ steps.folders.outputs.rp_dir }}" ]; then
-            echo "- Resource Pack: \`${{ steps.folders.outputs.rp_zip }}\`" >> release_notes.md
-          fi
-          if [ -n "${{ steps.folders.outputs.dp_dir }}" ]; then
-            echo "- Data Pack: \`${{ steps.folders.outputs.dp_zip }}\`" >> release_notes.md
-          fi
+          echo "- Resource Pack: \`${{ steps.folders.outputs.rp_zip }}\`" >> release_notes.md
+          echo "- Data Pack: \`${{ steps.folders.outputs.dp_zip }}\`" >> release_notes.md
           echo "" >> release_notes.md
           echo "### ⚙️ Kurulum" >> release_notes.md
           echo "1. DP ZIP → \`world/datapacks/\`" >> release_notes.md
@@ -90,8 +89,8 @@ jobs:
       - name: Create Release via GH CLI
         run: |
           gh release create "${{ steps.folders.outputs.version }}" \
-            $([[ -n "${{ steps.folders.outputs.rp_dir }}" ]] && echo "${{ steps.folders.outputs.rp_zip }}") \
-            $([[ -n "${{ steps.folders.outputs.dp_dir }}" ]] && echo "${{ steps.folders.outputs.dp_zip }}") \
+            "${{ steps.folders.outputs.rp_zip }}" \
+            "${{ steps.folders.outputs.dp_zip }}" \
             --title "GLC Permissions ${{ steps.folders.outputs.version }}" \
             --notes-file release_notes.md
         env:
