@@ -15,7 +15,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5   # v4 yerine v5, Node 24 ile daha uyumlu
+      - uses: actions/checkout@v5
 
       - name: Set Folder Names
         id: folders
@@ -66,7 +66,6 @@ jobs:
           RP_ZIP="${{ steps.folders.outputs.rp_zip }}"
           DP_ZIP="${{ steps.folders.outputs.dp_zip }}"
 
-          # Release body'yi dosya olarak oluştur (orijinal içeriğin birebir aynısı)
           cat > release-body.md << 'EOF'
 ## 🔒 GLC Permissions System
 ### 📦 İndirme
