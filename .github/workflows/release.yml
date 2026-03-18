@@ -56,7 +56,7 @@ jobs:
           echo "✅ DP ZIP oluşturuldu"
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.9.0
         with:
           tag_name: ${{ steps.folders.outputs.version }}
           name: GLC Permissions ${{ steps.folders.outputs.version }}
