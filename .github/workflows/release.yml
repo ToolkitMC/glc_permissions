@@ -1,4 +1,10 @@
 name: Release GLC Permissions
+
+# 🛡️ GLOBAL ENV: Workflow başladığı andan itibaren tüm adımları ve
+# GitHub'ın "Post-job" (temizlik) süreçlerini Node 24'e zorlar.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 on:
   workflow_dispatch:
     inputs:
@@ -10,16 +16,12 @@ on:
 permissions:
   contents: write
 
-# SADECE BU DEĞİŞKEN KALSIN. 
-# İkisini birden yazınca "Configuration Error" verip Node 20'ye geri dönüyor.
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Örnekteki gibi v5 sürümünü kullanmak daha sağlamdır (Node 20 bağımlılığı daha azdır)
+      - uses: actions/checkout@v5
 
       - name: Set Folder Names
         id: folders
