@@ -1,6 +1,7 @@
 name: Release GLC Permissions
 
 env:
+  # Artık gerek kalmayabilir ama zararı yok – tutabilirsin
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 on:
@@ -10,28 +11,30 @@ on:
         description: 'Versiyon (örn: v2.5.1)'
         required: true
         type: string
+
 permissions:
   contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4          # ← bu zaten iyi (Node 24 destekliyor)
 
       - name: Set Folder Names
         id: folders
         run: |
           VERSION="${{ github.event.inputs.version }}"
-          
+         
           echo "📂 Mevcut packs klasörleri:"
           ls packs/
-          
+         
           RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
           DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
-          
+         
           echo "🔍 Bulunan RP klasörü: $RP_DIR"
           echo "🔍 Bulunan DP klasörü: $DP_DIR"
-          
+         
           if [ -z "$RP_DIR" ]; then
             echo "❌ RP klasörü bulunamadı!"
             exit 1
@@ -40,7 +43,7 @@ jobs:
             echo "❌ DP klasörü bulunamadı!"
             exit 1
           fi
-          
+         
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
           echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
@@ -60,7 +63,9 @@ jobs:
           echo "✅ DP ZIP oluşturuldu"
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2    # ← v2 yazmak en güncel minor sürümü alır (şu an v2.6.1)
+        # istersen daha net olmak için tam tag verebilirsin:
+        # uses: softprops/action-gh-release@v2.6.1
         with:
           tag_name: ${{ steps.folders.outputs.version }}
           name: GLC Permissions ${{ steps.folders.outputs.version }}
