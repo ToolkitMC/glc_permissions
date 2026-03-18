@@ -10,10 +10,10 @@ on:
 permissions:
   contents: write
 
-# 🛡️ BU BLOK UYARILARI KÖKTEN SİLER
+# SADECE BU DEĞİŞKEN KALSIN. 
+# İkisini birden yazınca "Configuration Error" verip Node 20'ye geri dönüyor.
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
   release:
