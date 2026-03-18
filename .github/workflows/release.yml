@@ -1,95 +1,88 @@
 name: Release GLC Permissions
 
 on:
-workflow_dispatch:
-inputs:
-version:
-description: 'Versiyon (örn: v2.5.1)'
-required: true
-type: string
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versiyon (örn: v2.5.1)'
+        required: true
+        type: string
 
 permissions:
-contents: write
+  contents: write
 
 jobs:
-release:
-runs-on: ubuntu-latest
+  release:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: 📥 Checkout
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  - name: 🔍 Klasörleri Bul
-    id: folders
-    run: |
-      VERSION="${{ github.event.inputs.version }}"
+      - name: Set Folder Names
+        id: folders
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
 
-      echo "📂 packs içeriği:"
-      ls -la packs/
+          echo "📂 packs içeriği:"
+          ls -la packs/
 
-      RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
-      DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
+          RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
+          DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
 
-      echo "RP: $RP_DIR"
-      echo "DP: $DP_DIR"
+          echo "RP: $RP_DIR"
+          echo "DP: $DP_DIR"
 
-      if [ -z "$RP_DIR" ] || [ -z "$DP_DIR" ]; then
-        echo "❌ RP veya DP klasörü bulunamadı!"
-        exit 1
-      fi
+          if [ -z "$RP_DIR" ] || [ -z "$DP_DIR" ]; then
+            echo "❌ RP veya DP klasörü bulunamadı!"
+            exit 1
+          fi
 
-      echo "version=$VERSION" >> $GITHUB_OUTPUT
-      echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
-      echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
-      echo "rp_zip=Gulce_s_Permissions_RP_${VERSION}.zip" >> $GITHUB_OUTPUT
-      echo "dp_zip=Gulce_s_Permissions_DP_${VERSION}.zip" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
+          echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
+          echo "rp_zip=Gulce_s_Permissions_RP_${VERSION}.zip" >> $GITHUB_OUTPUT
+          echo "dp_zip=Gulce_s_Permissions_DP_${VERSION}.zip" >> $GITHUB_OUTPUT
 
-  - name: 📦 ZIP Oluştur
-    run: |
-      cd "${{ steps.folders.outputs.rp_dir }}"
-      zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
+      - name: Create ZIPs
+        run: |
+          cd "${{ steps.folders.outputs.rp_dir }}"
+          zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
 
-      cd "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_dir }}"
-      zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
+          cd "${{ steps.folders.outputs.dp_dir }}"
+          zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
 
-      echo "✅ ZIP'ler hazır"
+      - name: Create Release Notes
+        id: notes
+        run: |
+          echo "## 🔒 GLC Permissions System" > release_notes.md
+          echo "" >> release_notes.md
+          echo "### 📦 İndirme" >> release_notes.md
+          echo "- Resource Pack: \`${{ steps.folders.outputs.rp_zip }}\`" >> release_notes.md
+          echo "- Data Pack: \`${{ steps.folders.outputs.dp_zip }}\`" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "### ⚙️ Kurulum" >> release_notes.md
+          echo "1. DP ZIP → \`world/datapacks/\`" >> release_notes.md
+          echo "2. RP ZIP → \`resourcepacks/\`" >> release_notes.md
+          echo "3. \`/reload\`" >> release_notes.md
+          echo "4. \`/function glc_permissions:setup\`" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "### ✨ Özellikler" >> release_notes.md
+          echo "- 👥 Dinamik rol sistemi" >> release_notes.md
+          echo "- 🔑 Grup bazlı izinler" >> release_notes.md
+          echo "- ⚡ Fonksiyon bazlı yönetim" >> release_notes.md
+          echo "- 🌐 TR/EN dil desteği" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "---" >> release_notes.md
+          echo "Build: ${{ github.run_number }}" >> release_notes.md
+          echo "Commit: ${{ github.sha }}" >> release_notes.md
 
-  - name: 📝 Release Notu Oluştur
-    id: notes
-    run: |
-      cat <<EOF > release_notes.md
-      ## 🔒 GLC Permissions System
-
-      ### 📦 İndirme
-      - Resource Pack: \`${{ steps.folders.outputs.rp_zip }}\`
-      - Data Pack: \`${{ steps.folders.outputs.dp_zip }}\`
-
-      ### ⚙️ Kurulum
-      1. DP ZIP → \`world/datapacks/\`
-      2. RP ZIP → \`resourcepacks/\`
-      3. \`/reload\`
-      4. \`/function glc_permissions:setup\`
-
-      ### ✨ Özellikler
-      - 👥 Dinamik rol sistemi
-      - 🔑 Grup bazlı izinler
-      - ⚡ Fonksiyon bazlı yönetim
-      - 🌐 TR/EN dil desteği
-
-      ---
-      Build: ${{ github.run_number }}
-      Commit: ${{ github.sha }}
-      EOF
-
-  - name: 🚀 Release Oluştur (GH CLI)
-    run: |
-      gh release create "${{ steps.folders.outputs.version }}" \
-        "${{ steps.folders.outputs.rp_zip }}" \
-        "${{ steps.folders.outputs.dp_zip }}" \
-        --title "GLC Permissions ${{ steps.folders.outputs.version }}" \
-        --notes-file release_notes.md
-
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
+      - name: Create Release via GH CLI
+        run: |
+          gh release create "${{ steps.folders.outputs.version }}" \
+            "${{ steps.folders.outputs.rp_zip }}" \
+            "${{ steps.folders.outputs.dp_zip }}" \
+            --title "GLC Permissions ${{ steps.folders.outputs.version }}" \
+            --notes-file release_notes.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
