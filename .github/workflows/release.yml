@@ -14,6 +14,8 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout
@@ -24,18 +26,18 @@ jobs:
         run: |
           VERSION="${{ github.event.inputs.version }}"
 
-          echo "📂 packs içeriği:"
-          ls -la packs/
-
-          RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
-          DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
+          RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1 || true)
+          DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1 || true)
 
           echo "RP: $RP_DIR"
           echo "DP: $DP_DIR"
 
-          if [ -z "$RP_DIR" ] || [ -z "$DP_DIR" ]; then
-            echo "❌ RP veya DP klasörü bulunamadı!"
-            exit 1
+          # Eğer klasör yoksa uyar, ama exit 1 verme
+          if [ -z "$RP_DIR" ]; then
+            echo "⚠️ RP klasörü bulunamadı, ZIP oluşturulmayacak."
+          fi
+          if [ -z "$DP_DIR" ]; then
+            echo "⚠️ DP klasörü bulunamadı, ZIP oluşturulmayacak."
           fi
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -46,11 +48,15 @@ jobs:
 
       - name: Create ZIPs
         run: |
-          cd "${{ steps.folders.outputs.rp_dir }}"
-          zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
+          if [ -n "${{ steps.folders.outputs.rp_dir }}" ]; then
+            cd "${{ steps.folders.outputs.rp_dir }}"
+            zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
+          fi
 
-          cd "${{ steps.folders.outputs.dp_dir }}"
-          zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
+          if [ -n "${{ steps.folders.outputs.dp_dir }}" ]; then
+            cd "${{ steps.folders.outputs.dp_dir }}"
+            zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
+          fi
 
       - name: Create Release Notes
         id: notes
@@ -58,8 +64,12 @@ jobs:
           echo "## 🔒 GLC Permissions System" > release_notes.md
           echo "" >> release_notes.md
           echo "### 📦 İndirme" >> release_notes.md
-          echo "- Resource Pack: \`${{ steps.folders.outputs.rp_zip }}\`" >> release_notes.md
-          echo "- Data Pack: \`${{ steps.folders.outputs.dp_zip }}\`" >> release_notes.md
+          if [ -n "${{ steps.folders.outputs.rp_dir }}" ]; then
+            echo "- Resource Pack: \`${{ steps.folders.outputs.rp_zip }}\`" >> release_notes.md
+          fi
+          if [ -n "${{ steps.folders.outputs.dp_dir }}" ]; then
+            echo "- Data Pack: \`${{ steps.folders.outputs.dp_zip }}\`" >> release_notes.md
+          fi
           echo "" >> release_notes.md
           echo "### ⚙️ Kurulum" >> release_notes.md
           echo "1. DP ZIP → \`world/datapacks/\`" >> release_notes.md
@@ -80,8 +90,8 @@ jobs:
       - name: Create Release via GH CLI
         run: |
           gh release create "${{ steps.folders.outputs.version }}" \
-            "${{ steps.folders.outputs.rp_zip }}" \
-            "${{ steps.folders.outputs.dp_zip }}" \
+            $([[ -n "${{ steps.folders.outputs.rp_dir }}" ]] && echo "${{ steps.folders.outputs.rp_zip }}") \
+            $([[ -n "${{ steps.folders.outputs.dp_dir }}" ]] && echo "${{ steps.folders.outputs.dp_zip }}") \
             --title "GLC Permissions ${{ steps.folders.outputs.version }}" \
             --notes-file release_notes.md
         env:
