@@ -46,7 +46,7 @@ Bir hata buldunuz mu? [Issue açın](https://github.com/ToolkitMC/glc_permission
 
 ## 📄 Lisans
 
-MIT License - Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+MIT License - Detaylar için [LICENSE](HTTPS://GITHUB.COM/TOOLKITMC/GLC_PERMISSIONS/BLOB/MAIN/LICENSE) dosyasına bakın.
 
 ## 💖 Katkıda Bulunma
 
