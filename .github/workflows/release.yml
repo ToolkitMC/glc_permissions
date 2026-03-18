@@ -1,5 +1,4 @@
 name: Release GLC Permissions
-
 on:
   workflow_dispatch:
     inputs:
@@ -7,41 +6,37 @@ on:
         description: 'Versiyon (örn: v2.5.1)'
         required: true
         type: string
-
 permissions:
   contents: write
-
 jobs:
   release:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set Folder Names
         id: folders
         run: |
           VERSION="${{ github.event.inputs.version }}"
-
-          # Klasörleri bul
+          
+          echo "📂 Mevcut packs klasörleri:"
+          ls packs/
+          
           RP_DIR=$(find packs -maxdepth 1 -type d -name "*RP*" | head -1)
           DP_DIR=$(find packs -maxdepth 1 -type d -name "*DP*" | head -1)
-
-          echo "RP klasörü: $RP_DIR"
-          echo "DP klasörü: $DP_DIR"
-
-          # Eğer klasör yoksa fail etme (sadece uyarı)
+          
+          echo "🔍 Bulunan RP klasörü: $RP_DIR"
+          echo "🔍 Bulunan DP klasörü: $DP_DIR"
+          
           if [ -z "$RP_DIR" ]; then
-            echo "⚠️ RP klasörü bulunamadı!"
+            echo "❌ RP klasörü bulunamadı!"
+            exit 1
           fi
           if [ -z "$DP_DIR" ]; then
-            echo "⚠️ DP klasörü bulunamadı!"
+            echo "❌ DP klasörü bulunamadı!"
+            exit 1
           fi
-
-          # Output olarak kaydet
+          
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "rp_dir=$RP_DIR" >> $GITHUB_OUTPUT
           echo "dp_dir=$DP_DIR" >> $GITHUB_OUTPUT
@@ -50,48 +45,43 @@ jobs:
 
       - name: Create RP ZIP
         run: |
-          echo "📦 Creating RP ZIP"
           cd "${{ steps.folders.outputs.rp_dir }}"
           zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.rp_zip }}" .
           echo "✅ RP ZIP oluşturuldu"
 
       - name: Create DP ZIP
         run: |
-          echo "📦 Creating DP ZIP"
           cd "${{ steps.folders.outputs.dp_dir }}"
           zip -r "$GITHUB_WORKSPACE/${{ steps.folders.outputs.dp_zip }}" .
           echo "✅ DP ZIP oluşturuldu"
 
-      - name: Create Release Notes
-        run: |
-          echo "## 🔒 GLC Permissions System" > release_notes.md
-          echo "" >> release_notes.md
-          echo "### 📦 İndirme" >> release_notes.md
-          echo "- Resource Pack: \`${{ steps.folders.outputs.rp_zip }}\`" >> release_notes.md
-          echo "- Data Pack: \`${{ steps.folders.outputs.dp_zip }}\`" >> release_notes.md
-          echo "" >> release_notes.md
-          echo "### ⚙️ Kurulum" >> release_notes.md
-          echo "1. DP ZIP → \`world/datapacks/\`" >> release_notes.md
-          echo "2. RP ZIP → \`resourcepacks/\`" >> release_notes.md
-          echo "3. \`/reload\`" >> release_notes.md
-          echo "4. \`/function glc_permissions:setup\`" >> release_notes.md
-          echo "" >> release_notes.md
-          echo "### ✨ Özellikler" >> release_notes.md
-          echo "- 👥 Dinamik rol sistemi" >> release_notes.md
-          echo "- 🔑 Grup bazlı izinler" >> release_notes.md
-          echo "- ⚡ Fonksiyon bazlı yönetim" >> release_notes.md
-          echo "- 🌐 TR/EN dil desteği" >> release_notes.md
-          echo "" >> release_notes.md
-          echo "---" >> release_notes.md
-          echo "Build: ${{ github.run_number }}" >> release_notes.md
-          echo "Commit: ${{ github.sha }}" >> release_notes.md
-
-      - name: Create Release via GH CLI
-        run: |
-          gh release create "${{ steps.folders.outputs.version }}" \
-            "${{ steps.folders.outputs.rp_zip }}" \
-            "${{ steps.folders.outputs.dp_zip }}" \
-            --title "GLC Permissions ${{ steps.folders.outputs.version }}" \
-            --notes-file release_notes.md
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.folders.outputs.version }}
+          name: GLC Permissions ${{ steps.folders.outputs.version }}
+          body: |
+            ## 🔒 GLC Permissions System
+            ### 📦 İndirme
+            | Dosya | Açıklama |
+            |-------|----------|
+            | `Gulce_s_Permissions_RP_${{ steps.folders.outputs.version }}.zip` | Resource Pack |
+            | `Gulce_s_Permissions_DP_${{ steps.folders.outputs.version }}.zip` | Data Pack |
+            ### ⚙️ Kurulum
+            1. DP ZIP'i `world/datapacks/` klasörüne at
+            2. RP ZIP'i `resourcepacks/` klasörüne at
+            3. `/reload` komutu ile yükle
+            4. `/function glc_permissions:setup` ile başlat
+            ### ✨ Özellikler
+            - 👥 Dinamik rol sistemi
+            - 🔑 Grup bazlı izinler
+            - ⚡ Fonksiyon bazlı yönetim
+            - 🌐 TR/EN dil desteği
+            ---
+            > Build: `${{ github.run_number }}` | Commit: `${{ github.sha }}`
+          files: |
+            ${{ steps.folders.outputs.rp_zip }}
+            ${{ steps.folders.outputs.dp_zip }}
+          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
