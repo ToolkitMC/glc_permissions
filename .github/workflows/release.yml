@@ -1,6 +1,6 @@
 name: Release GLC Permissions
 
-# FORCE env'sini tutuyoruz (Haziran 2026'ya kadar yardımcı olur, sonra kaldırabilirsin)
+# Bu env → GitHub'un Node 20 → 24 geçişini şimdiden zorluyor (warning'ı keser)
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
@@ -19,7 +19,6 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      # checkout'u v5'e yükselttik (Node 24 runtime kullanıyor, Ağustos 2025'ten beri resmi)
       - uses: actions/checkout@v5
 
       - name: Set Folder Names
@@ -64,8 +63,10 @@ jobs:
           echo "✅ DP ZIP oluşturuldu"
 
       - name: Create Release
-        # En güncel Node 24 destekli sürüm (v2.6.1 - Mart 2026)
-        uses: softprops/action-gh-release@v2.6.1
+        # v2.6.1 Node 24 bump'lı ama hâlâ warning veriyorsa → main branch'i dene (en güncel kod)
+        # Alternatif: @v2.6.1 kalabilir, FORCE env ile çalışır
+        uses: softprops/action-gh-release@main
+        # uses: softprops/action-gh-release@v2.6.1   ← istersen bunu geri koy, ikisi de FORCE ile çalışmalı
         with:
           tag_name: ${{ steps.folders.outputs.version }}
           name: GLC Permissions ${{ steps.folders.outputs.version }}
