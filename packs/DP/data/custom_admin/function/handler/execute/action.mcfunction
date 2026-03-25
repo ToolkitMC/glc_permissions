@@ -48,7 +48,10 @@ execute if data storage glc:temp temp.exec_action{type:'broadcast'} run function
 # YENİ EYLEMLER (v2.5.4)
 # custom: Herhangi bir fonksiyonu macro args ile çağırır
 execute if data storage glc:temp temp.exec_action{type:'custom'} run function custom_admin:handler/execute/types/custom
-execute if data storage glc:temp temp.exec_action{type:'multi_cmd'} run function custom_admin:handler/execute/types/multicmd/main
+#execute if data storage glc:temp temp.exec_action{type:'multi_cmd'} run function custom_admin:handler/execute/types/multi/run
+execute if data storage glc:temp temp.exec_action{type:'multi_cmd'} run function custom_admin:handler/execute/types/multi/run
+execute if data storage glc:temp temp.exec_action{type:'multi_fn'} run function custom_admin:handler/execute/types/multi/run
+execute if data storage glc:temp temp.exec_action{type:'multi_act'} run function custom_admin:handler/execute/types/multi/run
 
 # PERF FIX: Success feedback sadece debug modda (tick'de spam olmasın)
 $execute if entity @s[tag=gulce_debug] if entity @s[tag=glc.lang_tr] run function custom_admin:util/feedback/success {message:"Eylem çalıştırıldı: $(id)"}
