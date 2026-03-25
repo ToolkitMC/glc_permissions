@@ -5,6 +5,11 @@
 # Eylemi storage'dan al
 $data modify storage glc:temp temp.exec_action set from storage glc:data actions[{id:"$(id)"}]
 
+# İzin kontrolü
+$execute unless data storage glc:data permissions[{id:"$(id)"}] if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ İzin yok!",color:"red"}]
+$execute unless data storage glc:data permissions[{id:"$(id)"}] if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ No Permission!",color:"red"}]
+$execute unless data storage glc:data permissions[{id:"$(id)"}] run return 0
+
 # Enabled kontrolü - devre dışı eylemler çalışmaz
 execute if data storage glc:temp temp.exec_action{enabled:0b} if entity @s[tag=glc.lang_tr] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ Eylem devre dışı!",color:"red"}]
 execute if data storage glc:temp temp.exec_action{enabled:0b} if entity @s[tag=glc.lang_en] run tellraw @s [{text:"[GULCE] ",color:"red",bold:true},{text:"⛔ Action is disabled!",color:"red"}]
